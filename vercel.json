@@ -1,5 +1,4 @@
 {
-  "cleanUrls": true,
   "trailingSlash": false,
   "headers": [
     {
@@ -15,18 +14,9 @@
         { "key": "Cache-Control", "value": "public, max-age=3600" },
         { "key": "Content-Type", "value": "application/manifest+json" }
       ]
-    },
-    {
-      "source": "/(.*)\\.html",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=300, s-maxage=600" }
-      ]
-    },
-    {
-      "source": "/(.*)\\.(png|svg|ico)",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
-      ]
     }
+  ],
+  "rewrites": [
+    { "source": "/chapter-:num", "destination": "/chapter-:num.html" }
   ]
 }
