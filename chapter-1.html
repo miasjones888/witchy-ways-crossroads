@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 01 — Before the Beginning — The Crossroads and the Slow Door</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=VT323&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ground-stone: #E4E2DA;
+    --ground-deep: #1F232A;
+    --ink: #16191E;
+    --ink-bone: #E4E2DA;
+    --ink-mid: #54585F;
+    --ink-faint: #8C8E8B;
+    --ink-ghost: #B5B6B0;
+    --accent-rust: #7A2818;
+    --accent-night: #3F4A56;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ground-stone);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse 600px 400px at 85% 22%, rgba(155, 130, 90, 0.05), transparent 60%),
+      radial-gradient(ellipse 400px 300px at 15% 78%, rgba(155, 130, 90, 0.04), transparent 60%);
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08 0 0 0 0 0.10 0 0 0 0 0.12 0 0 0 0.5 0'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='0.5'/></svg>");
+    opacity: 0.35;
+    mix-blend-mode: multiply;
+  }
+
+  /* Chrome */
+  .chrome {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    font-family: 'VT323', monospace;
+    font-size: 13px;
+    color: var(--ink-mid);
+    letter-spacing: 0.04em;
+    padding: 14px 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    pointer-events: none;
+  }
+  .chrome-top { top: 0; }
+  .chrome-bot { bottom: 0; }
+  .chrome .stream { color: var(--accent-rust); }
+  .chrome .right { text-align: right; }
+
+  /* Layout */
+  .vessel {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 80px 36px 120px;
+    display: grid;
+    grid-template-columns: minmax(0, 620px) 280px;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .col-text { grid-column: 1; }
+  .col-margin { grid-column: 2; padding-top: 8px; }
+
+  /* Chapter open */
+  .chapter-open {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 56px;
+    border-bottom: 1px solid var(--ink);
+    margin-bottom: 64px;
+    align-items: start;
+  }
+  .open-meta { grid-column: 1; }
+
+  .open-mark {
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+    color: var(--ink-mid);
+    letter-spacing: 0.02em;
+    margin-bottom: 18px;
+    line-height: 1.3;
+  }
+  .open-mark .num { color: var(--accent-rust); margin-right: 12px; }
+  .open-mark .sep { color: var(--ink-faint); margin: 0 8px; }
+
+  .open-territories {
+    font-family: 'Space Mono', monospace;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--ink-mid);
+    margin-bottom: 28px;
+    line-height: 1.85;
+  }
+  .open-territories span { white-space: nowrap; }
+  .open-territories .em { color: var(--ink-faint); margin: 0 8px; }
+
+  .open-entry {
+    font-family: 'Space Mono', monospace;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--ink-mid);
+    margin-bottom: 32px;
+  }
+  .open-entry .label {
+    color: var(--ink-faint);
+    margin-right: 8px;
+  }
+
+  .open-plate {
+    grid-column: 2;
+    margin-top: 12px;
+  }
+
+  /* Plate styling */
+  .plate {
+    border: 1px solid var(--ink-faint);
+    padding: 6px;
+    background: var(--ground-stone);
+    position: relative;
+  }
+  .plate-frame {
+    border: 0.5px solid var(--ink-faint);
+    padding: 2px;
+  }
+  .plate-image {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background:
+      linear-gradient(160deg, rgba(120, 80, 40, 0.18), rgba(40, 50, 60, 0.22) 60%, rgba(20, 25, 30, 0.32)),
+      var(--ground-deep);
+    position: relative;
+    overflow: hidden;
+  }
+  .plate-image::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n2'><feTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.7 0 0 0 0 0.55 0 0 0 0 0.35 0 0 0 0.7 0'/></filter><rect width='200' height='200' filter='url(%23n2)' opacity='0.25'/></svg>");
+    mix-blend-mode: screen;
+    opacity: 0.6;
+  }
+  .plate-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 2px,
+      rgba(0, 0, 0, 0.06) 2px,
+      rgba(0, 0, 0, 0.06) 3px
+    );
+    mix-blend-mode: multiply;
+    opacity: 0.4;
+  }
+
+  .plate-form {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .plate-form svg {
+    width: 70%;
+    height: auto;
+    filter: drop-shadow(0 0 18px rgba(180, 120, 60, 0.18));
+  }
+
+  .plate-caption {
+    margin-top: 10px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--ink-mid);
+    line-height: 1.7;
+  }
+  .plate-caption .tag {
+    color: var(--accent-rust);
+    margin-right: 6px;
+  }
+  .plate-caption .source {
+    color: var(--ink-faint);
+    display: block;
+  }
+
+  /* Title */
+  h1.chapter-title {
+    grid-column: 1 / -1;
+    font-family: 'IM Fell English', serif;
+    font-weight: 400;
+    font-size: 64px;
+    line-height: 0.98;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin-top: 24px;
+    text-shadow: 0 0.5px 0.5px rgba(22, 25, 30, 0.18);
+  }
+  h1.chapter-title em {
+    font-style: italic;
+    color: var(--accent-rust);
+  }
+
+  .lead {
+    grid-column: 1 / -1;
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 23px;
+    line-height: 1.4;
+    color: var(--ink);
+    margin-top: 28px;
+    max-width: 720px;
+    text-shadow: 0 0.3px 0.3px rgba(22, 25, 30, 0.12);
+  }
+
+  /* Section heading rule + ornament */
+  .section-rule {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 12px 0 36px;
+  }
+  .section-rule::before,
+  .section-rule::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--ink);
+  }
+  .section-rule .ornament {
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+    color: var(--accent-rust);
+    letter-spacing: 0.6em;
+  }
+
+  /* Section subhead — used to mark internal sections within chapter */
+  .section-mark {
+    grid-column: 1 / -1;
+    font-family: 'Space Mono', monospace;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--accent-rust);
+    margin: 36px 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .section-mark::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--ink-faint);
+  }
+
+  h2.section-head {
+    grid-column: 1 / -1;
+    font-family: 'IM Fell English', serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 32px;
+    line-height: 1.05;
+    letter-spacing: -0.012em;
+    color: var(--ink);
+    margin-bottom: 28px;
+    max-width: 720px;
+    text-shadow: 0 0.3px 0.3px rgba(22, 25, 30, 0.14);
+  }
+
+  /* Body prose */
+  p {
+    font-size: 17px;
+    line-height: 1.68;
+    margin-bottom: 18px;
+    color: var(--ink);
+    font-weight: 400;
+  }
+  p em { font-style: italic; }
+  p cite { font-style: italic; }
+
+  /* Marginalia */
+  .margin-note {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    line-height: 1.55;
+    color: var(--ink-mid);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-left: 2px solid var(--accent-rust);
+    padding: 4px 0 4px 14px;
+    margin: 0 0 36px;
+  }
+  .margin-note .arrow { color: var(--accent-rust); margin-right: 4px; }
+  .margin-note .date {
+    display: block;
+    margin-top: 6px;
+    font-size: 10px;
+    color: var(--ink-faint);
+    letter-spacing: 0.14em;
+  }
+  .margin-note em { color: var(--ink); font-style: italic; }
+
+  /* Footnote callout */
+  .fn-call {
+    font-family: 'VT323', monospace;
+    font-size: 14px;
+    color: var(--accent-rust);
+    vertical-align: super;
+    margin-left: 1px;
+  }
+
+  /* Pull quote */
+  .pullquote {
+    grid-column: 1 / -1;
+    margin: 28px 0 36px;
+    padding: 24px 0;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+  }
+  .pullquote p {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 28px;
+    line-height: 1.32;
+    color: var(--ink);
+    text-align: left;
+    max-width: 720px;
+    margin: 0;
+    text-shadow: 0 0.3px 0.3px rgba(22, 25, 30, 0.12);
+  }
+  @media (max-width: 820px) {
+    .pullquote p { font-size: 22px; }
+  }
+
+  /* READ block — the chapter's reading list */
+  .read-block {
+    grid-column: 1 / -1;
+    margin: 32px 0 40px;
+    padding: 28px 0 0;
+    border-top: 1.5px solid var(--ink);
+  }
+  .read-block-head {
+    font-family: 'Space Mono', monospace;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--accent-rust);
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .read-block-head .meta { color: var(--ink-faint); font-weight: 400; }
+  .read-block h3 {
+    font-family: 'IM Fell English', serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 24px;
+    color: var(--ink);
+    margin-bottom: 22px;
+    line-height: 1.2;
+  }
+  .read-entry {
+    padding: 18px 0;
+    border-bottom: 1px solid var(--ink-faint);
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    gap: 18px;
+    align-items: start;
+  }
+  .read-tier {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--accent-rust);
+    letter-spacing: 0.1em;
+    padding-top: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .read-title {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink);
+    font-size: 19px;
+    display: block;
+    margin-bottom: 4px;
+    letter-spacing: -0.005em;
+    line-height: 1.25;
+  }
+  .read-author {
+    color: var(--ink-mid);
+    font-size: 10.5px;
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .read-why {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+  .read-why em { font-style: italic; }
+
+  /* BUILD block — what to construct */
+  .build-block {
+    grid-column: 1 / -1;
+    background: var(--ground-deep);
+    color: var(--ink-bone);
+    padding: 32px 36px 36px;
+    margin: 28px 0 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .build-block::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 2px,
+      rgba(255, 255, 255, 0.022) 2px,
+      rgba(255, 255, 255, 0.022) 3px
+    );
+    pointer-events: none;
+  }
+  .build-mark {
+    font-family: 'VT323', monospace;
+    font-size: 16px;
+    color: var(--accent-rust);
+    letter-spacing: 0.06em;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    position: relative;
+  }
+  .build-block h3 {
+    font-family: 'IM Fell English', serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 26px;
+    color: var(--ink-bone);
+    margin-bottom: 18px;
+    position: relative;
+  }
+  .build-block p {
+    color: #C8CAC4;
+    font-size: 15.5px;
+    line-height: 1.62;
+    margin-bottom: 14px;
+    position: relative;
+  }
+  .build-block ol, .build-block ul {
+    color: #C8CAC4;
+    font-size: 15.5px;
+    line-height: 1.6;
+    padding-left: 0;
+    list-style: none;
+    counter-reset: build-counter;
+    position: relative;
+  }
+  .build-block ol li {
+    counter-increment: build-counter;
+    margin-bottom: 12px;
+    padding-left: 36px;
+    position: relative;
+  }
+  .build-block ol li::before {
+    content: counter(build-counter, decimal-leading-zero);
+    font-family: 'VT323', monospace;
+    color: var(--accent-rust);
+    font-size: 15px;
+    position: absolute;
+    left: 0;
+    top: 1px;
+    letter-spacing: 0.04em;
+  }
+  .build-block ul li {
+    margin-bottom: 8px;
+    padding-left: 24px;
+    position: relative;
+  }
+  .build-block ul li::before {
+    content: '—';
+    color: var(--accent-rust);
+    position: absolute;
+    left: 0;
+  }
+
+  /* RESEARCH block — open scholarly questions */
+  .research-block {
+    grid-column: 1 / -1;
+    border-left: 3px solid var(--accent-night);
+    padding: 4px 0 4px 22px;
+    margin: 28px 0 32px;
+  }
+  .research-mark {
+    font-family: 'Space Mono', monospace;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--accent-night);
+    margin-bottom: 10px;
+    display: block;
+  }
+  .research-block p {
+    font-size: 14.5px;
+    line-height: 1.62;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .research-block p:last-child { margin-bottom: 0; }
+
+  /* Full-bleed plate */
+  .plate-full {
+    grid-column: 1 / -1;
+    margin: 32px 0 44px;
+  }
+  .plate-full .plate-image { aspect-ratio: 16 / 8.5; }
+  .plate-full .specimen {
+    width: 100%;
+    height: 100%;
+    background:
+      linear-gradient(180deg, #DCD9CF 0%, #D4D0C2 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .plate-full .specimen::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n3'><feTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.45 0 0 0 0 0.30 0 0 0 0.6 0'/></filter><rect width='200' height='200' filter='url(%23n3)' opacity='0.18'/></svg>");
+    mix-blend-mode: multiply;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .plate-full .specimen::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 200px 60% at 0% 50%, rgba(140, 100, 50, 0.10), transparent 70%),
+      radial-gradient(ellipse 200px 60% at 100% 50%, rgba(140, 100, 50, 0.10), transparent 70%);
+    pointer-events: none;
+  }
+  .plate-full svg.specimen-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+  .plate-full .plate-caption {
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+  .plate-full .plate-caption .left {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--accent-rust);
+    line-height: 1.7;
+    white-space: nowrap;
+  }
+  .plate-full .plate-caption .right {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-mid);
+    line-height: 1.85;
+  }
+  .plate-full .plate-caption .right .row {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 14px;
+  }
+  .plate-full .plate-caption .right .row .key {
+    color: var(--ink-faint);
+  }
+
+  /* Terminal interlude */
+  .terminal {
+    grid-column: 1 / -1;
+    background: var(--ground-deep);
+    color: var(--ink-bone);
+    padding: 36px 40px;
+    margin: 32px 0 40px;
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+    line-height: 1.55;
+    letter-spacing: 0.01em;
+    position: relative;
+    overflow: hidden;
+  }
+  .terminal::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 2px,
+      rgba(255, 255, 255, 0.025) 2px,
+      rgba(255, 255, 255, 0.025) 3px
+    );
+    pointer-events: none;
+  }
+  .terminal-head {
+    color: var(--accent-rust);
+    margin-bottom: 14px;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-family: 'Space Mono', monospace;
+  }
+  .terminal-line { margin-bottom: 4px; }
+  .terminal-line .label { color: #B5B6B0; min-width: 220px; display: inline-block; }
+  .terminal-line .ok { color: #6E7A5A; }
+  .terminal-line .pending { color: var(--accent-rust); }
+  .terminal-line .meta { color: #8C8E8B; }
+
+  /* Chapter close */
+  .chapter-close {
+    grid-column: 1 / -1;
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid var(--ink);
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 19px;
+    line-height: 1.5;
+    color: var(--ink);
+    max-width: 720px;
+  }
+
+  /* Mobile */
+  @media (max-width: 820px) {
+    .chrome { padding: 10px 18px; font-size: 12px; }
+    .vessel {
+      grid-template-columns: 1fr;
+      gap: 0;
+      padding: 64px 22px 100px;
+    }
+    .col-text, .col-margin { grid-column: 1; }
+    .chapter-open {
+      grid-template-columns: 1fr;
+      gap: 22px;
+      padding-bottom: 36px;
+      margin-bottom: 44px;
+    }
+    .open-plate { grid-column: 1; order: -1; }
+    h1.chapter-title { font-size: 44px; }
+    h2.section-head { font-size: 26px; }
+    .lead { font-size: 19px; }
+    p { font-size: 16.5px; }
+    .terminal { padding: 24px 22px; font-size: 16px; }
+    .margin-note { margin: 24px 0; padding: 4px 0 4px 12px; }
+    .build-block { padding: 24px 22px 28px; }
+    .build-block h3 { font-size: 22px; }
+    .read-entry { grid-template-columns: 1fr; gap: 6px; }
+    .read-tier { padding-top: 0; }
+    .plate-full .plate-image { aspect-ratio: 4 / 5; }
+    .plate-full .plate-caption { grid-template-columns: 1fr; gap: 8px; }
+    .plate-full .plate-caption .right .row { grid-template-columns: 90px 1fr; gap: 10px; }
+  }
+</style>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#1F232A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Crossroads">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="The Crossroads and the Slow Door">
+<meta name="description" content="A working guide to serious witchcraft and devotional practice across decades.">
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(err => console.log('sw registration failed', err));
+  });
+}
+</script>
+</head>
+<body>
+
+<div class="chrome chrome-top">
+  <span><span class="stream">orientation</span> <span style="color:var(--ink-faint);">▪</span> position <span style="color:var(--ink-faint);">▪</span> reading log</span>
+  <span class="right">crossroads / companion / ch 01</span>
+</div>
+
+<div class="vessel">
+
+  <!-- CHAPTER OPEN -->
+  <header class="chapter-open">
+    <div class="open-meta">
+      <div class="open-mark">
+        <span class="num">01</span>
+        <span style="color:var(--ink-mid);">chapter</span>
+        <span class="sep">▪</span>
+        <span style="color:var(--ink-mid);">before the beginning</span>
+      </div>
+
+      <div class="open-territories">
+        <span>position</span><span class="em">▪</span><span>history</span><span class="em">▪</span><span>lineage</span><br>
+        <span>cautions</span><span class="em">▪</span><span>the reading log</span>
+      </div>
+
+      <div class="open-entry">
+        <span class="label">entry —</span>months 0–3<br>
+        <span class="label">return —</span>year 1 / year 5 / always
+      </div>
+    </div>
+
+    <div class="open-plate">
+      <div class="plate">
+        <div class="plate-frame">
+          <div class="plate-image">
+            <div class="plate-form">
+              <svg viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg">
+                <!-- archway / threshold -->
+                <!-- two upright stones -->
+                <rect x="46" y="120" width="22" height="110" fill="rgba(180, 165, 140, 0.45)" stroke="rgba(60, 45, 25, 0.55)" stroke-width="0.6"/>
+                <rect x="132" y="120" width="22" height="110" fill="rgba(180, 165, 140, 0.45)" stroke="rgba(60, 45, 25, 0.55)" stroke-width="0.6"/>
+                <!-- lintel -->
+                <rect x="38" y="100" width="124" height="22" fill="rgba(180, 165, 140, 0.55)" stroke="rgba(60, 45, 25, 0.65)" stroke-width="0.6"/>
+                <!-- shadows / texture on stones -->
+                <line x1="50" y1="135" x2="50" y2="225" stroke="rgba(40, 30, 15, 0.3)" stroke-width="0.4"/>
+                <line x1="58" y1="160" x2="58" y2="220" stroke="rgba(40, 30, 15, 0.2)" stroke-width="0.3"/>
+                <line x1="138" y1="140" x2="138" y2="225" stroke="rgba(40, 30, 15, 0.3)" stroke-width="0.4"/>
+                <line x1="146" y1="155" x2="146" y2="220" stroke="rgba(40, 30, 15, 0.2)" stroke-width="0.3"/>
+                <line x1="50" y1="105" x2="150" y2="105" stroke="rgba(40, 30, 15, 0.25)" stroke-width="0.4"/>
+                <line x1="60" y1="115" x2="140" y2="115" stroke="rgba(40, 30, 15, 0.18)" stroke-width="0.3"/>
+                <!-- darkness within the threshold -->
+                <rect x="68" y="122" width="64" height="108" fill="rgba(15, 18, 24, 0.85)"/>
+                <!-- soft glow at the threshold -->
+                <ellipse cx="100" cy="180" rx="32" ry="50" fill="rgba(245, 195, 110, 0.06)"/>
+                <ellipse cx="100" cy="180" rx="20" ry="38" fill="rgba(245, 195, 110, 0.10)"/>
+                <!-- ground line -->
+                <line x1="20" y1="232" x2="180" y2="232" stroke="rgba(60, 45, 25, 0.4)" stroke-width="0.6"/>
+                <line x1="20" y1="236" x2="180" y2="236" stroke="rgba(60, 45, 25, 0.22)" stroke-width="0.4"/>
+                <!-- top sky / atmosphere -->
+                <line x1="20" y1="60" x2="180" y2="60" stroke="rgba(60, 45, 25, 0.15)" stroke-width="0.3"/>
+                <line x1="20" y1="68" x2="180" y2="68" stroke="rgba(60, 45, 25, 0.10)" stroke-width="0.3"/>
+                <!-- carved mark on lintel -->
+                <circle cx="100" cy="111" r="3" fill="none" stroke="rgba(60, 45, 25, 0.5)" stroke-width="0.5"/>
+                <circle cx="100" cy="111" r="1" fill="rgba(60, 45, 25, 0.4)"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="plate-caption">
+          <span class="tag">plate i.</span>threshold<br>
+          <span class="source">— composite, archival placeholder. Production version: archival photograph of Welsh dolmen lintel, alchemical <em>prima materia</em> threshold emblem, or early-modern devotional engraving of crossing.</span>
+        </div>
+      </div>
+    </div>
+
+    <h1 class="chapter-title">Before the <em>Beginning</em></h1>
+
+    <p class="lead">The early years of a serious magical and devotional practice are about exploration across traditions and the building of practitioner foundations — not about choosing a lineage. Lineage commitment, if it ever comes, is the work of years three, five, ten. The chapter is structured for the wide entry.</p>
+  </header>
+
+  <!-- SECTION RULE -->
+  <div class="section-rule">
+    <span class="ornament">·  ·  ·</span>
+  </div>
+
+  <!-- BODY 1 — Position -->
+  <main class="col-text">
+    <p>What this document is not: a curriculum in any one tradition. It is not a book of Hekatean devotion, though Hekate is treated. It is not a manual of traditional witchcraft, though that lineage is surveyed. It is not a guide to ceremonial magic or to Wicca or to chaos magic, though all three are mapped. It is the wider entry — a map of the territory of Western magical and devotional practice, with the foundational practices a serious practitioner builds across the early years regardless of which lineage, if any, eventually claims them.</p>
+
+    <p>The discipline of the early years has a shape. You read broadly across traditions, not deeply within one. You build the foundational practices — attention, observation, reading, the grimoire, divination, somatic ground — that any serious practice in any lineage requires. You notice what calls and what does not, without rushing to commitment. You let the question of what you actually believe develop alongside the practices, rather than trying to resolve it in advance. After enough years, if it happens, a lineage emerges as the one your practice has actually been growing toward — recognized rather than chosen. Until then, the work is broad.</p>
+
+    <p>The traditions surveyed in this document are real, documented streams with primary sources, scholarly literature, and contemporary practitioner communities. They sit in a different register from the popular witchcraft visible across contemporary social media, which is largely a contemporary self-help genre dressed in witchcraft vocabulary. The distinction matters because what you read and engage in the early years shapes the practitioner you become. The serious literature is not harder to access than the popular; it just requires knowing it exists.</p>
+
+    <p>This document presumes you will read alongside it. The reading lists distributed through each chapter are not optional — they are the apparatus the practice rests on. The orientation reading at the end of this chapter is what to read before any practice begins. Beyond that, each chapter contains its own reading lists, distributed at the moments each text becomes relevant to what the chapter develops.</p>
+  </main>
+
+  <aside class="col-margin">
+    <div class="margin-note">
+      <span class="arrow">→</span> the discipline is breadth, not depth, in the early years. depth is years three, five, ten. <em>read broadly first.</em>
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> the popular witchcraft register vs. the serious register: knowing the difference is itself part of the early reading.
+    </div>
+  </aside>
+
+  <!-- SECTION 2 -->
+  <div class="section-mark"><span>§ I.II  the historical witch</span></div>
+  <h2 class="section-head">Three figures, one map</h2>
+
+  <main class="col-text">
+    <p>"Witch" in English names at least three distinguishable historical figures, and conflating them produces the muddle that contemporary popular witchcraft trades in. A serious practice begins by knowing which lineage you are working in.</p>
+
+    <p>The first is the <em>cunning-folk tradition</em> — professional folk-magical practitioners (cunning men and women, wise women, conjurers, pellars) documented continuously across Britain from the medieval period until the early twentieth century. They were paid for healing, divination, finding stolen goods, breaking ill-wishing.<span class="fn-call">¹</span> The cunning-folk are the historical practitioners who actually operated — community-embedded, paid for their work, holding social authority comparable to preachers and midwives. Emma Wilby's <cite>Cunning Folk and Familiar Spirits</cite> (Sussex Academic, 2005) is the foundational contemporary scholarly treatment.</p>
+
+    <p>The second is the <em>witch-trial witch</em> — a theological construct produced by demonologists and inquisitors, projected onto often randomly accused individuals. The witch of the trials was substantially fictional, generated by the inquisitorial apparatus rather than corresponding to actual practitioner identity. Most of those tried, tortured, and executed were not what their accusers believed they were. Silvia Federici's <cite>Caliban and the Witch</cite> (Autonomedia, 2004) is the major contemporary feminist-historical reading; Barbara Ehrenreich and Deirdre English's <cite>Witches, Midwives, and Nurses</cite> (Feminist Press, 1973/2010) is the foundational polemic on the trials as systematic violence against women's healing knowledge.</p>
+
+    <p>The third is <em>modern revived witchcraft</em>, beginning in the 1940s through Gerald Gardner (Wicca) and Robert Cochrane (the Clan of Tubal Cain, source of contemporary traditional witchcraft). This is the constructed tradition that contemporary practitioners actually inherit — built on real historical materials but assembled in the twentieth century, not preserved unbroken from antiquity. Ronald Hutton's <cite>The Triumph of the Moon</cite> (Oxford, 1999/2019) is the standard scholarly history; read with the caveat that Hutton's framing prioritizes the male founders and underweights the substantial women's contributions to the same period (Doreen Valiente, Eleanor Bone, Patricia Crowther).</p>
+
+    <p>Most contemporary popular witchcraft conflates all three. Serious contemporary practice descends from several distinct streams that have entered the contemporary moment from different directions — the Cochranian-Sabbatic stream (Robert Cochrane's Clan of Tubal Cain and its inheritors), the cunning-folk-revival stream (the operative-tradition recovery through Gemma Gary, Cassandra Latham-Jones, Steve Patterson and the Williamson archives), the Wiccan stream (Gardnerian and Alexandrian initiatic lines and their solitary descendants), the goddess-spirituality and women's-mysteries stream (Christ, Spretnak, Starhawk, the Reclaiming tradition), the African and African Diasporic streams (Yoruba-derived traditions, Hoodoo, Vodou, Lukumí, the Black-Catholic syncretisms — these are religions, not "streams of witchcraft," and engagement requires the appropriate framework), the Druid and Celtic-reconstructionist streams (OBOD, ADF, AODA, Celtic Reconstructionist Polytheism), the Heathen and Norse-Germanic streams (Asatru, Heathenry, with substantial political-baggage to navigate), the ceremonial-magical streams (Golden Dawn descendants, Thelemic, Hermetic), the chaos magic stream, and the various reconstructionist polytheisms (Hellenic, Roman, Kemetic, etc.). The contemporary practitioner can arrive at any of these, several of them in combination, or none of them — finding her practice instead in a more eclectic-grounded mode. The lineage map matters not because you commit to a position on it now, but because you can read deliberately rather than randomly. <em>This document does not assume the practitioner will arrive at any one of these streams.</em> The chthonic, Hekatean, Sabbatic, and cunning-folk material the document treats substantially is treated because of its operative-tradition depth and because contemporary practitioner-scholarship has developed it richly — not because the document presumes the practitioner is called there.</p>
+  </main>
+
+  <aside class="col-margin">
+    <div class="margin-note">
+      <span class="arrow">¹</span> wilby 2005 is foundational. her companion volume <em>the visions of isobel gowdie</em> (2010) develops the visionary dimension of cunning-folk practice.
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> the lineage map is for orientation. you do not commit to a position on it in the early years. you read across with the map as reference.
+    </div>
+  </aside>
+
+  <!-- PULL QUOTE -->
+  <blockquote class="pullquote">
+    <p>Lineage commitment, if it ever comes, is the work of years three, five, ten — recognized rather than chosen.</p>
+  </blockquote>
+
+  <!-- SECTION 3 — Ancestral configuration -->
+  <div class="section-mark"><span>§ I.III  ancestral dimension</span></div>
+  <h2 class="section-head">What you carry alongside</h2>
+
+  <main class="col-text">
+    <p>This document is built for any serious practitioner, not for a specific lineage configuration. But the practitioner who comes to it carries her own ancestry, and that ancestry is part of what she will be working with across the years of practice. The keyed reader of this document carries three distinct lineage streams that are her direct inheritance to recover, not outside traditions to engage respectfully.</p>
+
+    <p><em>Matrilineal Welsh.</em> Through her mother's line. Welsh ancestral lineage; the surname Jones (Welsh patronymic). The keyed reader has been called by Rhiannon specifically — the Welsh sovereignty goddess of the First Branch of the Mabinogi, associated with horses, the otherworld, justice that takes a long time to arrive, and recovery of what was wrongly taken.<span class="fn-call">²</span> This is unentangled inheritance: matrilineal Welsh, recovery work in its more straightforward form.</p>
+
+    <p><em>West African Diaspora through Carolinas Black ancestry.</em> Through her father's line. Descended from West African ancestors enslaved on Carolinas plantations; the line carries the inheritance of enslavement and the spiritual practice that survived it. Whether the ancestral specificity is Gullah Geechee Sea Island or mainland Carolinas Black is genealogical research that the keyed reader is doing actively. The recovery work is real; the resources are named in chapter 5.</p>
+
+    <p><em>Continental European Hermetic-Masonic.</em> Through her father's matrilineal line specifically — via a Dutch white enslaver who raped one of her enslaved ancestors. The same ancestral line carries both the West African folk-magical inheritance (from the enslaved ancestor) and the Continental Hermetic-Masonic inheritance (from the enslaver). Mixed inheritance with violence at its conception. The recovery work involves reckoning, not just retrieval.</p>
+
+    <p>These three streams are not the architecture of this document. The document is wide entry; the streams are her ancestral dimension running alongside. The foundational practices the document develops across all seven chapters — attention, observation, divination, body work, the grimoire, the wheel, spellwork, herbalism, the operative apparatus — are what the practitioner builds regardless of which deity, lineage, or tradition (if any) eventually claims her. The chthonic, Hekatean, Sabbatic, and cunning-folk material is treated substantially because the operative-tradition scholarship is rich in it; the goddess-spirituality, Druidic, African Diasporic, ceremonial, and reconstructionist-polytheist materials are treated alongside with equal seriousness. <em>The practitioner is not assumed to be called to any one of them.</em> The lineage streams are what the keyed reader develops, particularly in chapter 5 and onward, as inheritance recovery work that runs alongside the broader practice — the inheritance work is real regardless of which deity-current the practice eventually opens into.</p>
+
+    <p>The framing is consistent across all three. These are her direct inheritance to recover, not outside traditions to approach respectfully. Initiation-required traditions still require initiation; the framing is different from outside engagement, but the work is still the work.</p>
+  </main>
+
+  <aside class="col-margin">
+    <div class="margin-note">
+      <span class="arrow">²</span> rhiannon: <em>rīgantonā</em>, "great queen." first branch of the mabinogi (sioned davies trans., oxford 2007). epona descent generally accepted; hutton skeptical. mac cana 1958 and mckenna 1980 develop the sovereignty-goddess reading.
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> the streams enter through different doors. welsh matrilineal is unentangled. diaspora-and-hermetic-masonic enter through the same point of violence on the father's matrilineal line.
+    </div>
+  </aside>
+
+  <!-- SECTION 4 — Cautions -->
+  <div class="section-mark"><span>§ I.IV  cautions</span></div>
+  <h2 class="section-head">What this stage is not for</h2>
+
+  <main class="col-text">
+    <p>A few cautions that govern what is appropriate at this stage and what is not.</p>
+
+    <p><em>Initiation-required traditions are real.</em> Yoruba and Lucumí, Vodou (both Haitian and Louisiana), Santería, Candomblé, traditional curanderismo, and indigenous Native American religious practice are not appropriate for solo entry from books. They are real, living traditions held by living lineages with their own initiation requirements. Substantial parts of them require relationship with initiated elders who test seriousness across years before any movement toward initiation. Read about them as part of your education in the early years; engage them as practice only through relationship with their living carriers. This applies even when ancestry gives standing — the Yoruba-derived practice of the keyed reader's West African Diaspora line may be ancestrally relevant; that does not make solo book-practice an appropriate substitute for relationship with initiated practitioners.</p>
+
+    <p><em>Body work that requires practitioner support is real.</em> The contemporary trauma literature has converged with the ritual literature in productive ways, and the practitioner working with both has substantial clinical material to draw on. But the strict distinction between regulation work (solo-appropriate) and excavation work (requires practitioner support) holds throughout this document. For a practitioner with substantial trauma history — and the keyed reader carries CPTSD, depression, and anxiety, plus the inherited trauma of the lineage configuration — practitioner support is not optional for the deeper work that eventually becomes possible. Female-led practitioner directories and specific trauma-aware practitioners are named in chapter 6; the work that requires them comes later. The principle of pendulation — Levine's discipline of brief contact with difficult material alternated with deliberate return to safety — governs all opening work in this document.</p>
+
+    <p><em>The popular witchcraft register is not the serious register.</em> Contemporary social-media witchcraft, the broader "witchy" commercial register, and the workshop circuit of contemporary American Pagan publishing are not what this document develops. The serious literature — practitioner-scholar, lineage-rooted, primary-source-grounded — is what the document directs you toward. The reading lists across all seven chapters are explicitly oriented to the serious register. If you are arriving from the popular register, the early reading will recalibrate what you understand by serious practice; that recalibration is itself part of the orientation.</p>
+  </main>
+
+  <aside class="col-margin">
+    <div class="margin-note">
+      <span class="arrow">→</span> initiation-required is not a moralism. it is a fact about how those traditions actually work. you cannot get there from books alone.
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> regulation-vs-excavation: the boundary is held strictly. ch 2 develops regulation. ch 6 develops excavation, with practitioner support explicit. <em>do not skip ahead.</em>
+    </div>
+  </aside>
+
+  <!-- SECTION 5 — Women-centered correction -->
+  <div class="section-mark"><span>§ I.V  on the citations</span></div>
+  <h2 class="section-head">Where the women belong</h2>
+
+  <main class="col-text">
+    <p>One further orientation worth naming directly. The canonical scholarship on Western magical and devotional traditions has been produced overwhelmingly by men, and the contemporary practitioner literature is similarly male-weighted in what gets cited and republished. This is not because women have not been doing the work — they have, continuously and substantially, particularly across the second-wave feminist goddess movement, the women-of-color spiritual lineages, the contemporary recovery of pre-patriarchal religious history, and the lived devotional traditions that have always been carried disproportionately by women. It is because the citation patterns of the field have systematically underweighted women's contributions.</p>
+
+    <p>This document attempts to correct for that across its reading lists. Foundational women writers — Margot Adler, Starhawk, Sharon Blackie, Charlene Spretnak, Carol P. Christ, Sylvia Brinton Perera, Christine Downing, Rachel Pollack, Clarissa Pinkola Estés, Audre Lorde, adrienne maree brown, Robin Wall Kimmerer, Sophie Strand, Stephanie Rose Bird, Sherry Shone, Jhenah Telyndru, Caitlín Matthews, Sabina Magliocco, Helen Berger, Dion Fortune, Mary K. Greer — are placed where they belong, which is at the foundations rather than at the margins.</p>
+
+    <p>Complicated authors get critical context, not silent inclusion or silent exclusion. Mary Daly's foundational radical-feminist theology is named; her later transphobia and earlier racism are named alongside, with Audre Lorde's open letter to Daly cited as the essential corrective. Z. Budapest's foundational Dianic Wiccan tradition is named; its trans-exclusion is named alongside. Marija Gimbutas's foundational archaeology is named; the contested status of some of her interpretations is named. Bessel van der Kolk is cited; the workplace conduct allegations and the field's decentralization from him are noted, with Levine and Ogden cited first when the choice exists. The principle: critical reading rather than purity testing, with the criticisms named honestly so the reader knows what she is engaging.</p>
+  </main>
+
+  <aside class="col-margin">
+    <div class="margin-note">
+      <span class="arrow">→</span> the citation correction is editorial discipline across all seven chapters. you will encounter the women writers named here repeatedly. <em>they are the foundation, not decoration.</em>
+    </div>
+  </aside>
+
+  <!-- ============================================================ -->
+  <!-- SECTION I.VI — ACADEMIC FOUNDATIONS                          -->
+  <!-- ============================================================ -->
+  <div class="section-mark"><span>§ I.VI  academic foundations</span></div>
+  <h2 class="section-head">The study of magic as a field</h2>
+
+  <main class="col-text">
+    <p>The contemporary witchcraft practitioner-literature sits inside a much larger scholarly field — the academic study of magic, esotericism, and the history of religion — that the contemporary witch's reading often skips entirely. This is a substantive omission. The grimoire-and-occult tradition the contemporary practice descends from is now substantially well-documented academic territory; the witch-trial historiography is a developed field with substantial feminist scholarship; the broader history of Western Esotericism is an established academic discipline with chairs at the University of Amsterdam (the Hanegraaff chair), the École Pratique des Hautes Études in Paris, and the University of Exeter. The serious practitioner reads the academic literature alongside the practitioner literature; doing so is the difference between developing as a practitioner-scholar and developing as a hobbyist.</p>
+
+    <p>The foundational historians of magic. <em>Frances Yates</em> (1899-1981) is the founding scholar of the academic study of Renaissance magic. Her four major works — <cite>Giordano Bruno and the Hermetic Tradition</cite> (1964), <cite>The Art of Memory</cite> (1966), <cite>The Rosicrucian Enlightenment</cite> (1972), and <cite>The Occult Philosophy in the Elizabethan Age</cite> (1979) — established Renaissance magic as a serious historical field. The Yates thesis (that Renaissance Hermeticism was a major contributing tradition to the development of modern science) has been substantially debated and partially revised by subsequent scholarship (Brian Copenhaver, Anthony Grafton, and others have refined the argument); the corpus remains foundational. <em>D. P. Walker</em>'s <cite>Spiritual and Demonic Magic from Ficino to Campanella</cite> (Warburg, 1958/Penn State, 2000) is the foundational study of Renaissance natural-and-demonic magic specifically. <em>Brian Copenhaver</em> is the principal contemporary scholar of Hermetic philosophy; his <cite>Hermetica</cite> (Cambridge, 1992) is the standard English translation of the foundational Hermetic primary texts (the Greek Corpus Hermeticum, the Latin Asclepius, the Stobaean fragments), and his <cite>Magic in Western Culture: From Antiquity to the Enlightenment</cite> (Cambridge, 2015) is the major recent synthesis of the broader Western magical tradition.</p>
+
+    <p>Western Esotericism as an academic field. The discipline emerged in the 1990s under <em>Antoine Faivre</em>'s definitional framework (six characteristics: correspondences, living nature, imagination and mediations, the experience of transmutation; plus two non-essentials: concordance and transmission). Faivre's <cite>Access to Western Esotericism</cite> (SUNY, 1994) is the founding text. <em>Wouter Hanegraaff</em>, who holds the Amsterdam chair, has been the principal contemporary academic figure in the field; his <cite>Esotericism and the Academy: Rejected Knowledge in Western Culture</cite> (Cambridge, 2012) traces how esotericism has been treated by the academy across the modern period; <cite>New Age Religion and Western Culture</cite> (Brill, 1996) is the substantial study of how the contemporary spiritual marketplace developed; <cite>Western Esotericism: A Guide for the Perplexed</cite> (Bloomsbury, 2013) is the accessible introduction. <em>Egil Asprem</em> is the major contemporary younger scholar; his <cite>The Problem of Disenchantment: Scientific Naturalism and Esoteric Discourse, 1900-1939</cite> (Brill, 2014) is the major recent treatment of how magic and esotericism persisted through the modern disenchantment narrative. Pair with <em>Christopher Partridge</em>'s <cite>The Re-Enchantment of the West</cite> (T&T Clark, 2 vols, 2004-2005) for the contemporary religious-studies framing of the broader spiritual-marketplace landscape.</p>
+
+    <p>Witch-trial historiography — feminist-foregrounded. <em>Lyndal Roper</em>'s <cite>Witch Craze: Terror and Fantasy in Baroque Germany</cite> (Yale, 2004) is one of the major contemporary feminist treatments of the European witch trials; <cite>Oedipus and the Devil: Witchcraft, Sexuality and Religion in Early Modern Europe</cite> (Routledge, 1994) is the earlier psychoanalytically-informed cultural history. <em>Diane Purkiss</em>'s <cite>The Witch in History: Early Modern and Twentieth-Century Representations</cite> (Routledge, 1996) treats the witch-figure across early-modern history and contemporary feminist appropriation simultaneously, with substantial attention to how the contemporary feminist-witch construct relates (or doesn't) to the historical witch-trial victims. <cite>At the Bottom of the Garden: A Dark History of Fairies, Hobgoblins, and Other Troublesome Things</cite> (NYU Press, 2000) extends Purkiss's framework into the broader supernatural-folkloric territory. <em>Marion Gibson</em> is the principal contemporary scholar of the witch-trial textual tradition specifically; <cite>Reading Witchcraft</cite> (Routledge, 1999) and <cite>Witchcraft Myths in American Culture</cite> (Routledge, 2007) are the major works. The standard reference textbook is <em>Brian Levack</em>'s <cite>The Witch-Hunt in Early Modern Europe</cite> (Routledge, 4th ed. 2016). The foundational work on demonological logic is <em>Stuart Clark</em>'s <cite>Thinking with Demons: The Idea of Witchcraft in Early Modern Europe</cite> (Oxford, 1997). The global-comparative survey is <em>Wolfgang Behringer</em>'s <cite>Witches and Witch-Hunts: A Global History</cite> (Polity, 2004). Carlo Ginzburg's <cite>The Night Battles</cite> and <cite>Ecstasies</cite> are cited in chapter 6 § VI.IX for the trance-tradition specifically.</p>
+
+    <p>The introduction-level reading for the academic-foundations track is the Davies <cite>Grimoires</cite> (already cited), the Hanegraaff <cite>Western Esotericism: A Guide for the Perplexed</cite>, and one of the Yates monographs (<cite>The Occult Philosophy in the Elizabethan Age</cite> is the most accessible entry; <cite>Giordano Bruno</cite> is the most substantial). Year 1-2: Copenhaver's <cite>Hermetica</cite> and <cite>Magic in Western Culture</cite>; Roper's <cite>Witch Craze</cite>; Purkiss's <cite>The Witch in History</cite>. Year 2-3: Hanegraaff's <cite>Esotericism and the Academy</cite>; Walker's <cite>Spiritual and Demonic Magic</cite>; Asprem's <cite>The Problem of Disenchantment</cite>. Year 3+: the Yates corpus complete; the witch-trial primary literature in scholarly editions; the academic journals (<cite>Aries: Journal for the Study of Western Esotericism</cite> through Brill; <cite>Magic, Ritual, and Witchcraft</cite> through Penn Press; <cite>Correspondences: An Online Journal for the Academic Study of Western Esotericism</cite> open-access).</p>
+  </main>
+
+  <aside class="col-margin">
+    <div class="margin-note">
+      <span class="arrow">→</span> the academic study of magic is now an established field. <em>read alongside the practitioner literature, not instead of.</em>
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> yates · walker · copenhaver · hanegraaff · asprem · roper · purkiss · gibson · clark · ginzburg. <em>the names that anchor the academic apparatus.</em>
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> the academic journals: <em>aries</em> (brill) · <em>magic, ritual, and witchcraft</em> (penn) · <em>correspondences</em> (open-access).
+    </div>
+  </aside>
+
+  <!-- ============================================================ -->
+  <!-- SECTION I.VII — RESEARCH PRACTICE                            -->
+  <!-- ============================================================ -->
+  <div class="section-mark"><span>§ I.VII  research practice</span></div>
+  <h2 class="section-head">Doing scholarly work as a practitioner</h2>
+
+  <main class="col-text">
+    <p>The document recommends reading; this section teaches how to read. The serious practitioner-scholar develops a research practice across years that turns reading from passive absorption into active scholarly engagement. The skills are unglamorous and foundational: database literacy, inter-library loan as practice, the UPG-versus-attested distinction, the reading journal as parallel to the grimoire, the primary-versus-secondary-versus-tertiary-source distinction, and critical apparatus reading. Each is briefly named here; each becomes the practitioner's actual scholarly discipline across decades.</p>
+
+    <p><em>Database literacy.</em> Most of the foundational scholarship on magic, esotericism, and witchcraft is published in academic journals and university-press books that are not freely available on the open web. The serious practitioner-scholar accesses these through institutional subscriptions or through public-library aggregators. The principal databases worth knowing: <em>JSTOR</em> (the largest English-language academic-journal aggregator; covers most foundational scholarship); <em>Project MUSE</em> (substantial humanities and journal coverage, complementary to JSTOR); <em>EEBO — Early English Books Online</em> (digital images of every book printed in English between 1475 and 1700; foundational for primary-source engagement with early-modern grimoires, witch-trial documents, devotional literature); <em>Brill Online</em> (Brill is the principal academic publisher in religious studies and esotericism; their journal <cite>Aries</cite> is foundational); <em>ATLA Religion Database</em> (theology and religious-studies coverage); <em>L'Année philologique</em> (classical-studies bibliography). For the keyed reader's San Diego context: many California public libraries (San Diego Public Library, Los Angeles Public Library) provide free access to JSTOR, Project MUSE, and additional databases via library card. The University of California system (UCSD, UCLA, UC Berkeley) provides extension-card access to alumni and the public for a fee. The University of San Diego library has limited public access. Knowing what's available and how to access it is foundational research practice; without database access, the serious scholarly engagement with the field is bottlenecked.</p>
+
+    <p><em>Inter-library loan as practice.</em> Most consequential out-of-print witchcraft and esoteric scholarship is unavailable for purchase or available only at substantial cost as used or rare-book material. The American public library system's inter-library loan apparatus reaches substantial holdings — academic libraries lend to public libraries, public libraries lend to public libraries, the WorldCat database identifies which library has which book. The serious practitioner-scholar who develops the habit of identifying books through the reading lists, then routinely requesting them through ILL, can read substantively across the field at no direct cost. The ILL request typically takes one to four weeks; the practice is to maintain a running list and submit batches.</p>
+
+    <p><em>UPG vs. attested tradition.</em> "UPG" — unverified personal gnosis — is the practitioner-tradition's term for "what I experienced in trance, working, or devotional practice that has no scholarly support, lineage attestation, or independent verification." UPG is real and is part of the practitioner's developing relationship with the deities, the dead, the operative apparatus. UPG is also <em>not</em> tradition; it is what arrived in <em>your</em> practice, and treating it as tradition (or worse, treating it as objective fact when teaching others) is the error the contemporary social-media witchcraft register routinely commits. The serious practitioner tracks the distinction explicitly. In the grimoire, when recording what arrives in working or trance: mark UPG as UPG. When citing in writing or in conversation, distinguish between "the Welsh primary literature attests" and "in my experience working with Rhiannon" and "Caitlín Matthews's reconstruction of" — three different epistemic categories, all valid in their own register, none substitutable for the others.</p>
+
+    <p><em>The reading journal as parallel to the grimoire.</em> The grimoire is the working-record. The reading journal is the scholarly-record. Distinct sections: the bibliography in progress (every book read or being read, with author, title, edition, year, full citation); the notes (passages copied, questions raised, contradictions across sources, lineages of thought traced); the primary-source quotations (when a primary text is engaged, the passages that struck — copied by hand, with citation); the cross-references (when reading book X, what it pointed toward in book Y or Z); the disagreements (where one source contradicts another, the practitioner's developing position on the question). After several years the reading journal becomes the practitioner-scholar's own working bibliography of the field, organized to her actual practice rather than to anyone else's curriculum.</p>
+
+    <p><em>Primary, secondary, tertiary.</em> The field has substantial confusion about source-types. <em>Primary sources</em> are the actual texts the tradition produced — the PGM, the grimoires themselves, the witch-trial confession-records, Hesiod and Homer for the Greek tradition, the Welsh Mabinogi for the Welsh, the Yoruba Ifá corpus for the Diasporic, Yeats's <cite>A Vision</cite> for the modern occult-revival, Crowley's working-diaries. <em>Secondary sources</em> are the scholarship that engages the primaries — Yates on Bruno and the Hermetica, Roper on the witch-trials, Hanegraaff on esotericism, Davies on the grimoires. <em>Tertiary sources</em> are the popular practitioner-literature that synthesizes the secondary scholarship for general readers — most contemporary practitioner books are tertiary. The practitioner-scholar reads in all three categories but knows what is what. Reading only tertiary produces a thin and derivative understanding; reading only primary without secondary apparatus produces decontextualized engagement; reading the secondary scholarship without primary engagement produces an academic engagement disconnected from the working-tradition. All three together, with the practitioner clear about which is which, is the discipline.</p>
+
+    <p><em>Critical apparatus reading.</em> The footnotes are not optional. The bibliography is not optional. The preface and the methodological introduction are where the scholar names her position, her sources, and her interpretive frame; reading them carefully tells the practitioner what kind of book she is reading, what political-and-personal positions the author holds, what the limits of the text's authority are. The practice: when engaging a serious scholarly book, read the introduction and the bibliography <em>before</em> reading the body. The introduction tells you what the author is doing; the bibliography tells you what tradition of scholarship she's inside; the body is then comprehensible as a contribution to that ongoing conversation rather than as a freestanding statement. Without this apparatus reading, every book reads as if it were the final word; with it, every book becomes one voice in a continuing scholarly conversation.</p>
+  </main>
+
+  <aside class="col-margin">
+    <div class="margin-note">
+      <span class="arrow">→</span> database literacy · ill · upg-vs-attested · reading journal · primary/secondary/tertiary · critical apparatus. <em>the practitioner-scholar's research practice.</em>
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> san diego public library card → free jstor + project muse access. <em>do not skip this.</em>
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> upg is real. upg is not tradition. <em>track the distinction explicitly.</em>
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> read the introduction and bibliography <em>before</em> the body. every book is one voice in a continuing scholarly conversation.
+    </div>
+  </aside>
+
+  <section class="build-block">
+    <div class="build-mark">build · the research apparatus</div>
+    <h3>The practitioner-scholar's working tools</h3>
+    <ol>
+      <li>Apply for a San Diego Public Library card if you don't already have one. The library card provides free remote access to JSTOR, Project MUSE, and additional databases via the library website. Test access this week by searching for one author from the orientation list and pulling at least one journal article.</li>
+      <li>Open a WorldCat account (worldcat.org). WorldCat identifies which libraries hold which books; combined with your library's inter-library loan service, this gives you access to substantial out-of-print and academic literature at no direct cost. Submit your first ILL request within the first month; the response lag teaches the rhythm of running a continuous research practice.</li>
+      <li>Set up the reading journal as a separate notebook from the grimoire. The two practices are parallel but distinct. The grimoire records working practice; the reading journal records scholarly practice. Both develop across years.</li>
+      <li>Identify three open-access scholarly resources for ongoing reading: <em>Correspondences</em> (correspondencesjournal.com — open-access journal of Western Esotericism); <em>Joseph Peterson's Esoteric Archives</em> (esotericarchives.com — primary-source grimoire material); <em>Sacred Texts</em> (sacred-texts.com — older but substantial public-domain primary religious literature). Bookmark them; consult them.</li>
+      <li>For the keyed reader's San Diego context specifically: the UCSD library admits the public to its physical collection (the Geisel Library main collection is accessible without a UCSD affiliation); the Special Collections (rare books, manuscripts, the Mandeville Special Collections) requires an appointment but is open to qualified researchers. The University of San Diego's Copley Library has more limited public access. The San Diego Central Library's California Room has substantial regional historical collection including some indigenous-California material.</li>
+    </ol>
+  </section>
+
+  <!-- TERMINAL INTERLUDE — System Requirements -->
+  <section class="terminal">
+    <div class="terminal-head">— system requirements : what the document assumes —</div>
+    <div class="terminal-line"><span class="label">/reader/serious-engagement/</span> <span class="ok">[required]</span></div>
+    <div class="terminal-line"><span class="label">/reading/twenty-five-to-forty-texts/</span> <span class="ok">[required, ch 1 orientation list begins]</span></div>
+    <div class="terminal-line"><span class="label">/notebook/physical/</span> <span class="ok">[required by ch 2 — the grimoire]</span></div>
+    <div class="terminal-line"><span class="label">/altar-surface/dedicated/</span> <span class="ok">[required by ch 2]</span></div>
+    <div class="terminal-line"><span class="label">/practitioner-support/</span> <span class="pending">[required by ch 6 — excavation work]</span></div>
+    <div class="terminal-line"><span class="label">/timeline/</span> <span class="meta">[ch 1: weeks. ch 2: months. ch 4-5: years. ch 7: decades.]</span></div>
+    <div class="terminal-line"><span class="label">/lineage-commitment/</span> <span class="meta">[not at this stage. years three, five, ten — possibly never.]</span></div>
+    <div class="terminal-line"><span class="label">/popular-witchcraft-baggage/</span> <span class="meta">[the early reading will recalibrate this. allow it.]</span></div>
+  </section>
+
+  <!-- READ block — the orientation reading list -->
+  <section class="read-block">
+    <div class="read-block-head">
+      <span>read — the orientation list</span>
+      <span class="meta">begin here · before any practice · roughly 18 entries</span>
+    </div>
+    <h3>What to read before anything is built</h3>
+
+    <p style="font-size: 14.5px; line-height: 1.6; color: var(--ink); margin-bottom: 24px; padding: 16px 18px; background: rgba(60, 45, 25, 0.04); border-left: 3px solid var(--accent-rust);"><em>Reading sequence for this block.</em> The eighteen entries below are a graduated curriculum, not eighteen things to read at once. <strong>Months 0-3:</strong> Adler, Starhawk, Blackie (numbered 1-2-3 below — explicitly sequenced). <strong>Months 3-12:</strong> Spretnak anthology, Lorde, Ehrenreich/English, Hutton's <cite>Triumph of the Moon</cite>, Federici. <strong>Year 1-3:</strong> Purkiss, Magliocco, Berger, Luhrmann, Wilby — the scholarly orientation deepens once the practice is running. <strong>Reference / for the long arc:</strong> Murray (with critical context), Christ's full catalogue, Heselton on Valiente, Daly with Lorde alongside, <em>The Pomegranate</em> journal as the ongoing field-context. The Daly entry is critical-context-required; do not read Daly without Lorde alongside. The full list is what you will eventually have read across the early years; treat the months 0-3 entries as the only ones with hard sequencing.</p>
+
+    <div class="read-entry">
+      <div class="read-tier">Entry</div>
+      <div>
+        <span class="read-title">Drawing Down the Moon: Witches, Druids, Goddess-Worshippers, and Other Pagans in America Today</span>
+        <span class="read-author">Margot Adler · Beacon then Penguin · 1979 · revised 1986, 1997, 2006</span>
+        <p class="read-why">Read first. Adler was an NPR journalist and a Wiccan priestess; the book is the field's foundational ethnographic survey, written from inside and outside simultaneously. The 2006 edition is the last revision. Adler's <cite>Heretic's Heart</cite> (1997) memoir is also worth knowing for context on her own trajectory through second-wave feminism, civil rights, and the contemporary Craft. The chapters on the "Pagan resurgence" historically (esp. ch. 2-4) and on the women's tradition (ch. 7) are the load-bearing ones.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Entry</div>
+      <div>
+        <span class="read-title">The Spiral Dance: A Rebirth of the Ancient Religion of the Great Goddess (20th anniversary edition with new commentary)</span>
+        <span class="read-author">Starhawk · HarperOne · 1979 · revised 1989, 1999</span>
+        <p class="read-why">Read second. The foundational text of the Reclaiming tradition. Read the 1999 20th-anniversary edition specifically — Starhawk's running endnote-commentary on the original is itself decades of practitioner reflection on how the tradition has developed since 1979. Pair with her <cite>Truth or Dare: Encounters with Power, Authority, and Mystery</cite> (Harper, 1987) for the politically substantive Reclaiming-tradition work, and <cite>Dreaming the Dark</cite> (Beacon, 1982) for the bridge between the two.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Entry</div>
+      <div>
+        <span class="read-title">If Women Rose Rooted · The Enchanted Life · Hagitude</span>
+        <span class="read-author">Sharon Blackie · September Publishing · 2016 / 2018 / 2022</span>
+        <p class="read-why">Read third. Blackie is a Jungian psychologist and Celtic mythographer; the trilogy is the contemporary entry-text into women's spiritual reconnection with land, myth, and lineage in the Celtic tradition. Particularly relevant given the matrilineal Welsh frame. Her academic-blog work at <em>The Art of Enchantment</em> (sharonblackie.net) develops the framework further. <cite>Hagitude</cite> specifically engages the Cailleach and elder-feminine material that becomes load-bearing in chapter 7.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Entry</div>
+      <div>
+        <span class="read-title">The Politics of Women's Spirituality: Essays by Founding Mothers of the Movement</span>
+        <span class="read-author">Charlene Spretnak, ed. · Anchor / Doubleday · 1982</span>
+        <p class="read-why">The foundational anthology of second-wave women's spirituality. Contributions from Starhawk, Z. Budapest, Carol P. Christ, Mary Daly, Adrienne Rich, Audre Lorde, Margot Adler, Hallie Iglehart, Naomi Goldenberg, and others. <em>Critical context required:</em> some contributors (Daly's later transphobia, Budapest's persistent trans-exclusion) became substantively problematic; the anthology is the documentary record of the movement that built contemporary women's spiritual practice and its limits both. Read alongside Lorde's open letter to Daly in <cite>Sister Outsider</cite>.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Entry</div>
+      <div>
+        <span class="read-title">Sister Outsider: Essays and Speeches</span>
+        <span class="read-author">Audre Lorde · Crossing Press · 1984</span>
+        <p class="read-why">Essential reading regardless of which traditions you eventually engage. The collection contains "Uses of the Erotic: The Erotic as Power" (one of the major texts on the spiritual-political function of erotic life), "An Open Letter to Mary Daly" (the foundational corrective to white feminist universalism in spirituality work), "Poetry Is Not a Luxury," and the broader essays on the intersection of spirituality, embodiment, and political struggle. Lorde is foundation, not appendix.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">The Triumph of the Moon: A History of Modern Pagan Witchcraft (2nd edition, 2019)</span>
+        <span class="read-author">Ronald Hutton · Oxford · 1999 · 2nd ed. 2019</span>
+        <p class="read-why">The standard scholarly history of how modern witchcraft was actually constructed in the twentieth century. The 2019 edition incorporates two further decades of scholarship and Hutton's revisions. <em>Caveat (load-bearing):</em> Hutton's framing prioritizes the male founders (Gardner, Cochrane) and gives less weight to substantial women's contributions to the same period — Doreen Valiente most importantly, plus Eleanor Bone, Patricia Crowther, Lois Bourne, Maxine Sanders. Hutton acknowledges this in the 2019 preface but the structural underweighting persists. Pair with Mary K. Greer <cite>Women of the Golden Dawn</cite> (Park Street, 1995) for the parallel pre-Wiccan ceremonial-tradition recovery, and with Philip Heselton's biographical work for the women specifically (esp. <cite>Doreen Valiente Witch</cite>, Centre for Pagan Studies, 2016).</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Witches, Midwives, and Nurses: A History of Women Healers (2nd revised edition with new introduction)</span>
+        <span class="read-author">Barbara Ehrenreich &amp; Deirdre English · Feminist Press · 1973 · 2nd ed. 2010</span>
+        <p class="read-why">Foundational polemical text on the historical witch as a figure of women's healing knowledge persecuted out of cultural memory. Brief, polemical, essential context. The 2010 edition's new introduction substantially updates the historiography. Pair with Ehrenreich's broader <cite>For Her Own Good: 150 Years of the Experts' Advice to Women</cite> (Anchor, 1978/2005) for the longer arc.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Caliban and the Witch: Women, the Body and Primitive Accumulation</span>
+        <span class="read-author">Silvia Federici · Autonomedia · 2004</span>
+        <p class="read-why">The major contemporary feminist-Marxist analysis of the witch hunts as part of the historical violence underwriting the emergence of capitalism — the enclosure of the commons, the disciplining of women's bodies, the criminalization of midwifery, the reorganization of labor. Pair with Federici's <cite>Witches, Witch-Hunting, and Women</cite> (PM Press, 2018) and <cite>Beyond the Periphery of the Skin</cite> (PM Press, 2020) for the continuing analysis. Federici is essential — without her, the historical-witch material is half a thought.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">The Witch in History: Early Modern and Twentieth-Century Representations</span>
+        <span class="read-author">Diane Purkiss · Routledge · 1996</span>
+        <p class="read-why">The major contemporary academic treatment of how the witch has been imagined in Western culture from the early modern period through twentieth-century feminism. Purkiss is sharp on the construction of the witch as cultural figure and on the limits of feminist appropriation of the witch. Demanding but indispensable.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Witching Culture: Folklore and Neo-Paganism in America</span>
+        <span class="read-author">Sabina Magliocco · University of Pennsylvania Press · 2004</span>
+        <p class="read-why">The standard ethnographic study of contemporary American Pagan and folk-magical practice. Magliocco is a folklorist whose work bridges academic ethnography and practitioner sympathy. Substantial attention to Italian-American <em>stregheria</em> specifically and to the ways the contemporary movement constructs its history. Her later <cite>Neo-Pagan Sacred Art and Altars: Making Things Whole</cite> (Mississippi, 2001) is the companion work on material practice.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">A Community of Witches: Contemporary Neo-Paganism and Witchcraft in the United States · Solitary Pagans</span>
+        <span class="read-author">Helen A. Berger · University of South Carolina Press · 1999 / 2019</span>
+        <p class="read-why">Berger is the major sociologist of contemporary American Paganism. <cite>A Community of Witches</cite> maps the coven-and-community landscape; <cite>Solitary Pagans</cite> (2019) maps the contemporary majority practitioner mode (the practitioner working alone). Pair for the full picture of who is actually practicing in the United States now.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">Persuasions of the Witch's Craft: Ritual Magic in Contemporary England</span>
+        <span class="read-author">T.M. Luhrmann · Harvard University Press · 1989</span>
+        <p class="read-why">Foundational ethnographic study of how contemporary Western practitioners come to believe in magic. Luhrmann is an anthropologist (now at Stanford); the book treats the question of belief-formation in the practitioner with substantial care and is one of the few academic works that takes the practitioner experience seriously without flattening it. Demanding; rewards the time.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">Cunning Folk and Familiar Spirits: Shamanistic Visionary Traditions in Early Modern British Witchcraft and Magic · The Visions of Isobel Gowdie</span>
+        <span class="read-author">Emma Wilby · Sussex Academic Press · 2005 / 2010</span>
+        <p class="read-why">The two foundational scholarly books on the spiritual ecology of cunning-folk practice and the visionary dimension of European folk witchcraft. Wilby treats the historical practitioners as actual religious figures rather than as theological projection or social construction — substantial methodological corrective. <cite>The Visions of Isobel Gowdie</cite> specifically reads one of the most extensively documented Scottish witch-trial cases as evidence of an actual visionary tradition. Read both as a pair; the foundational scholarly work behind the contemporary traditional-craft revival.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">The Witch-Cult in Western Europe: A Study in Anthropology</span>
+        <span class="read-author">Margaret Murray · Oxford · 1921</span>
+        <p class="read-why">Foundational and discredited. Murray's thesis — that European witchcraft was a continuous pre-Christian fertility cult preserved into the early modern period — was substantially the framework Gerald Gardner used to construct modern Wicca. The thesis is now rejected by mainstream academic historians (Hutton's <cite>Triumph of the Moon</cite> dismantles it specifically). Read Murray to understand what twentieth-century witchcraft thought it was reviving; read alongside the actual scholarship that has superseded her. Knowing what Wicca claimed and what the scholarship actually shows is part of orientation.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">Rebirth of the Goddess: Finding Meaning in Feminist Spirituality · She Who Changes</span>
+        <span class="read-author">Carol P. Christ · Routledge · 1997 / Palgrave · 2003</span>
+        <p class="read-why">Christ is one of the principal theologians of the goddess-spirituality movement and one of the most theologically substantive contemporary writers on what feminist spirituality actually is as a serious religious position. <cite>Rebirth of the Goddess</cite> is the foundational theological articulation; <cite>She Who Changes</cite> develops the process-philosophical theology (drawing on Whitehead and Hartshorne) substantially. Her late <cite>Goddess and God in the World</cite> (Fortress, 2016, with Judith Plaskow) is the dialogical continuation. Read all three for the long arc of her thinking.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">Mary Daly · Beyond God the Father · Gyn/Ecology · with critical context</span>
+        <span class="read-author">Mary Daly · Beacon Press · 1973 / 1978</span>
+        <p class="read-why">Daly was one of the foundational radical-feminist theologians; <cite>Beyond God the Father</cite> (1973) is among the most important works of twentieth-century feminist theology. <em>Critical context required and load-bearing:</em> Daly's later writings and public statements were explicitly transphobic, and her 1970s framing also contains substantial racism that has been widely critiqued by women of color (Audre Lorde's "An Open Letter to Mary Daly" in <cite>Sister Outsider</cite> is the foundational corrective). Read Daly with awareness of these limits; read Lorde's response alongside her. The historiographical and ethical problem of how to engage Daly is itself part of orientation.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">The Pomegranate: The International Journal of Pagan Studies</span>
+        <span class="read-author">Equinox Publishing · ongoing since 2004 (formerly The Pomegranate journal, 1997–2003)</span>
+        <p class="read-why">The principal scholarly journal in the academic study of contemporary Paganism. Specific articles worth knowing: Chas S. Clifton's editorial introductions, the special issues on bioregional Paganism, the ongoing scholarship from Magliocco, Berger, Christine Hoff Kraemer. Free abstracts available; full articles via institutional subscription or document delivery. Knowing the journal exists and what it covers is part of orientation; pulling specific articles becomes practitioner work in years three onward.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">Doreen Valiente, Witch · The Charge of the Goddess</span>
+        <span class="read-author">Philip Heselton · Centre for Pagan Studies / Doreen Valiente Foundation · 2016 / earlier ed. 2000</span>
+        <p class="read-why">The biographical recovery of Doreen Valiente — Gardner's principal collaborator and the woman who substantially wrote the modern Wiccan liturgy that gets attributed to Gardner. Heselton is the major historian of early Wicca; the work is the corrective Hutton's <cite>Triumph of the Moon</cite> doesn't fully provide. Valiente's own <cite>The Charge of the Goddess</cite> (Hexagon Hoopix, 2000 — collected poetic-liturgical work) is itself a primary source.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUILD directive -->
+  <section class="build-block">
+    <div class="build-mark">build · the spine of everything</div>
+    <h3>Your reading log — begin this week</h3>
+
+    <p>Before any practice, begin a reading log. A physical notebook or a single dedicated digital document. Every text you read in this stream gets logged: title, author, dates read, the three or four ideas that struck you, the questions it raised, the further texts it sent you to. This is the apparatus that turns reading into a developing scholarship.</p>
+
+    <ol>
+      <li>Buy or designate one physical notebook for the reading log specifically. Or create one dedicated digital document. Either is acceptable; the discipline is having one specific place where every text engaged in this stream is recorded.</li>
+      <li>Inscribe the first page with your name, the date you began, and the question you are entering with — written as a single sentence. The question can change; you will return to it.</li>
+      <li>For each text you read, record: title, author, edition or year, dates read (started / finished). Three or four ideas that struck you. The questions the text raised. The further texts it sent you to.</li>
+      <li>At the end of every quarter (year-quarter — March, June, September, December), read back through the entries from that quarter. Note any patterns: which figures, deities, or practices keep recurring across separate texts. Which arguments hold across multiple readings. What you have lost interest in. What is gaining weight.</li>
+      <li>Across years, the reading log becomes the most useful single resource you build. It is the index of your developing thought, and it will be the record that shows you, eventually, which tradition your practice has actually been growing toward. Begin it before anything else.</li>
+    </ol>
+  </section>
+
+  <!-- RESEARCH thread -->
+  <aside class="research-block">
+    <span class="research-mark">research thread</span>
+    <p>The contemporary occult publishing landscape is itself worth mapping. The serious presses to know: <em>Scarlet Imprint, Three Hands Press, Atramentous Press, Hadean Press, Anathema Publishing, Avalonia Books, Troy Books, Xoanon</em>. Visit each press's catalogue. The differences between them — house aesthetics, theological commitments, lineage emphasis — will tell you a lot about the contemporary field and which directions might eventually call. This is itself early-orientation reading; not a directive to purchase anything yet, but to develop a working sense of the contemporary landscape.</p>
+  </aside>
+
+  <!-- FULL-BLEED PLATE — Long-arc diagram -->
+  <section class="plate-full">
+    <div class="plate">
+      <div class="plate-frame">
+        <div class="plate-image">
+          <div class="specimen">
+            <svg class="specimen-svg" viewBox="0 0 800 425" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <pattern id="archgrid1" width="60" height="60" patternUnits="userSpaceOnUse">
+                  <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(80, 60, 30, 0.05)" stroke-width="0.5"/>
+                </pattern>
+              </defs>
+              <rect width="800" height="425" fill="url(#archgrid1)"/>
+
+              <!-- horizontal axis -->
+              <line x1="80" y1="280" x2="740" y2="280" stroke="rgba(60, 45, 25, 0.6)" stroke-width="0.8"/>
+              <line x1="80" y1="284" x2="740" y2="284" stroke="rgba(60, 45, 25, 0.25)" stroke-width="0.5"/>
+
+              <!-- year markers -->
+              <!-- year 0 -->
+              <line x1="100" y1="270" x2="100" y2="290" stroke="rgba(60, 45, 25, 0.7)" stroke-width="0.8"/>
+              <text x="100" y="310" font-family="Space Mono, monospace" font-size="11" letter-spacing="0.1em" fill="rgba(40, 30, 15, 0.85)" text-anchor="middle">YEAR 0</text>
+              <text x="100" y="328" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.08em" fill="rgba(40, 30, 15, 0.55)" text-anchor="middle">orientation</text>
+
+              <!-- year 1 -->
+              <line x1="200" y1="270" x2="200" y2="290" stroke="rgba(60, 45, 25, 0.7)" stroke-width="0.8"/>
+              <text x="200" y="310" font-family="Space Mono, monospace" font-size="11" letter-spacing="0.1em" fill="rgba(40, 30, 15, 0.85)" text-anchor="middle">YEAR 1</text>
+              <text x="200" y="328" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.08em" fill="rgba(40, 30, 15, 0.55)" text-anchor="middle">apparatus running</text>
+
+              <!-- year 3 -->
+              <line x1="340" y1="270" x2="340" y2="290" stroke="rgba(60, 45, 25, 0.7)" stroke-width="0.8"/>
+              <text x="340" y="310" font-family="Space Mono, monospace" font-size="11" letter-spacing="0.1em" fill="rgba(40, 30, 15, 0.85)" text-anchor="middle">YEAR 3</text>
+              <text x="340" y="328" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.08em" fill="rgba(40, 30, 15, 0.55)" text-anchor="middle">streams converging</text>
+
+              <!-- year 7 -->
+              <line x1="480" y1="270" x2="480" y2="290" stroke="rgba(60, 45, 25, 0.7)" stroke-width="0.8"/>
+              <text x="480" y="310" font-family="Space Mono, monospace" font-size="11" letter-spacing="0.1em" fill="rgba(40, 30, 15, 0.85)" text-anchor="middle">YEAR 7</text>
+              <text x="480" y="328" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.08em" fill="rgba(40, 30, 15, 0.55)" text-anchor="middle">recognition possible</text>
+
+              <!-- year 14 -->
+              <line x1="610" y1="270" x2="610" y2="290" stroke="rgba(60, 45, 25, 0.7)" stroke-width="0.8"/>
+              <text x="610" y="310" font-family="Space Mono, monospace" font-size="11" letter-spacing="0.1em" fill="rgba(40, 30, 15, 0.85)" text-anchor="middle">YEAR 14</text>
+              <text x="610" y="328" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.08em" fill="rgba(40, 30, 15, 0.55)" text-anchor="middle">teachers found</text>
+
+              <!-- year 21 -->
+              <line x1="720" y1="270" x2="720" y2="290" stroke="rgba(60, 45, 25, 0.7)" stroke-width="0.8"/>
+              <text x="720" y="310" font-family="Space Mono, monospace" font-size="11" letter-spacing="0.1em" fill="rgba(40, 30, 15, 0.85)" text-anchor="middle">YEAR 21+</text>
+              <text x="720" y="328" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.08em" fill="rgba(40, 30, 15, 0.55)" text-anchor="middle">the long view</text>
+
+              <!-- arc curve representing depth over time -->
+              <path d="M 100 250 Q 200 240, 340 200 T 610 100 T 720 70" fill="none" stroke="rgba(122, 40, 24, 0.55)" stroke-width="1.5"/>
+              <path d="M 100 252 Q 200 244, 340 210 T 610 130 T 720 110" fill="none" stroke="rgba(122, 40, 24, 0.25)" stroke-width="1"/>
+
+              <!-- annotation moments along the arc -->
+              <!-- ch 1 callout -->
+              <circle cx="100" cy="250" r="3" fill="rgba(122, 40, 24, 0.8)"/>
+              <line x1="100" y1="240" x2="100" y2="160" stroke="rgba(60, 45, 25, 0.45)" stroke-width="0.5"/>
+              <text x="100" y="148" font-family="IM Fell English, serif" font-size="13" font-style="italic" fill="rgba(40, 30, 15, 0.9)" text-anchor="middle">orientation</text>
+              <text x="100" y="125" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.06em" fill="rgba(40, 30, 15, 0.55)" text-anchor="middle">read broadly</text>
+              <text x="100" y="110" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.06em" fill="rgba(40, 30, 15, 0.55)" text-anchor="middle">build the log</text>
+
+              <!-- ch 2 callout -->
+              <circle cx="200" cy="240" r="3" fill="rgba(122, 40, 24, 0.8)"/>
+              <line x1="200" y1="230" x2="200" y2="195" stroke="rgba(60, 45, 25, 0.45)" stroke-width="0.5"/>
+              <text x="200" y="183" font-family="IM Fell English, serif" font-size="13" font-style="italic" fill="rgba(40, 30, 15, 0.9)" text-anchor="middle">apparatus</text>
+              <text x="200" y="160" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.06em" fill="rgba(40, 30, 15, 0.55)" text-anchor="middle">grimoire · altar</text>
+              <text x="200" y="145" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.06em" fill="rgba(40, 30, 15, 0.55)" text-anchor="middle">candle · rhythm</text>
+
+              <!-- ch 4 callout -->
+              <circle cx="270" cy="220" r="3" fill="rgba(122, 40, 24, 0.8)"/>
+              <line x1="270" y1="210" x2="270" y2="60" stroke="rgba(60, 45, 25, 0.30)" stroke-width="0.5" stroke-dasharray="2,3"/>
+              <text x="270" y="48" font-family="IM Fell English, serif" font-size="13" font-style="italic" fill="rgba(40, 30, 15, 0.9)" text-anchor="middle">running</text>
+              <text x="270" y="30" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.06em" fill="rgba(40, 30, 15, 0.55)" text-anchor="middle">first wheel turning</text>
+
+              <!-- ch 5 callout -->
+              <circle cx="380" cy="190" r="3" fill="rgba(122, 40, 24, 0.85)"/>
+              <line x1="380" y1="180" x2="380" y2="100" stroke="rgba(60, 45, 25, 0.45)" stroke-width="0.5"/>
+              <text x="380" y="88" font-family="IM Fell English, serif" font-size="14" font-style="italic" fill="rgba(40, 30, 15, 0.95)" text-anchor="middle">depth chapter</text>
+              <text x="380" y="68" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.06em" fill="rgba(40, 30, 15, 0.55)" text-anchor="middle">feminine divine · sigil</text>
+              <text x="380" y="53" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.06em" fill="rgba(40, 30, 15, 0.55)" text-anchor="middle">tarot · ancestral</text>
+
+              <!-- ch 6 callout -->
+              <circle cx="540" cy="140" r="3" fill="rgba(122, 40, 24, 0.85)"/>
+              <line x1="540" y1="130" x2="540" y2="200" stroke="rgba(60, 45, 25, 0.45)" stroke-width="0.5"/>
+              <text x="540" y="218" font-family="IM Fell English, serif" font-size="13" font-style="italic" fill="rgba(40, 30, 15, 0.9)" text-anchor="middle">spiral</text>
+              <text x="540" y="240" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.06em" fill="rgba(40, 30, 15, 0.55)" text-anchor="middle">commitment by recognition</text>
+
+              <!-- ch 7 callout -->
+              <circle cx="710" cy="80" r="3.5" fill="rgba(122, 40, 24, 0.95)"/>
+              <line x1="710" y1="83" x2="710" y2="160" stroke="rgba(60, 45, 25, 0.45)" stroke-width="0.5"/>
+              <text x="710" y="178" font-family="IM Fell English, serif" font-size="13" font-style="italic" fill="rgba(40, 30, 15, 0.9)" text-anchor="middle">long view</text>
+              <text x="710" y="200" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.06em" fill="rgba(40, 30, 15, 0.55)" text-anchor="middle">teaching · death · repair</text>
+
+              <!-- depth label on y axis -->
+              <text x="40" y="80" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.1em" fill="rgba(40, 30, 15, 0.45)" text-anchor="start">DEPTH ↑</text>
+              <text x="40" y="392" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.1em" fill="rgba(40, 30, 15, 0.45)" text-anchor="start">TIME →</text>
+
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="plate-caption">
+        <div class="left">
+          <span style="color: var(--accent-rust);">plate ii.</span><br>
+          the long arc<br>
+          <span style="color: var(--ink-faint);">— diagram —</span>
+        </div>
+        <div class="right">
+          <div class="row"><span class="key">scope</span><span>twenty-one years and beyond, marked at year-thresholds</span></div>
+          <div class="row"><span class="key">ch 1</span><span>orientation : weeks · the reading log begun · nothing built</span></div>
+          <div class="row"><span class="key">ch 2-3</span><span>apparatus → running : months → first year</span></div>
+          <div class="row"><span class="key">ch 5</span><span>depth : feminine divine, sigil, tarot, ancestral, lineage convergence</span></div>
+          <div class="row"><span class="key">ch 6-6</span><span>spiral → long view : recognition, teaching, repair, dying</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER CLOSE -->
+  <main class="col-text chapter-close" style="grid-column: 1 / -1;">
+    <p>The chapter has been orientation, not practice. Nothing has been built yet. The grimoire has not been opened; the altar has not been set; no candle has been lit. What you have done is read — or begun to read — and what you have built is the apparatus that holds the reading. The reading log waits for its first entry. The orientation list waits for its first text.</p>
+
+    <p>What you will do, in the chapter ahead, is begin. The first weeks of apparatus-building start when this chapter ends. The candle is the simplest implement; it is also where the practice actually begins.</p>
+
+    <p>Read what calls. Practice what scales. Build what serves the long arc. Return when you have left.</p>
+  </main>
+
+</div>
+
+<div class="chrome chrome-bot">
+  <span style="font-family: 'Space Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.16em;">crossroads / slow door / companion</span>
+  <span class="right">ch 01 &nbsp;·&nbsp; before the beginning &nbsp;·&nbsp; rev 0.1</span>
+</div>
+
+</body>
+</html>

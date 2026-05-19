@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 02 — The First Weeks — The Crossroads and the Slow Door</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=VT323&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ground-stone: #E4E2DA;
+    --ground-deep: #1F232A;
+    --ink: #16191E;
+    --ink-bone: #E4E2DA;
+    --ink-mid: #54585F;
+    --ink-faint: #8C8E8B;
+    --ink-ghost: #B5B6B0;
+    --accent-rust: #7A2818;
+    --accent-night: #3F4A56;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--ground-stone);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse 600px 400px at 85% 22%, rgba(155, 130, 90, 0.05), transparent 60%),
+      radial-gradient(ellipse 400px 300px at 15% 78%, rgba(155, 130, 90, 0.04), transparent 60%);
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08 0 0 0 0 0.10 0 0 0 0 0.12 0 0 0 0.5 0'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='0.5'/></svg>");
+    opacity: 0.35;
+    mix-blend-mode: multiply;
+  }
+  .chrome {
+    position: fixed; left: 0; right: 0; z-index: 50;
+    font-family: 'VT323', monospace; font-size: 13px;
+    color: var(--ink-mid); letter-spacing: 0.04em;
+    padding: 14px 36px; display: flex; justify-content: space-between;
+    align-items: baseline; pointer-events: none;
+  }
+  .chrome-top { top: 0; } .chrome-bot { bottom: 0; }
+  .chrome .stream { color: var(--accent-rust); }
+  .chrome .right { text-align: right; }
+  .vessel {
+    max-width: 1040px; margin: 0 auto; padding: 80px 36px 120px;
+    display: grid; grid-template-columns: minmax(0, 620px) 280px;
+    gap: 60px; align-items: start;
+  }
+  .col-text { grid-column: 1; }
+  .col-margin { grid-column: 2; padding-top: 8px; }
+  .chapter-open {
+    grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr;
+    gap: 40px; padding-bottom: 56px; border-bottom: 1px solid var(--ink);
+    margin-bottom: 64px; align-items: start;
+  }
+  .open-meta { grid-column: 1; }
+  .open-mark { font-family: 'VT323', monospace; font-size: 18px; color: var(--ink-mid); letter-spacing: 0.02em; margin-bottom: 18px; line-height: 1.3; }
+  .open-mark .num { color: var(--accent-rust); margin-right: 12px; }
+  .open-mark .sep { color: var(--ink-faint); margin: 0 8px; }
+  .open-territories { font-family: 'Space Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--ink-mid); margin-bottom: 28px; line-height: 1.85; }
+  .open-territories span { white-space: nowrap; }
+  .open-territories .em { color: var(--ink-faint); margin: 0 8px; }
+  .open-entry { font-family: 'Space Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--ink-mid); margin-bottom: 32px; }
+  .open-entry .label { color: var(--ink-faint); margin-right: 8px; }
+  .open-plate { grid-column: 2; margin-top: 12px; }
+  .plate { border: 1px solid var(--ink-faint); padding: 6px; background: var(--ground-stone); position: relative; }
+  .plate-frame { border: 0.5px solid var(--ink-faint); padding: 2px; }
+  .plate-image {
+    width: 100%; aspect-ratio: 4 / 5;
+    background: linear-gradient(160deg, rgba(120, 80, 40, 0.18), rgba(40, 50, 60, 0.22) 60%, rgba(20, 25, 30, 0.32)), var(--ground-deep);
+    position: relative; overflow: hidden;
+  }
+  .plate-image::before { content: ''; position: absolute; inset: 0; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n2'><feTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.7 0 0 0 0 0.55 0 0 0 0 0.35 0 0 0 0.7 0'/></filter><rect width='200' height='200' filter='url(%23n2)' opacity='0.25'/></svg>"); mix-blend-mode: screen; opacity: 0.6; }
+  .plate-image::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent 0, transparent 2px, rgba(0, 0, 0, 0.06) 2px, rgba(0, 0, 0, 0.06) 3px); mix-blend-mode: multiply; opacity: 0.4; }
+  .plate-form { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .plate-form svg { width: 70%; height: auto; filter: drop-shadow(0 0 18px rgba(180, 120, 60, 0.18)); }
+  .plate-caption { margin-top: 10px; font-family: 'Space Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--ink-mid); line-height: 1.7; }
+  .plate-caption .tag { color: var(--accent-rust); margin-right: 6px; }
+  .plate-caption .source { color: var(--ink-faint); display: block; }
+  h1.chapter-title { grid-column: 1 / -1; font-family: 'IM Fell English', serif; font-weight: 400; font-size: 64px; line-height: 0.98; letter-spacing: -0.015em; color: var(--ink); margin-top: 24px; text-shadow: 0 0.5px 0.5px rgba(22, 25, 30, 0.18); }
+  h1.chapter-title em { font-style: italic; color: var(--accent-rust); }
+  .lead { grid-column: 1 / -1; font-family: 'IM Fell English', serif; font-style: italic; font-size: 23px; line-height: 1.4; color: var(--ink); margin-top: 28px; max-width: 720px; text-shadow: 0 0.3px 0.3px rgba(22, 25, 30, 0.12); }
+  .section-rule { grid-column: 1 / -1; display: flex; align-items: center; gap: 14px; margin: 12px 0 36px; }
+  .section-rule::before, .section-rule::after { content: ''; flex: 1; height: 1px; background: var(--ink); }
+  .section-rule .ornament { font-family: 'VT323', monospace; font-size: 18px; color: var(--accent-rust); letter-spacing: 0.6em; }
+  .section-mark { grid-column: 1 / -1; font-family: 'Space Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.22em; color: var(--accent-rust); margin: 36px 0 16px; display: flex; align-items: center; gap: 14px; }
+  .section-mark::after { content: ''; flex: 1; height: 1px; background: var(--ink-faint); }
+  h2.section-head { grid-column: 1 / -1; font-family: 'IM Fell English', serif; font-weight: 400; font-style: italic; font-size: 32px; line-height: 1.05; letter-spacing: -0.012em; color: var(--ink); margin-bottom: 28px; max-width: 720px; text-shadow: 0 0.3px 0.3px rgba(22, 25, 30, 0.14); }
+  p { font-size: 17px; line-height: 1.68; margin-bottom: 18px; color: var(--ink); font-weight: 400; }
+  p em { font-style: italic; }
+  p cite { font-style: italic; }
+  .margin-note { font-family: 'Space Mono', monospace; font-size: 11px; line-height: 1.55; color: var(--ink-mid); text-transform: uppercase; letter-spacing: 0.06em; border-left: 2px solid var(--accent-rust); padding: 4px 0 4px 14px; margin: 0 0 36px; }
+  .margin-note .arrow { color: var(--accent-rust); margin-right: 4px; }
+  .margin-note .date { display: block; margin-top: 6px; font-size: 10px; color: var(--ink-faint); letter-spacing: 0.14em; }
+  .margin-note em { color: var(--ink); font-style: italic; }
+  .fn-call { font-family: 'VT323', monospace; font-size: 14px; color: var(--accent-rust); vertical-align: super; margin-left: 1px; }
+  .pullquote { grid-column: 1 / -1; margin: 28px 0 36px; padding: 24px 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
+  .pullquote p { font-family: 'IM Fell English', serif; font-style: italic; font-size: 28px; line-height: 1.32; color: var(--ink); text-align: left; max-width: 720px; margin: 0; text-shadow: 0 0.3px 0.3px rgba(22, 25, 30, 0.12); }
+  @media (max-width: 820px) { .pullquote p { font-size: 22px; } }
+  .read-block { grid-column: 1 / -1; margin: 32px 0 40px; padding: 28px 0 0; border-top: 1.5px solid var(--ink); }
+  .read-block-head { font-family: 'Space Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.22em; color: var(--accent-rust); margin-bottom: 6px; display: flex; justify-content: space-between; align-items: baseline; }
+  .read-block-head .meta { color: var(--ink-faint); font-weight: 400; }
+  .read-block h3 { font-family: 'IM Fell English', serif; font-weight: 400; font-style: italic; font-size: 24px; color: var(--ink); margin-bottom: 22px; line-height: 1.2; }
+  .read-entry { padding: 18px 0; border-bottom: 1px solid var(--ink-faint); display: grid; grid-template-columns: 70px 1fr; gap: 18px; align-items: start; }
+  .read-tier { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--accent-rust); letter-spacing: 0.1em; padding-top: 4px; font-weight: 700; text-transform: uppercase; }
+  .read-title { font-family: 'IM Fell English', serif; font-style: italic; font-weight: 400; color: var(--ink); font-size: 19px; display: block; margin-bottom: 4px; letter-spacing: -0.005em; line-height: 1.25; }
+  .read-author { color: var(--ink-mid); font-size: 10.5px; font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 10px; display: block; }
+  .read-why { font-family: 'IBM Plex Sans', sans-serif; font-size: 14.5px; line-height: 1.6; color: var(--ink); }
+  .read-why em { font-style: italic; }
+  .build-block { grid-column: 1 / -1; background: var(--ground-deep); color: var(--ink-bone); padding: 32px 36px 36px; margin: 28px 0 36px; position: relative; overflow: hidden; }
+  .build-block::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent 0, transparent 2px, rgba(255, 255, 255, 0.022) 2px, rgba(255, 255, 255, 0.022) 3px); pointer-events: none; }
+  .build-mark { font-family: 'VT323', monospace; font-size: 16px; color: var(--accent-rust); letter-spacing: 0.06em; margin-bottom: 12px; text-transform: uppercase; position: relative; }
+  .build-block h3 { font-family: 'IM Fell English', serif; font-weight: 400; font-style: italic; font-size: 26px; color: var(--ink-bone); margin-bottom: 18px; position: relative; }
+  .build-block p { color: #C8CAC4; font-size: 15.5px; line-height: 1.62; margin-bottom: 14px; position: relative; }
+  .build-block ol, .build-block ul { color: #C8CAC4; font-size: 15.5px; line-height: 1.6; padding-left: 0; list-style: none; counter-reset: build-counter; position: relative; }
+  .build-block ol li { counter-increment: build-counter; margin-bottom: 12px; padding-left: 36px; position: relative; }
+  .build-block ol li::before { content: counter(build-counter, decimal-leading-zero); font-family: 'VT323', monospace; color: var(--accent-rust); font-size: 15px; position: absolute; left: 0; top: 1px; letter-spacing: 0.04em; }
+  .build-block ul li { margin-bottom: 8px; padding-left: 24px; position: relative; }
+  .build-block ul li::before { content: '—'; color: var(--accent-rust); position: absolute; left: 0; }
+  .practice-block { grid-column: 1 / -1; margin: 28px 0 32px; padding: 4px 0 4px 22px; border-left: 2px solid var(--accent-night); }
+  .practice-mark { font-family: 'Space Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.22em; color: var(--accent-night); margin-bottom: 8px; display: block; }
+  .practice-block h4 { font-family: 'IM Fell English', serif; font-style: italic; font-weight: 400; font-size: 20px; color: var(--ink); margin-bottom: 10px; }
+  .practice-block p { font-size: 16px; line-height: 1.62; color: var(--ink); margin-bottom: 8px; font-style: italic; }
+  .practice-block p:last-child { margin-bottom: 0; }
+  .practice-block .ptime { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.16em; margin-bottom: 12px; display: block; font-style: normal; }
+  .research-block { grid-column: 1 / -1; border-left: 3px solid var(--accent-night); padding: 4px 0 4px 22px; margin: 28px 0 32px; }
+  .research-mark { font-family: 'Space Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.22em; color: var(--accent-night); margin-bottom: 10px; display: block; }
+  .research-block p { font-size: 14.5px; line-height: 1.62; color: var(--ink); margin-bottom: 10px; }
+  .research-block p:last-child { margin-bottom: 0; }
+  .plate-full { grid-column: 1 / -1; margin: 32px 0 44px; }
+  .plate-full .plate-image { aspect-ratio: 16 / 8.5; }
+  .plate-full .specimen { width: 100%; height: 100%; background: linear-gradient(180deg, #DCD9CF 0%, #D4D0C2 100%); position: relative; overflow: hidden; }
+  .plate-full .specimen::before { content: ''; position: absolute; inset: 0; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n3'><feTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.45 0 0 0 0 0.30 0 0 0 0.6 0'/></filter><rect width='200' height='200' filter='url(%23n3)' opacity='0.18'/></svg>"); mix-blend-mode: multiply; opacity: 0.5; pointer-events: none; }
+  .plate-full .specimen::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 200px 60% at 0% 50%, rgba(140, 100, 50, 0.10), transparent 70%), radial-gradient(ellipse 200px 60% at 100% 50%, rgba(140, 100, 50, 0.10), transparent 70%); pointer-events: none; }
+  .plate-full svg.specimen-svg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; }
+  .plate-full .plate-caption { margin-top: 12px; display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: start; }
+  .plate-full .plate-caption .left { font-family: 'Space Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--accent-rust); line-height: 1.7; white-space: nowrap; }
+  .plate-full .plate-caption .right { font-family: 'Space Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--ink-mid); line-height: 1.85; }
+  .plate-full .plate-caption .right .row { display: grid; grid-template-columns: 110px 1fr; gap: 14px; }
+  .plate-full .plate-caption .right .row .key { color: var(--ink-faint); }
+  .terminal { grid-column: 1 / -1; background: var(--ground-deep); color: var(--ink-bone); padding: 36px 40px; margin: 32px 0 40px; font-family: 'VT323', monospace; font-size: 18px; line-height: 1.55; letter-spacing: 0.01em; position: relative; overflow: hidden; }
+  .terminal::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent 0, transparent 2px, rgba(255, 255, 255, 0.025) 2px, rgba(255, 255, 255, 0.025) 3px); pointer-events: none; }
+  .terminal-head { color: var(--accent-rust); margin-bottom: 14px; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; font-family: 'Space Mono', monospace; }
+  .terminal-line { margin-bottom: 4px; }
+  .terminal-line .label { color: #B5B6B0; min-width: 200px; display: inline-block; }
+  .terminal-line .ok { color: #6E7A5A; }
+  .terminal-line .pending { color: var(--accent-rust); }
+  .terminal-line .meta { color: #8C8E8B; }
+  .chapter-close { grid-column: 1 / -1; margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--ink); font-family: 'IM Fell English', serif; font-style: italic; font-size: 19px; line-height: 1.5; color: var(--ink); max-width: 720px; }
+  @media (max-width: 820px) {
+    .chrome { padding: 10px 18px; font-size: 12px; }
+    .vessel { grid-template-columns: 1fr; gap: 0; padding: 64px 22px 100px; }
+    .col-text, .col-margin { grid-column: 1; }
+    .chapter-open { grid-template-columns: 1fr; gap: 22px; padding-bottom: 36px; margin-bottom: 44px; }
+    .open-plate { grid-column: 1; order: -1; }
+    h1.chapter-title { font-size: 44px; }
+    h2.section-head { font-size: 26px; }
+    .lead { font-size: 19px; }
+    p { font-size: 16.5px; }
+    .terminal { padding: 24px 22px; font-size: 16px; }
+    .margin-note { margin: 24px 0; padding: 4px 0 4px 12px; }
+    .build-block { padding: 24px 22px 28px; }
+    .build-block h3 { font-size: 22px; }
+    .read-entry { grid-template-columns: 1fr; gap: 6px; }
+    .read-tier { padding-top: 0; }
+    .plate-full .plate-image { aspect-ratio: 4 / 5; }
+    .plate-full .plate-caption { grid-template-columns: 1fr; gap: 8px; }
+    .plate-full .plate-caption .right .row { grid-template-columns: 90px 1fr; gap: 10px; }
+  }
+</style>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#1F232A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Crossroads">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="The Crossroads and the Slow Door">
+<meta name="description" content="A working guide to serious witchcraft and devotional practice across decades.">
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(err => console.log('sw registration failed', err));
+  });
+}
+</script>
+</head>
+<body>
+
+<div class="chrome chrome-top">
+  <span><span class="stream">apparatus</span> <span style="color:var(--ink-faint);">▪</span> grimoire <span style="color:var(--ink-faint);">▪</span> altar <span style="color:var(--ink-faint);">▪</span> rhythm</span>
+  <span class="right">crossroads / companion / ch 02</span>
+</div>
+
+<div class="vessel">
+
+  <header class="chapter-open">
+    <div class="open-meta">
+      <div class="open-mark">
+        <span class="num">02</span>
+        <span style="color:var(--ink-mid);">chapter</span>
+        <span class="sep">▪</span>
+        <span style="color:var(--ink-mid);">the first weeks</span>
+      </div>
+      <div class="open-territories">
+        <span>apparatus</span><span class="em">▪</span><span>ritual</span><span class="em">▪</span><span>literacy</span><br>
+        <span>the wheel</span><span class="em">▪</span><span>rhythm</span><span class="em">▪</span><span>regulation</span>
+      </div>
+      <div class="open-entry">
+        <span class="label">entry —</span>weeks 0–6<br>
+        <span class="label">return —</span>year 1 / year 5
+      </div>
+    </div>
+
+    <div class="open-plate">
+      <div class="plate">
+        <div class="plate-frame">
+          <div class="plate-image">
+            <div class="plate-form">
+              <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg">
+                <rect x="86" y="120" width="28" height="120" fill="rgba(220, 200, 170, 0.22)" stroke="rgba(220, 200, 170, 0.35)" stroke-width="0.5"/>
+                <line x1="100" y1="120" x2="100" y2="105" stroke="rgba(220, 200, 170, 0.5)" stroke-width="1"/>
+                <path d="M 100 60 Q 88 85 92 105 Q 100 95 100 105 Q 108 95 108 105 Q 112 85 100 60 Z" fill="rgba(245, 195, 110, 0.5)" stroke="rgba(220, 150, 80, 0.4)" stroke-width="0.5"/>
+                <path d="M 100 75 Q 95 92 100 100 Q 105 92 100 75 Z" fill="rgba(255, 220, 160, 0.45)"/>
+                <circle cx="100" cy="92" r="50" fill="none" stroke="rgba(245, 195, 110, 0.08)" stroke-width="2"/>
+                <circle cx="100" cy="92" r="32" fill="none" stroke="rgba(245, 195, 110, 0.12)" stroke-width="1.5"/>
+                <ellipse cx="100" cy="240" rx="22" ry="4" fill="rgba(180, 160, 130, 0.25)"/>
+                <line x1="20" y1="244" x2="180" y2="244" stroke="rgba(180, 160, 130, 0.3)" stroke-width="0.5"/>
+                <line x1="20" y1="248" x2="180" y2="248" stroke="rgba(180, 160, 130, 0.18)" stroke-width="0.5"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="plate-caption">
+          <span class="tag">plate i.</span>candle, with halation<br>
+          <span class="source">— composite, archival placeholder. Production: archival photograph or early-modern engraving of devotional fire.</span>
+        </div>
+      </div>
+    </div>
+
+    <h1 class="chapter-title">The First <em>Weeks</em></h1>
+    <p class="lead">The first weeks build the apparatus — an altar surface, a candle, a grimoire, an opening in the calendar, the rhythm of three or four sittings a week, the first markings in the wheel of the year. None of it looks like what you came here for. The container is built before what it holds.</p>
+  </header>
+
+  <div class="section-rule"><span class="ornament">·  ·  ·</span></div>
+
+  <main class="col-text">
+    <p>The work of the first weeks is small, specific, and almost entirely material. You are not yet learning to do anything. You are building the things you will eventually do practice with. The grimoire is bought; the altar is set; the candle is sourced and lit once, then left to be lit again at the same time tomorrow. The eight stations of the wheel are mapped onto the calendar a year ahead so the dates do not surprise you when they arrive. The rhythm of three or four sittings a week is established and then defended against the conditions of an embodied life. The body is taught the regulation work that supports everything else. <em>And the practitioner shortlist is built — not deferred.</em></p>
+
+    <p>This is the chapter densest in build directives. By the end of the first six weeks, if you have done the work the chapter asks for, you have a functioning apparatus, an established rhythm, and a working file of trauma-aware practitioners you have either already begun relationship with or are positioned to reach when the work asks for them. You have not yet had any experience that would justify the years ahead. The container is built before what it holds, and what it eventually holds is what the rest of the document develops. This chapter is about the container — and about ensuring that when the container fills, you are not facing what surfaces alone.</p>
+
+    <p><em>One framing matters before the chapter begins.</em> The first weeks set up not just an apparatus but a support structure. For a practitioner with substantial trauma history — and the keyed reader carries CPTSD, depression, anxiety, and the inherited trauma of the lineage configuration — the relationship with practitioner support is not Ch 6 material. It is first-weeks material. The shortlist is built now; intake calls are made now; the relationship may take months to establish, which is precisely why it cannot wait until year three. Body work is continuous from week one — what changes across chapters is the depth and the support structure, not whether the body shows up. The practitioner shortlist build directive in this chapter is co-equal with the grimoire build directive, not subordinate to it.</p>
+  </main>
+
+  <aside class="col-margin">
+    <div class="margin-note">
+      <span class="arrow">→</span> the discipline of the first weeks: <em>build, do not perform.</em> nothing here is for show. the apparatus is for you.
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> the practitioner shortlist is co-equal with the grimoire. <em>build now.</em> not ch 6 material.
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> body work is continuous from week one. what changes across chapters is depth and support structure, not whether the body shows up.
+    </div>
+  </aside>
+
+  <!-- SECTION: THE GRIMOIRE -->
+  <div class="section-mark"><span>§ II.I  the grimoire</span></div>
+  <h2 class="section-head">Your central instrument</h2>
+
+  <main class="col-text">
+    <p>Before the altar is built and before any candle is lit, set up the instrument that will hold the work. The grimoire is the single most important resource you build. It should exist before you read another page of this document. Every section that follows will fill it.</p>
+
+    <p>The grimoire is not a journal in any conventional sense. It is the working notebook of a developing practice — the place where daily card pulls accumulate, where dreams and signs are recorded, where workings are documented, where the made things are pressed in, where the correspondences you build for yourself are kept, where translations and fragments of primary sources you encounter are copied by hand, where reading notes and questions live, where the names of the dead and the ancestors are kept, where every relationship the practice opens with eventually gets its own page or section. Without it, the practice never accumulates. With it, even sparse and interrupted years of practice produce, eventually, a substantial document of an actual life of attention.</p>
+
+    <p>The historical literature on grimoires is itself a significant scholarly territory. The contemporary practitioner's grimoire descends from the medieval and early modern grimoire tradition — the <cite>Key of Solomon</cite>, the <cite>Picatrix</cite>, the <cite>Heptameron</cite>, the various ceremonial books — adapted for personal rather than transmitted use. It is your developing book of practice, reference, and record, and over years it becomes a working instrument that no other document in your life resembles.</p>
+
+    <p>Physical, not digital. The act of writing by hand is itself part of the work; it slows you, it commits you, it leaves a trace that cannot be search-indexed or scrolled past. The aesthetic of the book matters — it should be a pleasure to open. Buy a notebook you genuinely like. Many practitioners find that they end up with a series of grimoires across decades — Volume I, Volume II, and so on — as the practice fills and outgrows individual books.</p>
+  </main>
+
+  <aside class="col-margin">
+    <div class="margin-note">
+      <span class="arrow">→</span> physical, not digital. the writing-by-hand is part of the work. <em>do not negotiate this.</em>
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> the grimoire is the long arc. begin small. add as the practice asks. five years in it is substantial; ten in it is foundational.
+    </div>
+  </aside>
+
+  <section class="build-block">
+    <div class="build-mark">build · begin this week</div>
+    <h3>The grimoire</h3>
+    <p>Before the altar is set or the candle is lit, set up the grimoire.</p>
+    <ol>
+      <li>Buy one physical notebook you find genuinely beautiful. Hardcover, sewn binding ideally. Size and ruling are personal — most practitioners eventually settle on something between A5 and B5, blank or dot-grid rather than lined.</li>
+      <li>Inscribe the first page with your name, the date you began, and a short statement of intent — a dedication, a question you are entering with, a phrase that holds why you are beginning. This is your own personal opening rite for the book.</li>
+      <li>Reserve named sections from the start, even if some stay sparse for a long time. The accumulated registers across years of practice typically include: <em>card pulls</em> (daily and weekly, dated, with brief response), <em>dreams and signs</em> (anything that arrives sideways), <em>working records</em> (the date, moon phase, what was done, what arrived after), <em>made things</em> (sigils, sketches, pressed leaves, photographs printed small), <em>correspondences</em> (your own developed tables of plants, stones, days, deities, colors, hours, built up from sources over time), <em>translations and fragments</em> (copied by hand from primary sources that struck you), <em>reading notes</em> (separate from the reading log, the passages you wanted to keep, the questions they raised), <em>ancestral material</em> (names, dates, what was carried, what arrived in the work), <em>devotional records</em> (for any deity or figure you eventually come into relationship with).</li>
+      <li>Begin the first entry today. Even if it's only the date and a single sentence — <em>I am beginning.</em> The grimoire becomes real the moment it has its first entry.</li>
+    </ol>
+  </section>
+
+  <section class="read-block">
+    <div class="read-block-head"><span>read · the grimoire</span><span class="meta">§ II.I</span></div>
+    <h3>On the instrument and its lineage</h3>
+
+    <p style="font-size: 14.5px; line-height: 1.6; color: var(--ink); margin-bottom: 24px; padding: 16px 18px; background: rgba(60, 45, 25, 0.04); border-left: 3px solid var(--accent-rust);"><em>Sequence:</em> <strong>First weeks:</strong> Marian Green's <cite>A Witch Alone</cite> as practitioner-direct model for grimoire-development. <strong>Months 3-12:</strong> Owen Davies's <cite>Grimoires</cite> for the historical lineage. <strong>Year 1-3:</strong> Lecouteux's continuing catalogue, Frater U.·.D.·. for the disciplined working framework, Peterson's <em>Esoteric Archives</em> as standing reference. <strong>For the long arc:</strong> the <cite>Picatrix</cite>, the <cite>Greek Magical Papyri</cite>, the women's diary literature.</p>
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Grimoires: A History of Magic Books</span>
+        <span class="read-author">Owen Davies · Oxford University Press · 2009</span>
+        <p class="read-why">The standard scholarly history of the grimoire as a Western book-form. Davies traces the line from the Greek Magical Papyri through the medieval ceremonial books, through the early modern witch-trial materials, into the contemporary practitioner's working notebook. Read chs. 1-3 for the medieval foundations and chs. 7-9 for the modern revival. Pair with his <cite>Popular Magic: Cunning-folk in English History</cite> (Hambledon, 2003) for the practitioner-tradition the books actually served.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">A Witch Alone: Thirteen Moons to Master Natural Magic</span>
+        <span class="read-author">Marian Green · Thorsons / Aquarian Press · 1991 (out of print; available used)</span>
+        <p class="read-why">Green is one of the major British solo-practitioner writers of the late twentieth-century natural-magic revival. The book is structured around building a working notebook over thirteen lunar months — direct model for grimoire-as-practice rather than grimoire-as-static-reference. Her broader catalogue (<cite>Magic for the Aquarian Age</cite>, <cite>The Path Through the Labyrinth</cite>, <cite>The Elements of Natural Magic</cite>) develops the natural-magic register substantively. Out of print but reliably available used.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Practical Sigil Magic · High Magic · High Magic II</span>
+        <span class="read-author">Frater U.·.D.·. · Llewellyn / Edition Magus · 1990 / 2005 / 2008</span>
+        <p class="read-why">Frater U.·.D.·. is the German practitioner-magician (Ralph Tegtmeier) whose work bridges the chaos-magic and ceremonial-magic traditions in disciplined practitioner-text form. The grimoire-keeping methodology in <cite>High Magic</cite> is one of the most useful contemporary working frameworks. The Continental-occult origin matters for the keyed reader given the Continental Hermetic-Masonic inheritance — Tegtmeier writes from inside that tradition.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">The Book of Grimoires: The Secret Grammar of Magic · The Book of Spells: The Magicians of Italy · Charms, Charmers, and Charming</span>
+        <span class="read-author">Claude Lecouteux · Inner Traditions · 2013 / 2017 / 2017</span>
+        <p class="read-why">Lecouteux is the French medievalist (Sorbonne) whose entire catalogue is essential for the European folk-magical and grimoire substrate. <cite>The Book of Grimoires</cite> documents the grammar and structure of the medieval and early modern books; <cite>The Book of Spells</cite> treats the Italian folk-grimoire tradition specifically; <cite>Charms, Charmers, and Charming</cite> the broader European charm-magical practice. The full Lecouteux catalogue (also <cite>The Tradition of Household Spirits</cite>, <cite>The Return of the Dead</cite>, <cite>Phantom Armies of the Night</cite>, <cite>The Hidden History of Elves and Dwarfs</cite>) is the deepest single body of European folk-magical scholarship in English translation.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">Joseph H. Peterson's Esoteric Archives (esotericarchives.com)</span>
+        <span class="read-author">Joseph H. Peterson · ongoing since 1995</span>
+        <p class="read-why">Peterson is the major contemporary editor of medieval and early modern grimoires in scholarly editions. The free archive at esotericarchives.com hosts critical editions and translations of the <cite>Key of Solomon</cite>, the <cite>Heptameron</cite>, the <cite>Munich Manual of Demonic Magic</cite>, the <cite>Grimorium Verum</cite>, the <cite>Sworn Book of Honorius</cite>, the various Greek Magical Papyri texts, and substantial associated apparatus. His print editions through Ibis Press / Nicolas-Hays (the <cite>Lemegeton: Clavicula Salomonis Regis</cite>, the <cite>Arbatel</cite>, the <cite>Sefer Raziel</cite>) are the practitioner-grade scholarly editions of the historical books.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">The Picatrix: A Medieval Treatise on Astral Magic</span>
+        <span class="read-author">Trans. Dan Attrell &amp; David Porreca · Penn State University Press · 2019</span>
+        <p class="read-why">Standard contemporary scholarly translation of the medieval Arabic <cite>Ghāyat al-Ḥakīm</cite> (10th-11th c.) — the foundational text of medieval astral magic that Renaissance Hermeticism descends substantially from. For the keyed reader's eventual engagement with the Continental Hermetic stream, knowing the <cite>Picatrix</cite> exists and what it does in the Western magical apparatus is foundational. David Pingree's earlier critical edition (Warburg, 1986) is the academic gold standard if accessible.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">The Greek Magical Papyri in Translation, including the Demotic Spells</span>
+        <span class="read-author">Hans Dieter Betz, ed. · University of Chicago Press · 1986 · 2nd ed. 1992</span>
+        <p class="read-why">The standard English critical edition of the Greek Magical Papyri (PGM) — the foundational corpus of late-antique Greco-Egyptian magic that virtually all subsequent Western practitioner-magic descends from. Specific PGM citations worth knowing: PGM IV.1390-1495 (the Hekate-Selene-Artemis hymn), PGM IV.2785-2890 (the great Hekate hymn), PGM IV.475-829 (the Mithras Liturgy). Most contemporary chthonic and ceremonial practice traces to specific PGM passages whether or not the practitioner knows it.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">Women's diary and commonplace-book traditions — adjacent literature</span>
+        <span class="read-author">Margo Culley, Harriet Blodgett, Lynn Z. Bloom, et al.</span>
+        <p class="read-why">Outside the witchcraft register entirely. The substantial scholarship on women's diary-keeping and commonplace-book traditions across the early modern and modern periods is the parallel literature on the kind of long-form personal record-keeping the grimoire form descends from. Margo Culley's <cite>A Day at a Time: The Diary Literature of American Women from 1764 to the Present</cite> (Feminist Press, 1985), Harriet Blodgett's <cite>Centuries of Female Days</cite> (Rutgers, 1988), Lynn Z. Bloom's continuing work — these are the scholarly framework for women's accumulated personal record. Read as parallel substrate that the grimoire intersects with.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: THE ALTAR -->
+  <div class="section-mark"><span>§ II.II  the altar</span></div>
+  <h2 class="section-head">The locus of practice</h2>
+
+  <main class="col-text">
+    <p>An altar is the dedicated physical space where practice happens. It is not decoration and not aesthetic prop — it is the working surface that holds the relationships, materials, and acts of a developing practice. Before any rite, the altar is the where.</p>
+
+    <p>The altar in contemporary witchcraft and Pagan practice descends from a long lineage of dedicated religious surfaces — the household shrines of the Roman <em>lararium</em> tradition, the medieval Christian oratory, the indigenous and Diasporic ancestor altars of innumerable cultures, the ceremonial-magic altar of the Western Hermetic tradition, the seasonal altar of agricultural folk-religious practice. The contemporary altar draws from many of these lineages without being any one of them. What is consistent: a particular surface is set aside for sacred work, kept as the locus of a particular kind of attention, and developed over time into the place where the practice's relationships are tended.</p>
+
+    <p>The basic working altar contains a few elements: a dedicated surface (a shelf, a small table, the top of a dresser), a candle, a vessel for water or offerings, and at least one object of personal weight. This is enough to begin and remains the core of the practice across years. More elaborate altars add elements — but elaboration is not maturity, and many of the most experienced practitioners maintain working altars that are striking in their simplicity.</p>
+
+    <p>The siting of the altar matters more than is often noticed. A working altar should be in a place that is not heavily trafficked, not exposed to constant disruption, and ideally has some directional or environmental significance to the practitioner — facing east for sunrise, facing north for the chthonic, facing the windowed direction of most light, near a particular wall. It should be a place where you can sit comfortably for the duration of a working without interruption. If you live in shared space, the altar can be small and discreet; it does not need to be visible to others to be operative.</p>
+
+    <p>Across years, most practitioners end up with more than one altar. The configuration that often emerges: <em>the working altar</em> as the primary altar of the daily and weekly practice, the center; <em>the ancestral altar</em> as distinct surface dedicated to the dead and to ancestral relationships (typically sited differently — many traditions hold that the ancestral altar should not be in the bedroom, should not face certain directions, and should be on a lower or separate surface); <em>deity altars</em> if and when relationship with a specific deity develops; and <em>the seasonal altar</em>, sometimes maintained as a separate surface but more commonly the working altar adapted seasonally with the symbols and offerings appropriate to each station of the wheel. Beginners often try to set up multiple altars at once. Build the working altar first; let the others arrive as the practice asks for them.</p>
+
+    <p>An altar requires maintenance. The candle is lit and extinguished; the water is changed regularly (stale water on an altar is generally considered to dishonor what is being addressed); the offerings are refreshed and the old ones disposed of appropriately (typically returned to the earth — buried, composted, poured onto a plant). Dust accumulates and is cleared with intention rather than absentmindedly. The altar is reset periodically — at the major seasonal turnings, at the dark moon, or whenever the configuration no longer feels alive. Occasionally the altar is disassembled entirely and rebuilt; the act of taking apart, cleaning each object, sitting with what each represents, and rebuilding deliberately is a form of rite that develops over years.</p>
+  </main>
+
+  <aside class="col-margin">
+    <div class="margin-note">
+      <span class="arrow">→</span> the working altar first. ancestral and deity altars develop later as the practice asks for them.
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> stale water on an altar is dishonor. <em>change it weekly minimum.</em> change every offering on its appropriate cycle.
+    </div>
+  </aside>
+
+  <section class="build-block">
+    <div class="build-mark">build · begin this week</div>
+    <h3>The working altar</h3>
+    <p>Before continuing further, build the working altar.</p>
+    <ol>
+      <li>Choose a surface. A shelf, a windowsill, a small table, the top of a dresser. It should be a place where you can sit or stand undisturbed, not heavily trafficked, ideally with some environmental significance to you.</li>
+      <li>Clear it. Move everything off; wipe it down. Begin with bare surface.</li>
+      <li>Place the minimum elements: a candle (taper, votive, or pillar — your preference), a small vessel (a bowl or cup, ideally of natural material — ceramic, glass, stone, wood) for water or offerings, and at least one object of personal weight. Add representations of the four elements if you want to from the start, but the minimum is enough.</li>
+      <li>Sit at the altar. Light the candle. Sit for the length of ten breaths. Extinguish. Record the date in the grimoire as the day the working altar was established.</li>
+    </ol>
+    <p>The altar is now the locus of the practice. Everything that follows in this document — the rites, the observances, the daily contact — happens here.</p>
+  </section>
+
+  <section class="read-block">
+    <div class="read-block-head"><span>read · the altar</span><span class="meta">§ II.II</span></div>
+    <h3>Building and maintaining sacred space</h3>
+
+    <p style="font-size: 14.5px; line-height: 1.6; color: var(--ink); margin-bottom: 24px; padding: 16px 18px; background: rgba(60, 45, 25, 0.04); border-left: 3px solid var(--accent-rust);"><em>Sequence:</em> <strong>First weeks:</strong> Mankey &amp; Zakroff's <cite>The Witch's Altar</cite> for the contemporary practitioner-text. <strong>Months 6-12:</strong> Vaudoise's <cite>Honoring Your Ancestors</cite> when the ancestral altar develops as separate working surface (typically late year 1 / year 2). <strong>Year 1-3:</strong> Kay Turner's <cite>Beautiful Necessity</cite> for the women's-altar transcultural frame. <strong>Reference:</strong> Lecouteux on European-folk household sacred space, Orsi on American Catholic devotional altars, Eck on Hindu home altars.</p>
+    <div class="read-entry">
+      <div class="read-tier">Entry</div>
+      <div>
+        <span class="read-title">The Witch's Altar: The Craft, Lore &amp; Magick of Sacred Space</span>
+        <span class="read-author">Jason Mankey &amp; Laura Tempest Zakroff · Llewellyn · 2018</span>
+        <p class="read-why">Contemporary practitioner-text specifically on altar work. Covers the major contemporary witchcraft conventions with substantial attention to practical questions of building and maintaining an altar in a contemporary household. Mankey's broader catalogue (<cite>Transformative Witchcraft</cite>, <cite>The Horned God of the Witches</cite>) and Zakroff's (<cite>Sigil Witchery</cite>, <cite>Visual Alchemy</cite>) are both worth knowing.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Honoring Your Ancestors: A Guide to Ancestral Veneration</span>
+        <span class="read-author">Mallorie Vaudoise · Llewellyn · 2019</span>
+        <p class="read-why">Specifically on ancestral altars. The most useful single text on building and maintaining the ancestral altar that will become a separate working surface as the practice develops in chapters 3-4. Vaudoise approaches the work from inside her own Italian folk-Catholic ancestral practice; the methodology generalizes substantively while remaining honest about specific tradition origin.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Beautiful Necessity: The Art and Meaning of Women's Altars</span>
+        <span class="read-author">Kay Turner · Thames &amp; Hudson · 1999</span>
+        <p class="read-why">The major scholarly-photographic treatment of women's altar-making across cultures (Mexican-American, Italian-American, African-Diaspora, Vietnamese-American, Jewish, Catholic-folk, secular). Turner's argument that women's altars constitute a continuous transcultural tradition of female sacred-making is foundational. Substantial photography of actual contemporary women's altars in their lived contexts. Read for the feminist-anthropological frame the contemporary practitioner's altar sits within.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Ancestral Medicine: Rituals for Personal and Family Healing</span>
+        <span class="read-author">Daniel Foor, PhD · Bear &amp; Co. · 2017</span>
+        <p class="read-why">Already named in chapter 5 as the contemporary methodological spine for ancestral work. Cited here for the altar-construction specifics in ch. 4 of the book — Foor's stage-one methodology specifies the well-ancestor altar in clear practical terms suitable for the keyed reader's first ancestor altar build.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">The Tradition of Household Spirits: Ancestral Lore and Practices · Phantom Armies of the Night · The Return of the Dead</span>
+        <span class="read-author">Claude Lecouteux · Inner Traditions · 2013 / 2011 / 2009</span>
+        <p class="read-why">For the deeper European-folk lineage of household sacred space and the relationship with the dead that the altar tradition operates within. The full Lecouteux catalogue is uniformly worth working through over years; these three specifically engage the household-spirit, the wild-hunt and night-procession material, and the European folk-relationship with the dead. Substantial primary-source documentation from medieval and early modern sources.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">Thank You, St. Jude: Women's Devotion to the Patron Saint of Hopeless Causes</span>
+        <span class="read-author">Robert A. Orsi · Yale University Press · 1996</span>
+        <p class="read-why">The major scholarly study of American Catholic women's home-altar devotional practice in the twentieth century. Orsi's broader catalogue (<cite>The Madonna of 115th Street</cite>, <cite>Between Heaven and Earth</cite>, <cite>History and Presence</cite>) constitutes the most substantial body of work on American Catholic vernacular religion specifically — directly relevant for understanding the altar tradition the contemporary witchcraft altar inherits from and against. The home altar is not a Pagan invention; the Catholic devotional tradition is its substantial substrate.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">Darśan: Seeing the Divine Image in India · Banaras: City of Light</span>
+        <span class="read-author">Diana L. Eck · Anima Books / Knopf · 1981 / 1982</span>
+        <p class="read-why">Eck on Hindu home-altar devotional practice and the theology of seeing the divine through ritual image-making. Cross-tradition reference — not for borrowing, but for understanding the broader human practice the contemporary altar is part of. Eck's later <cite>India: A Sacred Geography</cite> (Harmony, 2012) develops the bioregional-pilgrimage frame relevantly for the Welsh sacred-geography work the keyed reader will engage in chapter 5.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: THE CANDLE -->
+  <div class="section-mark"><span>§ II.III  the candle</span></div>
+  <h2 class="section-head">The simplest implement</h2>
+
+  <main class="col-text">
+    <p>The candle is the implement you will use across the longest span of years and it's worth being specific about what it is, what it does in the body, and where the three streams in your inheritance differ on how to handle it.</p>
+
+    <p>Functionally, the candle in the first weeks is a marker. It bounds the practice in time, signals to the body that the hour is structured differently, and creates a small thermal-attentional field that controlled fire reliably produces in the human nervous system. The vagal research on this is unambiguous in its well-supported parts: slow exhalation in the presence of a small steady light source elicits parasympathetic activation through the same circuits that govern post-prandial rest and pre-sleep settling.<span class="fn-call">¹</span> Porges' broader polyvagal claims are contested in some clinical literatures; the basic vagal-tone work is not. The body responds to candle-fire whether you currently believe in anything beyond the body or not.</p>
+  </main>
+
+  <aside class="col-margin">
+    <div class="margin-note">
+      <span class="arrow">¹</span> Porges 2011, <em>The Polyvagal Theory: Neurophysiological Foundations of Emotions, Attachment, Communication, Self-Regulation.</em> Norton.
+    </div>
+  </aside>
+
+  <blockquote class="pullquote">
+    <p>The body responds to candle-fire whether you currently believe in anything beyond the body or not.</p>
+  </blockquote>
+
+  <main class="col-text">
+    <p>For the first weeks, the simplest functional choice is a white beeswax taper, six to ten inches, in a stable holder, on a fireproof surface. White is the cross-tradition neutral — it appears in Welsh folk practice (where reconstructive evidence is available), in Hoodoo and Conjure work as the all-purpose flame, in the Hermetic seven-planetary system as the lunar or generic candle, and across contemporary syncretic practice without specific commitment. Beeswax over paraffin: paraffin is petroleum-derived, post-1850, and none of your three streams have any historical relationship to it. Beeswax is in Welsh church and folk apparatus going back at least a thousand years, in West African and Diaspora practice where it was available, and is the traditional Hermetic-Masonic material. It burns clean, has a faint honey smell, and reads to the body as the implement the older parts of the apparatus were built around.</p>
+
+    <p>The holder matters more than people say. The candle should be level, on something that can absorb wax without staining. Cast iron, brass, glass, or stone work. Avoid wood — beeswax marks it permanently and replacing the altar surface in year two is its own problem. A thrift-store brass taper-holder is honest and adequate. The seven-day glass-encased vigil candle of the Hoodoo and Catholic-folk traditions is a separate apparatus for separate work; you don't need it yet.</p>
+
+    <p>Light with a wooden match if you can. Wood burns clean and the brief sulfur of the strike is part of the older apparatus. Extinguish by snuffing or by fingertip pinch on the wick, not by blowing. This is the most consistent cross-tradition protocol in contemporary practice and has selective grounding in older lineages: Welsh post-Christian mysticism reads breath as <em>anadl</em>, the soul-wind; Yoruba-derived West African Diaspora work treats breath as carrier of <em>aṣẹ</em>, the speech-power that gives words their ability to do; the Hermetic stream keeps fire and air elementally separated in working space. The three arrive at the same protocol for different reasons. Whether your specific pre-Christianization Welsh line carried the <em>anadl</em> framing is open — Welsh devotional theology is largely post-Augustinian and the older substrate is reconstructed rather than continuous. The snuffing convention is held as default because the protocol is widely held and the reasoning in each tradition is honest, not because the lineage continuity claim is settled.</p>
+
+    <p>What to track in the grimoire after each sitting: the time of day, how long you sat, what you noticed in the body (specifically — heart rate, breath depth, where attention went, where you held tension), whether you wrote anything else and what it said, and whether you snuffed the candle or blew it out by accident. The last item is data, not failure. It records what the breath does when attention drops, which is itself part of what the practice generates. After six weeks the entries will read as a pattern. The pattern is the first thing the practice has produced.</p>
+  </main>
+
+  <aside class="col-margin">
+    <div class="margin-note">
+      <span class="arrow">→</span> <em>anadl</em> — primarily attested in Welsh post-Christian mystical writing (Pantycelyn 18c., Williams 19c.). pre-Christian Welsh substrate on breath is fragmentary; the framing is reconstructed in modern Welsh Pagan practice.
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> <em>aṣẹ</em> — Yoruba/Lucumí concept, Drewal 1992, <em>Yoruba Ritual</em>, esp. ch. 1. generalizing to "West African Diaspora" broadly is loose; the concept is most clearly Yoruba-rooted.
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> beeswax sourcing — local apiaries are best. unscented, undyed. avoid the "natural" beeswax candles cut with palm wax and stearin.
+    </div>
+  </aside>
+
+  <div class="practice-block">
+    <span class="practice-mark">practice · the first lighting</span>
+    <h4>The inaugural rite</h4>
+    <span class="ptime" style="font-style: normal;">one sitting · 10–15 minutes</span>
+    <p>Source a white beeswax taper (six to ten inches), a stable holder (brass, cast iron, glass, or stone), wooden matches, a small brass snuffer. Set up on the altar surface on the day you have planned to begin. Light once, sit ten minutes without trying to do anything, snuff. Write the date, the duration, and one sentence on what you noticed in the body — specifically: heart rate, breath, where attention went.</p>
+    <p style="margin-top: 12px;"><em>The candle is the small flame at the center of the practice — and what it eventually holds is open.</em> The candle in different traditions does different work. In the chthonic stream, the flame is small fire against the dark — death-adjacent, the practice with the dead beginning at the threshold. In the Brigidine and hearth-goddess traditions (Brigid, Hestia, Vesta, the Welsh Cerridwen at the cauldron), the flame is hearth-fire, the centering presence of the household-goddess. In the goddess-spirituality and women's-mysteries register, the flame can be the inner light, the eternal feminine, the candle as witness. In the Hermetic and ceremonial traditions, the flame is the elemental fire of the South, the active principle. In the Druid and Celtic traditions, the flame is the awen-fire, the bardic inspiration. <em>The practitioner does not choose which the candle is in advance.</em> What the flame eventually becomes will be revealed by the practice itself — by which deities call, which traditions hold, which currents arrive. For the first weeks, the candle is the candle. Light it; sit with it; let what it is develop.</p>
+  </div>
+
+  <section class="build-block">
+    <div class="build-mark">build · your first sigil</div>
+    <h3>The convergence with your professional practice</h3>
+    <p>For a working designer-and-maker, sigil work is the practice that converges directly with professional capacity. You are already doing the work of encoding meaning in form; bringing intentionality to the making is the discipline. The full Sparean methodology develops in chapter 5. The first weeks have a small introductory practice.</p>
+    <ul>
+      <li><em>Make one sigil for the practice itself.</em> A glyph that represents the entire arc of what you are entering — orientation, apparatus, integration, recognition, long view. Use the Sparean basic method (intent-as-sentence, strike repeating letters, recombine into glyph) or your own design instinct. Either is acceptable for this initial sigil; what matters is that you have made it deliberately.</li>
+      <li>Place the sigil on the inside cover of the grimoire — the threshold-mark for everything that follows. Across decades, you may make a new practice-sigil at each major threshold (year five, year ten, year twenty). The sigils accumulate as the personal-character development of the practice.</li>
+      <li>Notice that you have made an object that exists nowhere else in the world but on your altar. This is the work of sigil practice in compressed form: making the meaning, placing the object, allowing it to operate. The full apparatus develops over years.</li>
+    </ul>
+  </section>
+
+  <!-- SECTION: RITUAL STRUCTURE -->
+  <div class="section-mark"><span>§ II.IV  ritual structure</span></div>
+  <h2 class="section-head">The shape of patterned action</h2>
+
+  <main class="col-text">
+    <p>Ritual is the structured action that the practice is built around. Before practicing rites, understand what ritual actually is, what it does, and how the basic structures across traditions function. The literacy comes before the doing.</p>
+
+    <p>Ritual in the broadest sense is patterned action performed with intention and attention, marking a particular kind of time and space as different from ordinary time and space. Catherine Bell's <cite>Ritual Theory, Ritual Practice</cite> (Oxford, 1992) is the standard contemporary scholarly treatment; she defines ritual as the practice of differentiation — the act of making certain time, certain space, certain action, and certain attention distinct from the everyday flow.</p>
+
+    <p>What ritual does, operatively: it produces shifts in the practitioner that are difficult to produce by other means. Several mechanisms converge — altered attention (the focused concentration of ritual differs from ordinary diffuse attention), embodied action (the physical performance of patterned movement engages the nervous system in ways that thought alone does not), structured time (the marked beginning, middle, and end of ritual creates a contained psychological space), and symbolic density (the layered meaning of ritual objects and actions communicates what direct statement cannot). Whether you take the operative effects of ritual as psychological-only, as theurgic-real, or as something between (the question chapter 4 develops), the practical fact is that ritual produces effects that cannot be produced by reading or thinking.</p>
+
+    <p>Across most Western magical and devotional traditions, ritual has a recognizable three-part structure. <em>The opening</em> typically involves physical preparation (cleansing, often with water; lighting candles), spatial demarcation (some form of casting circle, naming the directions, marking the working space as set apart), invocation or address, and the establishment of intent. <em>The central work</em> is the actual content of the rite — devotional address, divinatory operation, sigil charging, ancestor communication, seasonal observance, magical working, sustained presence. The shape of the central work varies entirely by what the rite is for. <em>The closing</em> typically involves thanks given, release of what was invoked, dissolution of the spatial demarcation, grounding (the practitioner deliberately returning to ordinary embodied awareness — eating, touching the floor, moving), and the closing of ritual time. Closings are routinely undervalued by beginners; ritual without proper closing leaves the practitioner ungrounded, the space unclosed, and the energies unbalanced. The closing matters as much as the opening.</p>
+
+    <p>Western contemporary practice contains two broad registers of ritual style. <em>The ceremonial register</em> descends from the Hermetic Order of the Golden Dawn and the broader Western ceremonial-magic tradition — formal structure, specific scripted invocations, elaborate symbolic apparatus, focus on precision in performance. <em>The direct or witchcraft register</em> is more variable, less scripted, and more direct. Most contemporary witchcraft writing operates in this latter register; most serious practitioners eventually develop a personal style that draws from both. Neither is more advanced than the other; they are different operating modes appropriate to different work.</p>
+  </main>
+
+  <aside class="col-margin">
+    <div class="margin-note">
+      <span class="arrow">→</span> three-part structure: opening, central work, closing. <em>the closing matters as much as the opening.</em>
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> ceremonial vs. witchcraft register: not better-or-worse. different operating modes for different work.
+    </div>
+  </aside>
+
+  <div class="practice-block">
+    <span class="practice-mark">practice · the basic three-part rite</span>
+    <h4>A working template</h4>
+    <span class="ptime" style="font-style: normal;">per ritual · 20–60 minutes depending on central work</span>
+    <p>A simple template that scales from brief to elaborate, drawn from the direct/witchcraft register.</p>
+    <p><em>Opening (3–5 minutes):</em> Approach the altar. Light the candle. Take three slow breaths. Touch the floor or earth, then the heart. Speak aloud what the rite is for ("Tonight I am...", "I come to..."). The space is now ritual space.</p>
+    <p><em>Central work (variable):</em> Whatever the rite is for. Devotional address, divinatory pull, sigil charging, sustained presence, written or spoken work, made offering. The shape varies by purpose; the opening and closing remain consistent.</p>
+    <p><em>Closing (3–5 minutes):</em> Speak aloud what the rite has been ("This is done", "I am returning"). Take three slow breaths. Touch the floor or earth, then the heart. Extinguish the candle. Eat or drink something to ground. The space returns to ordinary space.</p>
+  </div>
+
+  <section class="read-block">
+    <div class="read-block-head"><span>read · ritual structure</span><span class="meta">§ II.IV</span></div>
+    <h3>What ritual is and how it works</h3>
+
+    <p style="font-size: 14.5px; line-height: 1.6; color: var(--ink); margin-bottom: 24px; padding: 16px 18px; background: rgba(60, 45, 25, 0.04); border-left: 3px solid var(--accent-rust);"><em>Sequence:</em> <strong>First months:</strong> Starhawk chs. 4-7 of <cite>Spiral Dance</cite> for the witchcraft-register; Kraig's <cite>Modern Magick</cite> only if the ceremonial style draws you. <strong>Year 1:</strong> Penczak's <cite>Inner Temple of Witchcraft</cite> for the inner-state work. <strong>Year 1-3:</strong> Bell's <cite>Ritual Theory, Ritual Practice</cite> and Grimes's <cite>Craft of Ritual Studies</cite> for the academic frame. <strong>Year 3+:</strong> Rappaport, Driver, Goodman on trance, Paxson's <cite>Trance-Portation</cite> when oracular work develops in chapter 5. <strong>Reference:</strong> <em>Material Religion</em> journal for ongoing work.</p>
+    <div class="read-entry">
+      <div class="read-tier">Entry</div>
+      <div>
+        <span class="read-title">The Spiral Dance, chs. 4-7 specifically</span>
+        <span class="read-author">Starhawk · HarperOne · 1979 / 20th anniv. ed. 1999</span>
+        <p class="read-why">Already named in chapter 1 — chs. 4-7 specifically (Trance, Power, Magic, The Goddess) are the load-bearing chapters for ritual structure and the inner-state work that ritual operates through. Begin here for the witchcraft-register approach. The 1999 endnotes on these chapters are particularly useful for what twenty years of practitioner experience has revised about the original framework.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Entry</div>
+      <div>
+        <span class="read-title">Modern Magick: Eleven Lessons in the High Magickal Arts (revised 2010 edition; previously Twelve Lessons)</span>
+        <span class="read-author">Donald Michael Kraig · Llewellyn · 1988 / revised 2010</span>
+        <p class="read-why">The most accessible introduction to Golden Dawn-derived ceremonial practice for solo practitioners. Begin here if the ceremonial style draws you. The 2010 revised edition is substantially better than the original — Kraig had thirty years of teaching experience between editions.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Ritual Theory, Ritual Practice · Ritual: Perspectives and Dimensions</span>
+        <span class="read-author">Catherine Bell · Oxford University Press · 1992 / 1997 (revised 2009)</span>
+        <p class="read-why">The two foundational works of contemporary ritual studies. <cite>Ritual Theory</cite> develops the practice-theory framework (drawing on Bourdieu) for understanding what ritual is. <cite>Ritual: Perspectives and Dimensions</cite> is the textbook overview suitable for sustained engagement. Bell's later essays (collected posthumously in <cite>Teaching Ritual</cite>, Oxford 2007) are also essential. Demanding but rewarding — the academic frame for ritual that contemporary practitioner-scholarship sits within or against.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">The Craft of Ritual Studies · Ritual</span>
+        <span class="read-author">Ronald L. Grimes · Oxford University Press · 2014 / 2014</span>
+        <p class="read-why">Grimes is the foremost contemporary scholar of ritual as deliberate craft (vs. as social-anthropological category). <cite>The Craft of Ritual Studies</cite> is the major academic synthesis; <cite>Ritual</cite> (Oxford Very Short Introduction) is the compressed entry. His earlier <cite>Beginnings in Ritual Studies</cite> (1982) and <cite>Deeply Into the Bone: Re-Inventing Rites of Passage</cite> (UC Press, 2000) are also worth knowing — Grimes treats ritual as something that can be learned, refined, designed.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">The Inner Temple of Witchcraft · The Outer Temple of Witchcraft · The Living Temple of Witchcraft</span>
+        <span class="read-author">Christopher Penczak · Llewellyn · 2002 / 2004 / 2008-2010</span>
+        <p class="read-why">Penczak's Temple of Witchcraft series is the major contemporary practitioner-curriculum on the inner-state work that ritual operates through. <cite>The Inner Temple</cite> develops meditation, trance induction, and altered-state work; <cite>The Outer Temple</cite> develops ritual structure and operative magic; <cite>The Living Temple</cite> (2 vols.) develops sustained devotional and adept work. Pair with Starhawk for the political-collective register and with Penczak for the inner-state and ritual-craft register; together they constitute substantial witchcraft training apparatus.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">Where the Spirits Ride the Wind: Trance Journeys and Other Ecstatic Experiences</span>
+        <span class="read-author">Felicitas D. Goodman · Indiana University Press · 1990</span>
+        <p class="read-why">Goodman is the anthropologist whose work on ritual postures and trance induction has substantially influenced the contemporary witchcraft trance-work literature. Specific body-positions documented in cross-cultural archaeology produce specific trance states; her experimental research with practitioners over decades validated the cross-cultural framework. Foundational for the deeper trance work that becomes load-bearing in chapter 4 lunar workings and chapter 5 oracular practice.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">Trance-Portation: Learning to Navigate the Inner World</span>
+        <span class="read-author">Diana L. Paxson · Weiser · 2008</span>
+        <p class="read-why">Paxson is the Heathen-tradition reconstructionist whose <cite>Trance-Portation</cite> is the major contemporary practitioner-text on trance work specifically — the technical apparatus of how the practitioner learns to enter, navigate, and return from altered states for ritual purposes. Substantial methodological care; trauma-aware. Pair with Goodman's anthropological framework for the academic substrate.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">Ritual and Religion in the Making of Humanity</span>
+        <span class="read-author">Roy A. Rappaport · Cambridge University Press · 1999</span>
+        <p class="read-why">Rappaport's posthumous magnum opus — the major late-twentieth-century academic theory of ritual as the central structure of human meaning-making. Demanding philosophical anthropology; foundational for the deeper theoretical engagement with what ritual is. The argument that ritual is what makes humans capable of meaning at all is load-bearing for any serious contemporary engagement with what witchcraft ritual is doing.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">Liberating Rites: Understanding the Transformative Power of Ritual</span>
+        <span class="read-author">Tom F. Driver · Westview Press · 1998 (orig. <cite>The Magic of Ritual</cite>, HarperSF, 1991)</span>
+        <p class="read-why">Driver's argument that ritual is an instrument of psychological and social change — recovered from the marginalization Western Protestantism imposed on ritual. The book is more accessible than Rappaport while making substantively similar claims. Essential for understanding ritual as agency rather than as ornament.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">Material Religion: The Journal of Objects, Art, and Belief</span>
+        <span class="read-author">Bloomsbury / Routledge · ongoing since 2005</span>
+        <p class="read-why">The principal scholarly journal at the intersection of material culture and religious practice. Substantial work on ritual objects, sacred space, and embodied practice across traditions. For the practitioner whose engagement with ritual eventually requires academic-grade scholarship, <em>Material Religion</em> is one of the major journals to know. Specific issues on Pagan and esoteric material practice are worth pulling.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: THE WHEEL OF THE YEAR -->
+  <div class="section-mark"><span>§ II.V  the wheel of the year</span></div>
+  <h2 class="section-head">The seasonal calendar of practice</h2>
+
+  <main class="col-text">
+    <p>The wheel of the year is the eight-station agricultural-solar calendar that contemporary Paganism and witchcraft use to mark the year. Knowing what the stations are, where they come from historically, and what observance can look like at each is foundational to entering the seasonal-ritual life that runs underneath the rest of the practice.</p>
+
+    <p>An honest historical preamble: the wheel as commonly presented — the eight-fold cycle with the duotheistic Wiccan myth-narrative of the dying-and-reborn Sun God and the Goddess in her changing aspects — is largely a twentieth-century synthesis. It was assembled in the 1950s primarily by Ross Nichols (founder of the Order of Bards, Ovates and Druids) and Gerald Gardner (the principal architect of modern Wicca), drawing together Celtic cross-quarter days that have older roots, Germanic and Norse solar quarter days that have older roots, agricultural folk traditions, and a constructed mythological narrative. The synthesis is not ancient; the components are partly ancient. Ronald Hutton's <cite>The Stations of the Sun: A History of the Ritual Year in Britain</cite> (Oxford, 1996) is the definitive scholarly history. Knowing this matters because the wheel as you encounter it in most contemporary witchcraft writing is presented as ancient continuous tradition, and it is not.</p>
+
+    <p>The four <em>cross-quarter days</em> are the older Celtic stations, marking roughly the midpoints between the solar quarter days. <em>Samhain</em> (October 31 / November 1) — the Celtic new year, the festival of the dead, the night when the veil between worlds is thinnest. The most theologically substantial of the cross-quarters in contemporary practice. <em>Imbolc</em> (February 1 / 2) — the first stirring of spring, the festival of Brigid in the Irish tradition, the lengthening of light beginning to be perceptible. <em>Beltane</em> (May 1) — the great fire festival, the beginning of summer, the festival of fertility. <em>Lughnasadh / Lammas</em> (August 1) — the first harvest festival, named for the Irish god Lugh in the Celtic tradition or the loaf-mass in the Anglo-Saxon Christian continuation.</p>
+
+    <p>The four <em>quarter days</em> are the solar stations — the solstices and equinoxes — drawn into the wheel from Germanic and Norse sources by the twentieth-century synthesizers. <em>Yule / Winter Solstice</em> (December 20–23) — the longest night, the rebirth of the sun, the deepest moment of the dark half. <em>Ostara / Spring Equinox</em> (March 19–22) — the balance of light and dark with light increasing, the beginning of true spring. <em>Litha / Summer Solstice</em> (June 19–22) — the longest day, the height of the sun. <em>Mabon / Autumn Equinox</em> (September 19–23) — the balance of light and dark with darkness increasing, the second harvest, the entry into autumn. The "Mabon" naming is itself recent — a 1970s coinage by Aidan Kelly, not medieval — but is now widely used in contemporary Pagan practice.</p>
+
+    <p>Two framings of the wheel. <em>The Wiccan duotheistic framing</em> reads the wheel as the cyclical mythological narrative of the Goddess (in her Maiden, Mother, and Crone aspects) and the God (in his birth at Yule, growth through spring, peak at Litha, sacrifice at Lammas, descent at Samhain, rebirth at Yule). <em>The agricultural-seasonal framing</em> reads the wheel as the marking of the actual seasonal-agricultural-light shifts, without the specific Wiccan mythological narrative. Most practitioners draw from both as feels alive; the wheel as personal-mythological-narrative is one register, the wheel as actual seasonal attention is another, and the two can coexist and inform each other.</p>
+
+    <p><em>Adapting the wheel to your geography.</em> The wheel as conventionally presented assumes a temperate Northern Hemisphere climate similar to Britain or northern Europe. For a practitioner living elsewhere — and you live in San Diego, where the seasonal cycle is substantially different — the wheel as written does not match the actual seasons of your land. The honest practitioner-position: the wheel is honest framing for what the year is actually doing where you are, not borrowed framing for somebody else's land. The San Diego bioregional adaptation is real research and real practice; the diagram below names the substantive shape.</p>
+  </main>
+
+  <aside class="col-margin">
+    <div class="margin-note">
+      <span class="arrow">→</span> the wheel is a 1950s synthesis with older components. <em>not ancient continuous tradition.</em> hutton 1996 is the spine.
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> bioregional adaptation: the wheel is honest framing for what the year is actually doing where you are. san diego is not britain.
+    </div>
+  </aside>
+
+  <!-- WHEEL DIAGRAM -->
+  <section class="plate-full">
+    <div class="plate">
+      <div class="plate-frame">
+        <div class="plate-image">
+          <div class="specimen">
+            <svg class="specimen-svg" viewBox="0 0 800 425" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <pattern id="wheelgrid" width="40" height="40" patternUnits="userSpaceOnUse">
+                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(80, 60, 30, 0.04)" stroke-width="0.5"/>
+                </pattern>
+              </defs>
+              <rect width="800" height="425" fill="url(#wheelgrid)"/>
+
+              <!-- The wheel circle -->
+              <circle cx="400" cy="212" r="160" fill="none" stroke="rgba(60, 45, 25, 0.55)" stroke-width="1"/>
+              <circle cx="400" cy="212" r="155" fill="none" stroke="rgba(60, 45, 25, 0.2)" stroke-width="0.5"/>
+              <circle cx="400" cy="212" r="100" fill="none" stroke="rgba(60, 45, 25, 0.15)" stroke-width="0.5" stroke-dasharray="2,3"/>
+
+              <!-- Eight stations around the wheel -->
+              <!-- Yule (top) Dec 21 -->
+              <circle cx="400" cy="52" r="4" fill="rgba(63, 74, 86, 0.9)"/>
+              <text x="400" y="32" font-family="IM Fell English, serif" font-style="italic" font-size="14" fill="rgba(40, 30, 15, 0.9)" text-anchor="middle">Yule</text>
+              <text x="400" y="14" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.06em" fill="rgba(40, 30, 15, 0.6)" text-anchor="middle">DEC 21 · longest night · wet season heart</text>
+
+              <!-- Imbolc (upper right) Feb 1 -->
+              <circle cx="513" cy="98" r="4" fill="rgba(122, 40, 24, 0.9)"/>
+              <text x="566" y="85" font-family="IM Fell English, serif" font-style="italic" font-size="14" fill="rgba(40, 30, 15, 0.9)" text-anchor="start">Imbolc</text>
+              <text x="566" y="100" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.06em" fill="rgba(40, 30, 15, 0.6)" text-anchor="start">FEB 1 · poppies begin</text>
+              <text x="566" y="113" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.06em" fill="rgba(40, 30, 15, 0.6)" text-anchor="start">whales northbound start</text>
+
+              <!-- Ostara (right) Mar 21 -->
+              <circle cx="560" cy="212" r="4" fill="rgba(122, 40, 24, 0.9)"/>
+              <text x="600" y="206" font-family="IM Fell English, serif" font-style="italic" font-size="14" fill="rgba(40, 30, 15, 0.9)" text-anchor="start">Ostara</text>
+              <text x="600" y="220" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.06em" fill="rgba(40, 30, 15, 0.6)" text-anchor="start">MAR 21 · peak bloom</text>
+              <text x="600" y="233" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.06em" fill="rgba(40, 30, 15, 0.6)" text-anchor="start">whales northbound peak</text>
+
+              <!-- Beltane (lower right) May 1 -->
+              <circle cx="513" cy="326" r="4" fill="rgba(122, 40, 24, 0.7)"/>
+              <text x="566" y="332" font-family="IM Fell English, serif" font-style="italic" font-size="14" fill="rgba(40, 30, 15, 0.7)" text-anchor="start">Beltane</text>
+              <text x="566" y="346" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.06em" fill="rgba(40, 30, 15, 0.55)" text-anchor="start">MAY 1 · may gray begins</text>
+              <text x="566" y="359" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.06em" fill="rgba(40, 30, 15, 0.55)" text-anchor="start">wet→dry transition · soften fire</text>
+
+              <!-- Litha (bottom) Jun 21 -->
+              <circle cx="400" cy="372" r="4" fill="rgba(63, 74, 86, 0.7)"/>
+              <text x="400" y="392" font-family="IM Fell English, serif" font-style="italic" font-size="14" fill="rgba(40, 30, 15, 0.7)" text-anchor="middle">Litha</text>
+              <text x="400" y="408" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.06em" fill="rgba(40, 30, 15, 0.55)" text-anchor="middle">JUN 21 · longest day under gray light · june gloom</text>
+
+              <!-- Lughnasadh (lower left) Aug 1 -->
+              <circle cx="287" cy="326" r="4" fill="rgba(122, 40, 24, 0.7)"/>
+              <text x="234" y="332" font-family="IM Fell English, serif" font-style="italic" font-size="14" fill="rgba(40, 30, 15, 0.7)" text-anchor="end">Lughnasadh</text>
+              <text x="234" y="346" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.06em" fill="rgba(40, 30, 15, 0.55)" text-anchor="end">AUG 1 · deepest dormancy</text>
+              <text x="234" y="359" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.06em" fill="rgba(40, 30, 15, 0.55)" text-anchor="end">acorns filling</text>
+
+              <!-- Mabon (left) Sep 21 -->
+              <circle cx="240" cy="212" r="5" fill="rgba(122, 40, 24, 0.95)"/>
+              <text x="200" y="206" font-family="IM Fell English, serif" font-style="italic" font-size="14" fill="rgba(40, 30, 15, 0.95)" text-anchor="end">Mabon</text>
+              <text x="200" y="220" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.06em" fill="rgba(40, 30, 15, 0.6)" text-anchor="end">SEP 21 · acorn drop · KUMEYAAY NEW YEAR</text>
+              <text x="200" y="233" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.06em" fill="rgba(40, 30, 15, 0.6)" text-anchor="end">marine layer breaking</text>
+
+              <!-- Samhain (upper left) Oct 31 -->
+              <circle cx="287" cy="98" r="4" fill="rgba(122, 40, 24, 0.9)"/>
+              <text x="234" y="85" font-family="IM Fell English, serif" font-style="italic" font-size="14" fill="rgba(40, 30, 15, 0.9)" text-anchor="end">Samhain</text>
+              <text x="234" y="100" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.06em" fill="rgba(40, 30, 15, 0.6)" text-anchor="end">OCT 31 · fire watch peak</text>
+              <text x="234" y="113" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.06em" fill="rgba(40, 30, 15, 0.6)" text-anchor="end">first rains imminent · monarchs arrive</text>
+
+              <!-- Inner labels: wet/dry season indicators -->
+              <text x="400" y="200" font-family="Space Mono, monospace" font-size="10" letter-spacing="0.18em" fill="rgba(40, 30, 15, 0.45)" text-anchor="middle">SAN DIEGO</text>
+              <text x="400" y="215" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.12em" fill="rgba(40, 30, 15, 0.4)" text-anchor="middle">MEDITERRANEAN COAST</text>
+
+              <!-- Wet/dry season arcs -->
+              <path d="M 286 99 A 160 160 0 0 1 514 99" fill="none" stroke="rgba(63, 74, 86, 0.18)" stroke-width="6"/>
+              <text x="400" y="252" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.16em" fill="rgba(63, 74, 86, 0.65)" text-anchor="middle">— wet season —</text>
+              <text x="400" y="172" font-family="Space Mono, monospace" font-size="9" letter-spacing="0.16em" fill="rgba(63, 74, 86, 0.65)" text-anchor="middle">— dry season —</text>
+
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="plate-caption">
+        <div class="left">
+          <span style="color: var(--accent-rust);">plate ii.</span><br>
+          the wheel<br>
+          <span style="color: var(--ink-faint);">— san diego —</span>
+        </div>
+        <div class="right">
+          <div class="row"><span class="key">scope</span><span>eight stations + bioregional anchors for coastal Mediterranean climate</span></div>
+          <div class="row"><span class="key">wet season</span><span>December–March (Yule heart; bloom builds; whales pass south)</span></div>
+          <div class="row"><span class="key">dry season</span><span>May–October (June Gloom; chaparral dormancy; acorns mature)</span></div>
+          <div class="row"><span class="key">fire watch</span><span>October–November peak (Samhain → first rains)</span></div>
+          <div class="row"><span class="key">kumeyaay</span><span>fall equinox = New Year (Kli'a 'Emul); winter solstice = Hilyati</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="col-text">
+    <p>The bioregional San Diego adaptation: cleanest fits are Ostara (peak wildflower bloom, gray whale northbound peak) and Mabon (acorn harvest, Kumeyaay New Year — and the Kumeyaay's reading of this date as their New Year is consonant with the European Mabon observance, an unusual case where a Pagan-revival sabbat aligns with the indigenous calendar of the land you live on). Most awkward fits are Beltane (the great-fire-festival framing is operatively dangerous in May San Diego — fire watch begins; soften fire to symbolic) and Litha (peak June Gloom on the coast contradicts the conventional "longest day under full sun"). Samhain holds with reframing — the local Samhain is fire watch peak and the moment just before the first rains arrive. The bioregional adaptation is itself part of the practice; over years you build your own relationship to what the wheel means in your specific land.</p>
+  </main>
+
+  <div class="practice-block">
+    <span class="practice-mark">practice · the seasonal observance</span>
+    <h4>Scaled by capacity</h4>
+    <span class="ptime" style="font-style: normal;">eight times yearly · ~30 minutes minimum, longer as practice develops</span>
+    <p>The minimum serious observance of each station, suitable for the early years: at the altar, on the day of the station (or the nearest weekend evening for practical reasons), light a candle of seasonally-appropriate color. Sit at the altar. Speak aloud what the station is — what is being marked. Pull three cards on the question "what is this turning asking of me." Record in the grimoire. Sit for as long as feels right. Close the rite. Add observance elements as the practice develops: a particular meal cooked, a particular walk taken, a particular offering made, a longer rite worked, eventually full seasonal rituals constructed for each station. Begin with the minimum. Build over years.</p>
+  </div>
+
+  <section class="build-block">
+    <div class="build-mark">build · for the year ahead</div>
+    <h3>Your wheel calendar</h3>
+    <p>Map all eight stations for the next twelve months in your actual calendar. Set reminders the day before each. Across years, build:</p>
+    <ul>
+      <li>A dedicated section in the grimoire for seasonal observances — entries for each station as it is observed, with date, what was done, what arrived</li>
+      <li>Your own developing associations for each station — colors, foods, plants, songs, walks, rituals — accumulated over years rather than borrowed wholesale from any single source</li>
+      <li>An ongoing record of how each station feels in your specific geography — the actual San Diego Samhain is different from the British Samhain, and the practice develops by attending to what is actually happening in your land at each turning</li>
+      <li>Eventually, fully developed ritual templates for each station, kept in the ritual library section of the grimoire</li>
+    </ul>
+  </section>
+
+  <section class="read-block">
+    <div class="read-block-head"><span>read · the wheel</span><span class="meta">§ II.V</span></div>
+    <h3>Historical and bioregional</h3>
+
+    <p style="font-size: 14.5px; line-height: 1.6; color: var(--ink); margin-bottom: 24px; padding: 16px 18px; background: rgba(60, 45, 25, 0.04); border-left: 3px solid var(--accent-rust);"><em>Sequence:</em> <strong>First weeks:</strong> Starhawk chs. 11-12 for the practitioner-frame. <strong>First year:</strong> Hutton's <cite>Stations of the Sun</cite> for honest historical preamble; Mara Freeman's <cite>Kindling the Celtic Spirit</cite> for the Celtic-tradition cross-quarter material relevant given Welsh matrilineal frame. <strong>Year 1-3:</strong> the Farrars' <cite>Eight Sabbats</cite> for the Wiccan-frame option; Sharon Blackie's <cite>Enchanted Life</cite> for the bioregional methodology; Mark Green's <cite>Atheopaganism</cite> for the Mediterranean-California specifically. <strong>Reference / lifelong:</strong> Pennick's <cite>Pagan Book of Days</cite> as standing day-by-day reference; Francis Jones's <cite>Holy Wells of Wales</cite> and Lupa's bioregional catalogue as the practice deepens.</p>
+    <div class="read-entry">
+      <div class="read-tier">Entry</div>
+      <div>
+        <span class="read-title">The Spiral Dance, chs. 11-12 specifically</span>
+        <span class="read-author">Starhawk · HarperOne · 1979/1999</span>
+        <p class="read-why">Chs. 11-12 (The Wheel of the Year, Magical Symbolism) are the specifically wheel-relevant material. Accessible, ritually substantive, theologically developed contemporary witchcraft treatment. Begin here for the practitioner-frame.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Entry</div>
+      <div>
+        <span class="read-title">Wheel of the Year: Living the Magical Life · Ancient Ways: Reclaiming Pagan Traditions</span>
+        <span class="read-author">Pauline Campanelli · Llewellyn · 1989 / 1991</span>
+        <p class="read-why">Practitioner-text specifically organized around the eight stations with practical observance suggestions for each. Older but still useful as working reference. Campanelli's broader catalogue (also <cite>Rites of Passage</cite>, <cite>Wheel of the Year</cite> sequels) develops the seasonal-Pagan domestic register substantively.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">The Stations of the Sun: A History of the Ritual Year in Britain</span>
+        <span class="read-author">Ronald Hutton · Oxford University Press · 1996</span>
+        <p class="read-why">The definitive scholarly history of the actual seasonal-ritual year in Britain across centuries. Substantially exhaustive — Hutton documents the historical evidence for each of the British calendar customs the modern wheel draws on, and shows where the modern wheel is honestly continuous with older practice and where it is twentieth-century construction. Disabuses the practitioner of the ancient-unbroken-tradition fiction. Pair with his <cite>The Triumph of the Moon</cite> for the parallel reconstruction of how the modern Pagan calendar was actually built.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Eight Sabbats for Witches · The Witches' Way · A Witches' Bible (combined)</span>
+        <span class="read-author">Janet &amp; Stewart Farrar · Hale · 1981 / 1984 / 1996 (combined)</span>
+        <p class="read-why">The foundational Alexandrian Wiccan treatment of the eight stations as full ritual observance. More formal and apparatus-heavy than Starhawk; the Farrars worked from inside the Alexandrian tradition with Doreen Valiente's substantial input on the liturgy. The combined <cite>Witches' Bible</cite> is the practical reference. Read with awareness that the duotheistic frame the Farrars work in is one register among several; the agricultural-seasonal frame is the alternative.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Kindling the Celtic Spirit · Grail Alchemy · The Way of the Anam Ċara</span>
+        <span class="read-author">Mara Freeman · HarperOne / Inner Traditions · 2001 / 2014 / 2007</span>
+        <p class="read-why">For the specifically Celtic-tradition treatment of the cross-quarter festivals (Samhain, Imbolc, Beltane, Lughnasadh) and the broader Celtic seasonal-spiritual cycle. Freeman's <cite>Kindling the Celtic Spirit</cite> is the practitioner-text on Celtic seasonal practice; her later catalogue extends into Grail alchemy and Celtic contemplative practice. Particularly useful given the Welsh matrilineal frame.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">The Enchanted Life: Unlocking the Magic of the Everyday</span>
+        <span class="read-author">Sharon Blackie · September Publishing · 2018</span>
+        <p class="read-why">For the bioregional and Welsh agricultural calendar approach to seasonal living. Methodological model for adapting the wheel to your actual land. Blackie writes from a working farm in Connemara; the framework she develops translates honestly to other Mediterranean and bioregional contexts. Pair with Lupa Greenwolf's bioregional Pagan work (<cite>Plant and Fungus Totems</cite>, <cite>Nature Spirituality from the Ground Up</cite>) for the specifically North American ecological-Pagan register.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Atheopaganism · "Riverain and Adapting the Wheel of the Year" (essay)</span>
+        <span class="read-author">Mark A. Green · self-published / atheopaganism.org · 2019 / blog post 2015</span>
+        <p class="read-why">Green is the principal contemporary writer on naturalistic-Pagan practice. <cite>Atheopaganism</cite> develops the framework; the "Riverain" essay specifically engages the bioregional adaptation question for Mediterranean California climate (where Green is also based). Green's invented station <em>Riverain</em> at the height of the wet season is the major contemporary published example of bioregional wheel-adaptation by a Mediterranean-California practitioner. Cite both the book and the specific essay; the essay is the directly practitioner-relevant material for the keyed reader's San Diego adaptation.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">The Pagan Book of Days: A Guide to the Festivals, Traditions, and Sacred Days of the Year</span>
+        <span class="read-author">Nigel Pennick · Destiny Books · 1992 / revised 2001</span>
+        <p class="read-why">Day-by-day calendar of Pagan, folk, and seasonal observances across the year. Useful for developing a sense of the seasonal-ritual texture of the year beyond just the eight stations — the smaller folk-customs, saint-days, lunar markers, and observances that fill the year between the major sabbats. Pennick's broader catalogue (<cite>The Sacred World of the Celts</cite>, <cite>Practical Magic in the Northern Tradition</cite>) develops the European folk-calendar substantively.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">The Year in Ireland: Irish Calendar Customs · Hearth and Home: Folklore of the Irish Cottage</span>
+        <span class="read-author">Kevin Danaher · Mercier Press · 1972 / 1985</span>
+        <p class="read-why">For the actual Irish folk-calendar customs (cousin to and source of much of the Celtic material in the modern wheel). Danaher was a folklorist at the Irish Folklore Commission; the work is substantively-documented. The contemporary Welsh-language equivalent is harder to find in English translation but Owen Edwards's <cite>Cymru'r Plant</cite> (in Welsh) and Iorwerth C. Peate's <cite>Tradition and Folk Life</cite> (London, 1972) are the corresponding Welsh-folklore-studies works.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">Plant and Fungus Totems · Nature Spirituality from the Ground Up · The Tarot of Bones</span>
+        <span class="read-author">Lupa (Greenwolf) · Llewellyn · 2014 / 2016 / 2016</span>
+        <p class="read-why">Lupa is the contemporary bioregional-Pagan writer based in Portland, Oregon (relevant Pacific Coast context). The work bridges naturalistic Paganism, ecological literacy, and bioregional practice. <cite>Nature Spirituality from the Ground Up</cite> is the principal practitioner-text; <cite>Plant and Fungus Totems</cite> develops the bioregional-totemic framework substantively. For the keyed reader's California-Pacific-coast bioregional work, Lupa's frame translates more directly than the British or Northern European references.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">The Holy Wells of Wales</span>
+        <span class="read-author">Francis Jones · University of Wales Press · 1954 (reprinted 1992)</span>
+        <p class="read-why">The standard scholarly reference for Welsh holy wells specifically — over 1,179 wells documented across Wales with their saints' attributions, healing claims, and ritual customs. Out of print but available used and through inter-library loan; the well-tradition material in chapter 2 trauma-healing apparatus and chapter 5 ancestral-Welsh work both descend from the substrate Jones documents. Foundational for any serious Welsh-tradition engagement.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: PRACTICE RHYTHM -->
+  <div class="section-mark"><span>§ II.VI  the practice rhythm</span></div>
+  <h2 class="section-head">Integrating the foundations</h2>
+
+  <main class="col-text">
+    <p>With the grimoire established, the altar built, ritual structure understood, and the wheel of the year mapped, the practice rhythm integrates them into the daily, weekly, monthly, and seasonal scaffolding of an actual life of practice. What follows is the foundational rhythm. Begin with the smallest tier you will actually do.</p>
+
+    <p>The rhythm is scaled by capacity, not by ambition. None of this requires you to be well; all of it absorbs interruption without breaking. The discipline is consistency at whatever tier is sustainable, not heroism at a tier that collapses. Most practitioners spend the first year operating at the daily tier alone, and the practice still develops. Some spend years there, and the practice still develops. The depth comes from the return, not the volume.</p>
+  </main>
+
+  <div class="practice-block">
+    <span class="practice-mark">practice · threshold</span>
+    <h4>The first rite — done once</h4>
+    <span class="ptime" style="font-style: normal;">one sitting · 5–10 minutes</span>
+    <p>The threshold rite is the inaugural ritual that opens the practice. Performed once, at the working altar, using the basic three-part rite structure. Approach the altar. Light the candle. Take three slow breaths. Touch the floor, then the heart. Speak aloud: this is the beginning of my practice. Sit for the length of ten breaths. Speak aloud: this is begun. Touch the floor, then the heart. Extinguish the candle. Write a single sentence in the grimoire: the date, and the act of having begun. The locus is established. The threshold has been crossed.</p>
+  </div>
+
+  <div class="practice-block">
+    <span class="practice-mark">practice · daily</span>
+    <h4>The minimum daily contact</h4>
+    <span class="ptime" style="font-style: normal;">daily · ~60–120 seconds</span>
+    <p>Approach the altar. Light the candle. Take one breath. Pull one tarot card, record it in the grimoire by name and date with one sentence of response — what it brought up, not formal interpretation. Take one breath. Extinguish. This is the baseline of the practice. Done consistently across a year, it produces a substantial divinatory record. Begin here and add nothing else for as long as you need.</p>
+  </div>
+
+  <div class="practice-block">
+    <span class="practice-mark">practice · weekly</span>
+    <h4>The longer working</h4>
+    <span class="ptime" style="font-style: normal;">weekly · 15–30 minutes</span>
+    <p>Once a week, perform a more substantial rite using the three-part structure. One three-card divinatory pull on the week, recorded with brief interpretation, reviewed at week's end (the review is where divinatory accuracy actually builds). One made-thing offering placed on the altar — a sigil, a sketch, a poem, a found object, anything made on purpose. One outdoor walk without device, three observed elements recorded on return.</p>
+  </div>
+
+  <div class="practice-block">
+    <span class="practice-mark">practice · lunar (introduced)</span>
+    <h4>The two poles</h4>
+    <span class="ptime" style="font-style: normal;">twice monthly · 30–60 minutes each</span>
+    <p>Dark moon and full moon — twenty-four marked nights per year, the minimum lunar discipline. Entry-level shape: at the dark moon, sit at the altar for longer than usual, write a letter to whatever you are addressing (a deity, the dead, a part of yourself), burn it or keep it. At the full moon, sit at the altar, pull three cards, ask one question, write what comes. Charge water, stones, or tools by leaving them in the moonlight overnight. Chapter 4 develops the lunar architecture substantially across multiple tradition-frames — the Hekatean Deipnon for those whose practice opens chthonic, Esbat-tradition lunar work in the Wiccan and goddess-spirituality registers, the Welsh-Celtic lunar reckoning (Arianrhod's silver wheel) for the matrilineal-line keyed reader, the Norse-Germanic moon (Máni), the Yoruba lunar associations through Yemoja and the calendar of the orisha, plus the technical distinctions between dark and new moon — at the depth required for the second year. For the first weeks, the minimum is the discipline.</p>
+  </div>
+
+  <div class="practice-block">
+    <span class="practice-mark">practice · re-entry</span>
+    <h4>The protocol for return</h4>
+    <span class="ptime" style="font-style: normal;">whenever needed</span>
+    <p>The practice will be interrupted, repeatedly, by the conditions of an embodied life. The protocol for return is identical to the threshold rite: approach the altar, light the candle, ten breaths, extinguish. Write the date and the word <em>back</em> in the grimoire. The practice resumes from there. There is no streak to break, no progress to lose, no apology owed.</p>
+  </div>
+
+  <aside class="col-margin">
+    <div class="margin-note">
+      <span class="arrow">→</span> the practitioner you become in ten years is built by the daily candle, the weekly card pull, the monthly lunar working, the eight seasonal observances, the slowly-accumulating grimoire. <em>none of it is dramatic. all of it is the work.</em>
+    </div>
+  </aside>
+
+  <!-- SECTION: BODY AS GROUND - REGULATION -->
+  <div class="section-mark"><span>§ II.VII  body as ground · regulation</span></div>
+  <h2 class="section-head">Trauma-informed practice, foundational tier</h2>
+
+  <main class="col-text">
+    <p>A serious witchcraft practice and a serious relationship with the trauma-affected nervous system are not separate disciplines. The contemporary clinical literature has converged with the ritual literature in productive ways, and the practitioner working with both has substantial clinical material to draw on.</p>
+
+    <p>Two principles govern this section. The first: there is a difference between practices that <em>regulate</em> the nervous system and practices that <em>open</em> traumatic material. Regulation can be done alone; opening generally cannot, and should not be, regardless of how aesthetically continuous it would be with the rest of a practice. The second: the principle of <em>titration</em> — the discipline of brief contact with difficult material alternated with deliberate return to safety — is the methodological backbone of contemporary trauma work and applies fully to ritual practice.</p>
+
+    <p>This chapter develops the regulation tier only. Chapter 4 develops what surfaces when the apparatus has been running long enough for the body to trust the container. Chapter 6 develops excavation work, with practitioner support explicit. The strict regulation-vs-excavation boundary holds throughout. For a practitioner with substantial trauma history — and the keyed reader carries CPTSD, depression, and anxiety, plus the inherited trauma of the lineage configuration — practitioner support is not optional for the deeper work. Female-led practitioner directories and specific trauma-aware practitioners are named in chapter 6; the work that requires them comes later.</p>
+
+    <p>The lineage traditions hold trauma-healing apparatus in their own registers — Welsh holy wells and the bardic elegy as voice-and-grief practice, West African Diaspora spiritual baths and the Gullah Geechee ring shout as community-and-body integration, Continental Hermetic-Masonic alchemical nigredo as theological scaffolding for transformation. These supplement the contemporary clinical apparatus rather than replacing it. The first weeks engage the regulation work. The lineage-tradition-specific trauma material develops across chapters 3, 4, and 5 as the practice deepens.</p>
+  </main>
+
+  <aside class="col-margin">
+    <div class="margin-note">
+      <span class="arrow">→</span> regulation: solo-appropriate. opening / excavation: requires practitioner support. <em>do not blur this boundary.</em>
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> the lineage traditions hold their own trauma-healing apparatus. develops across ch 4–5. begin with regulation.
+    </div>
+  </aside>
+
+  <div class="practice-block">
+    <span class="practice-mark">practice · somatic anchors</span>
+    <h4>Layered into daily working</h4>
+    <span class="ptime" style="font-style: normal;">daily · ~60–90 seconds each, layered into existing practice</span>
+    <p>Three regulation moves to layer underneath any ritual practice. <em>Orienting</em>: turn your head, let your eyes find five things in the room, name them silently. <em>The long exhale</em>: inhale through the nose four counts, exhale through the mouth eight, six rounds. <em>Hand on heart</em>: one hand on chest, one on belly, breathe into the lower hand for two minutes. Each takes seconds; together they regulate the nervous system enough to make ritual work safer. Use orienting and the long exhale as the entry to any ritual. Use hand on heart whenever overwhelm arrives.</p>
+  </div>
+
+  <div class="practice-block">
+    <span class="practice-mark">practice · the pendulation principle</span>
+    <h4>Governing all opening work ahead</h4>
+    <span class="ptime" style="font-style: normal;">whenever working with difficult material · ongoing</span>
+    <p>From Levine's Somatic Experiencing. When you notice difficult sensation or affect, do not stay with it. Briefly contact it, then deliberately move attention to a place that feels neutral or okay. Then return briefly. Then leave again. Pendulate. This is the methodological backbone of contemporary trauma work and applies fully to ritual practice that opens difficult material. The principle governs the deeper work in chapter 4 and beyond. Learning the protocol now means it is available when the material arrives.</p>
+  </div>
+
+  <section class="build-block">
+    <div class="build-mark">build · the practitioner shortlist · co-equal priority with the grimoire</div>
+    <h3>Practitioner support — first weeks, not later</h3>
+    <p>This is among the most consequential build directives in the document. Build it in the first weeks alongside the grimoire and the altar — not deferred to chapter 6. The relationship with trauma-aware practitioner support takes months to establish; for the keyed reader's configuration (CPTSD, inherited lineage trauma, the violent ancestral configuration), the support is not optional and cannot wait until material has surfaced.</p>
+    <ul>
+      <li><em>Female-led trauma practitioner directories</em> — Inclusive Therapists (inclusivetherapists.com) with filters for somatic experiencing or sensorimotor or EMDR, female practitioner, doctoral level, trauma specialization, identity awareness. SEI Practitioner Directory (directory.traumahealing.org) for Levine-tradition somatic experiencing.</li>
+      <li><em>Ancestral repair specifically</em> — Daniel Foor's Ancestral Medicine practitioner directory (ancestralmedicine.org/practitioner-directory) — search by specialization "slavery" or "settler colonial" or "racialized intergenerational trauma." Several Foor-trained practitioners specialize in inheritance configurations involving descent from both enslaved and enslaver — precisely the keyed reader's configuration.</li>
+      <li><em>Cultural Somatics Institute</em> (culturalsomaticsinstitute.com) — Resmaa Menakem's training apparatus. Group-and-cultural register; eLearning courses with CE credits; in-person immersives.</li>
+      <li><em>Specific named practitioners the keyed reader has identified</em> — Dr. Holly Siegrist, Dr. Sasha Faust, IVAT (Institute on Violence, Abuse and Trauma) — verify currency through direct contact. Plus Dr. Ruby Gibson at Freedom Lodge (Lakota/Ojibway/Mestiza, Somatic Archaeology framework); Setareh Azar Jinn (LMFT, SEP, somatictherapydecolonized.com); Laura Bai (LMFT, intergenerational trauma, laurabai.com); Sherry Shokouhi (LMHC, SEP, BIPOC focus, NY/NJ/FL telehealth, sherryshokouhi.com).</li>
+      <li><em>For genealogical research alongside the spiritual work</em> — Nicka Sewell-Smith (whocheckedout.com) for the Jones-on-Jones question specifically; AAHGS (aahgs.org); BlackProGen network. These belong in the shortlist alongside the trauma practitioners; the genealogical research and the spiritual recovery work feed each other.</li>
+    </ul>
+    <p>The discipline of building this list in the first weeks: select three to five candidates from the directories with the right credentials and identity-awareness fit. Make intake calls. Some will not work; some will be wrong; some you may need to wait on. The relationship work selects the practitioner. By month three, ideally, one practitioner relationship is in place — even if the work being done is still just regulation. By month six, the relationship is established enough that what surfaces in chapter 4 has the support it requires.</p>
+  </section>
+
+  <section class="build-block">
+    <div class="build-mark">build · regulation log</div>
+    <h3>Your body-and-practice record</h3>
+    <p>Alongside the practitioner shortlist:</p>
+    <ul>
+      <li>A regulation diary — when overwhelm hit, what worked, what didn't, what you needed, what you actually did. Over time this becomes your own developed map of your nervous system's particulars. Bring this to your practitioner.</li>
+      <li>An explicit list of what you're holding for the eventual deeper work — not for excavation alone, but to bring when the support is in place. The list itself is a containment.</li>
+      <li>The somatic anchors layered into daily working: orienting, the long exhale, hand on heart. Practiced consistently across weeks, these become the body's default response to stress within the first months of practice.</li>
+    </ul>
+  </section>
+
+  <section class="read-block">
+    <div class="read-block-head"><span>read · body as ground</span><span class="meta">§ II.VII · regulation tier</span></div>
+    <h3>Foundational somatic literature</h3>
+
+    <p style="font-size: 14.5px; line-height: 1.6; color: var(--ink); margin-bottom: 24px; padding: 16px 18px; background: rgba(60, 45, 25, 0.04); border-left: 3px solid var(--accent-rust);"><em>Sequence:</em> <strong>First weeks (alongside finding your practitioner):</strong> Levine's <cite>Waking the Tiger</cite> for the foundational Somatic Experiencing framework; Menakem's <cite>My Grandmother's Hands</cite> for the racialized-trauma somatic register relevant to your lineage configuration. <strong>Months 3-12:</strong> Walker's <cite>Complex PTSD</cite> for the diagnostic context; Weller's <cite>Wild Edge of Sorrow</cite> for the grief-as-ritual frame. <strong>Year 1-3:</strong> Ogden's <cite>Trauma and the Body</cite>, Porges's <cite>Polyvagal Theory</cite>, Dana's clinical applications — these become useful as you develop literacy about what your practitioner is doing. <strong>Year 3+:</strong> van der Hart's <cite>Haunted Self</cite> for structural-dissociation framework when the deeper work in chapter 6 opens. <strong>Read with caveat:</strong> van der Kolk's <cite>The Body Keeps the Score</cite> — the field has substantially decentralized from him; Levine and Ogden cited first when the choice exists.</p>
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Waking the Tiger: Healing Trauma · In an Unspoken Voice · Trauma and Memory</span>
+        <span class="read-author">Peter A. Levine, PhD · North Atlantic Books · 1997 / 2010 / 2015</span>
+        <p class="read-why">Foundational Somatic Experiencing. <cite>Waking the Tiger</cite> develops the pendulation principle and the felt-sense framework that all subsequent SE work assumes. <cite>In an Unspoken Voice</cite> (2010) develops the body's natural recovery process more thoroughly with substantial clinical case material. <cite>Trauma and Memory</cite> (2015) addresses the body's role in memory specifically. Read all three for the full Levine framework.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Trauma and the Body: A Sensorimotor Approach to Psychotherapy · Sensorimotor Psychotherapy: Interventions for Trauma and Attachment</span>
+        <span class="read-author">Pat Ogden, Kekuni Minton, Clare Pain · Norton · 2006 / 2015</span>
+        <p class="read-why">The two foundational texts of Sensorimotor Psychotherapy — Ogden's framework, parallel to Levine's SE but with substantially developed apparatus around hierarchical processing of trauma, the window of tolerance, and the body as resource. <cite>Trauma and the Body</cite> is the foundational theoretical text; <cite>Sensorimotor Psychotherapy</cite> (2015) is the clinical-intervention manual. The window-of-tolerance framework specifically becomes load-bearing in chapter 4 body-deeper work. Pair with Levine for the full Levine-Ogden somatic-trauma apparatus.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">My Grandmother's Hands: Racialized Trauma and the Pathway to Mending Our Hearts and Bodies · The Quaking of America</span>
+        <span class="read-author">Resmaa Menakem · Central Recovery Press · 2017 / 2022</span>
+        <p class="read-why">The most relevant contemporary text for the somatic-ancestral-ritual intersection. Clinically rigorous and ritually serious. Particularly relevant for the keyed reader's lineage configuration. <cite>The Quaking of America</cite> (2022) extends the framework into the political-collective dimension. Menakem's vagal practices (humming, rocking, breathing) explicitly draw from African Diasporic substrate — they are old practices renamed in clinical vocabulary.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">The Polyvagal Theory · The Pocket Guide to the Polyvagal Theory</span>
+        <span class="read-author">Stephen W. Porges · Norton · 2011 / 2017</span>
+        <p class="read-why">The neurobiological foundation that the contemporary somatic-trauma literature largely sits on. <cite>The Polyvagal Theory</cite> (2011) is the substantial scientific synthesis; <cite>The Pocket Guide</cite> (2017) is the clinically-accessible distillation. <em>Critical context:</em> the broader polyvagal theoretical claims are contested in some clinical literatures (see Karatzias, Cloitre, et al.), but the basic vagal-tone work and the framework of safety/danger/connection are well-supported. Read with awareness that Porges's interpretive framework is influential but not uncontested.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">The Polyvagal Theory in Therapy: Engaging the Rhythm of Regulation · Polyvagal Exercises for Safety and Connection</span>
+        <span class="read-author">Deb Dana · Norton · 2018 / 2020</span>
+        <p class="read-why">Dana's clinical application of Porges's framework — substantially more accessible than Porges's own writing and the standard contemporary practitioner-clinician introduction to polyvagal-informed practice. The 2020 follow-up provides specific somatic exercises that translate directly to ritual-practice context.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">The Wild Edge of Sorrow: Rituals of Renewal and the Sacred Work of Grief · In the Absence of the Ordinary</span>
+        <span class="read-author">Francis Weller · North Atlantic Books · 2015 / 2024</span>
+        <p class="read-why">The contemporary text on grief as ongoing ritual practice. Essential if grief work is part of what you are doing — and for the keyed reader's lineage configuration, grief work is structurally part of what you are doing. Weller develops the framework of "the five gates of grief," which translates directly to ritual practice. <cite>In the Absence of the Ordinary</cite> (2024) develops the long-arc grief practice.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">Complex PTSD: From Surviving to Thriving</span>
+        <span class="read-author">Pete Walker · CreateSpace · 2013</span>
+        <p class="read-why">For the specifics of the diagnostic context. Walker is direct, pragmatic, useful. The four trauma-response framework (fight, flight, freeze, fawn) is Walker's specific articulation and has substantially influenced subsequent CPTSD clinical literature. Pair with Janina Fisher's <cite>Healing the Fragmented Selves of Trauma Survivors</cite> (Routledge, 2017) for the parts-work supplement.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">The Body Remembers: The Psychophysiology of Trauma and Trauma Treatment · Help for the Helper · 8 Keys to Safe Trauma Recovery</span>
+        <span class="read-author">Babette Rothschild · Norton · 2000 / 2006 / 2010</span>
+        <p class="read-why">Rothschild's framework is foundational for understanding the body's encoding of traumatic memory. <cite>The Body Remembers</cite> (2000) is the principal text; <cite>Help for the Helper</cite> develops the secondary-trauma frame relevant for practitioners; <cite>8 Keys</cite> is the practitioner-accessible practical guide. Less developed apparatus than Levine or Ogden but a useful complement.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">The Haunted Self: Structural Dissociation and the Treatment of Chronic Traumatization</span>
+        <span class="read-author">Onno van der Hart, Ellert R.S. Nijenhuis, Kathy Steele · Norton · 2006</span>
+        <p class="read-why">For the structural-dissociation framework specifically — load-bearing for understanding CPTSD as a structural rather than symptomatic condition. Demanding clinical text; written for trained practitioners. Worth knowing exists for the keyed reader's eventual sustained engagement with body-deeper material in chapter 4 and excavation work in chapter 6. Helps the practitioner recognize what her practitioner is doing.</p>
+      </div>
+    </div>
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">The Body Keeps the Score · with explicit caveat</span>
+        <span class="read-author">Bessel van der Kolk · Viking · 2014</span>
+        <p class="read-why">The widely-known synthesis of trauma neuroscience and clinical practice. <em>Critical context required:</em> van der Kolk's workplace conduct allegations and his subsequent removal from the Trauma Center at JRI (2018) are part of the practitioner-community context; the trauma field has substantially decentralized from him. The book's content remains useful as ground for the science; cite Levine, Ogden, Porges, and Menakem first when the choice exists. Read with awareness of the field's reckoning rather than as the unproblematic single-volume introduction the popular reception suggests.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TERMINAL INTERLUDE -->
+  <section class="terminal">
+    <div class="terminal-head">— state of the apparatus : end of week 6 —</div>
+    <div class="terminal-line"><span class="label">/grimoire/</span> <span class="ok">[opened, dated, sectioned]</span></div>
+    <div class="terminal-line"><span class="label">/altar/working/</span> <span class="ok">[established, dated]</span></div>
+    <div class="terminal-line"><span class="label">/candle/white-beeswax-taper/</span> <span class="ok">[sourced, lit]</span></div>
+    <div class="terminal-line"><span class="label">/holder/cast-brass/</span> <span class="ok">[placed]</span></div>
+    <div class="terminal-line"><span class="label">/snuffer/</span> <span class="ok">[placed]</span></div>
+    <div class="terminal-line"><span class="label">/ritual-structure/three-part/</span> <span class="ok">[learned, practiced]</span></div>
+    <div class="terminal-line"><span class="label">/wheel-calendar/twelve-months/</span> <span class="ok">[mapped, reminders set]</span></div>
+    <div class="terminal-line"><span class="label">/wheel-bioregional/san-diego/</span> <span class="ok">[provisional, develops over years]</span></div>
+    <div class="terminal-line"><span class="label">/practice-rhythm/3-4-x-week/</span> <span class="ok">[established, defended]</span></div>
+    <div class="terminal-line"><span class="label">/somatic-anchors/orienting · long-exhale · hand-on-heart/</span> <span class="ok">[layered]</span></div>
+    <div class="terminal-line"><span class="label">/practitioner-shortlist/</span> <span class="ok">[built, kept aside for ch 6]</span></div>
+    <div class="terminal-line"><span class="label">/pendulation/</span> <span class="meta">[learned for when material arrives]</span></div>
+    <div class="terminal-line"><span class="label">/excavation-work/</span> <span class="pending">[deferred — ch 6, with practitioner support]</span></div>
+    <div class="terminal-line"><span class="label">/lineage-streams/</span> <span class="meta">[acknowledged — develop in ch 5]</span></div>
+  </section>
+
+  <aside class="research-block">
+    <span class="research-mark">research thread</span>
+    <p>The cross-cultural literature on household sacred space is substantial — Diana L. Eck on Hindu altars, Robert Orsi on American Catholic devotional altars, Kay Turner's <em>Beautiful Necessity: The Art and Meaning of Women's Altars</em> (1999) is the major treatment of women's altar tradition. Worth knowing as the broader human practice the contemporary altar is part of.</p>
+    <p>The convergence between somatic trauma practice and ritual deserves its own deeper investigation. Key threads: Stephen Jenkinson on death and ritual (<em>Die Wise</em>, 2015 — develops in chapter 7), Joanna Macy on grief and ecological practice, the broader literature on indigenous and traditional ritual frameworks now being engaged seriously by Western clinicians. Sophie Strand's contemporary work (<em>The Flowering Wand</em>, 2022) sits at this intersection in the witchcraft register specifically.</p>
+  </aside>
+
+  <!-- ============================================================ -->
+  <!-- SECTION II.VIII — OPERATIVE FOUNDATIONS PREVIEW              -->
+  <!-- ============================================================ -->
+  <div class="section-mark"><span>§ II.VIII  operative-foundations preview</span></div>
+  <h2 class="section-head">A first candle working in the first weeks</h2>
+
+  <main class="col-text">
+    <p>The full operative apparatus opens in chapter 3 (§ III.I). This section is the bridge — a small first taste of operative practice during the first weeks, so the practitioner is not waiting until month two to do <em>any</em> working. The discipline is small and specific: one candle working, performed once during the first six weeks, recorded in the grimoire, then released. It is not a demonstration of skill. It is the first time the practitioner does something rather than only sits with something.</p>
+
+    <p>The structure is the structure § III.I will develop in full — opening, statement of intent, operative act, sealing, release. At this introductory level, the working can be the simplest possible: a single white or color-appropriate candle, an intent named clearly, the candle lit and sat with through one full sitting, the candle snuffed and the working sealed. Some practitioners find their first working is for the practice itself — a candle for the entire arc of the work that has begun, an intent that the practice will hold, a sealing that recognizes the threshold the practitioner has just crossed. Other practitioners find their first working is for a specific need that is alive in the moment — protection on a journey, a question being asked of the world, a small change being released. Either is appropriate; the load-bearing question is not what the working is for, it is whether the working has been done.</p>
+
+    <p>One additional small introduction: the <em>knot</em>. Tie a single knot in a length of natural cord with a clearly named intent. The cord can be a length of cotton or wool from the household; the knot is one knot, not three, not nine. This is the introductory taste of cord work that § III.I develops as the cord-of-three. Tie it; carry it on your person for one cycle (a week, a moon, a month, depending on what feels right); when the cycle ends, dispose of it appropriately (burned and scattered, buried at a crossroads, or kept on the altar if the work is ongoing). The point is the same as with the first candle: do something rather than only sit with something. The hand learns by working.</p>
+  </main>
+
+  <aside class="col-margin">
+    <div class="margin-note">
+      <span class="arrow">→</span> the full operative apparatus opens in chapter 3. <em>this is the bridge.</em> one candle, one knot, before month two.
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> the first working is often for the practice itself. <em>a candle for the arc of the work that has begun.</em>
+    </div>
+  </aside>
+
+  <!-- ============================================================ -->
+  <!-- SECTION II.IX — THE WITCH'S TOOLS                            -->
+  <!-- ============================================================ -->
+  <div class="section-mark"><span>§ II.IX  the witch's tools</span></div>
+  <h2 class="section-head">The working relationships, not the inventory</h2>
+
+  <main class="col-text">
+    <p>The contemporary witchcraft register often treats the witch's tools as an inventory to be acquired before the practice begins — athame, wand, chalice, pentacle, censer, bell, broom, cauldron, mirror, mortar and pestle. The list is portable, photogenic, and largely unrelated to how the operative tradition actually develops the tool relationship. The traditional witchcraft register treats each tool as a developed working relationship: the tool the practitioner reaches for repeatedly across years, that has been used, named, dedicated, sometimes constructed by the practitioner herself, that holds residue of the workings it has been part of, that is unique to her hand. The grimoire from § II.I is already such a tool — built deliberately, written into, made into a working instrument across years. The candle from § II.III is already such a tool. The altar from § II.II is the first working surface. This section names the tools that may eventually accumulate; it does not direct the practitioner to acquire them. <em>Tools arrive as the practice asks for them, not before.</em></p>
+
+    <p>The principal tools, with brief notes on each. <em>The knife</em> (athame in Wiccan vocabulary; black-handled blade traditionally; the bolline as a separate working blade for cutting plants and apparatus). The knife is the cutting-and-directing instrument. Across traditions: the Greek <em>xiphos</em> in the PGM ritual contexts; the Solomonic black-handled knife of art; the Cornish pellar's working blade. Most practitioners eventually acquire one specific working blade and develop relationship with it across years; many never feel called to and work without one. <em>The wand</em>. Directing-and-channeling instrument; in the Druidic tradition often cut from a specific tree (hazel, ash, oak, blackthorn — each carries different traditional associations); in the ceremonial-magical tradition often constructed with substantial planetary correspondences; in the chaos-magical and contemporary practitioner registers often any object the hand has dedicated. <em>The chalice or cup.</em> The receiving-and-libation vessel. Often paired with the offering-vessel from § II.II's altar arrangement; the chalice is specifically for ritual drinking, the offering-vessel is for libation poured rather than drunk. <em>The pentacle</em> (in the Wiccan/ceremonial register the disk inscribed with the pentagram; in the Solomonic register one of many planetary or spirit-specific seals). <em>The censer</em> for incense; the bell for marking-the-threshold; the broom for sweeping-and-cleansing; the cauldron for cooking, brewing, and substantial ritual fires.</p>
+
+    <p><em>The stang</em> deserves separate naming. The stang — a forked staff, traditionally made from a young tree cut and stripped, with the natural fork at the top — is the central working-tool of the Cochranian-Sabbatic tradition specifically. Unlike the wand or athame, the stang is not borrowed from the ceremonial-magical tradition; it is the traditional-witchcraft instrument the Cochranian revival reconstructed from cunning-folk and folk-magical sources. The stang is set on the altar or in a specific location during workings; it represents the World Tree, the threshold-pillar, the Horned One in the Cochranian register. Andrew D. Chumbley's Cultus Sabbati works with the stang substantially; Robin Artisson's traditional-witchcraft writing develops the instrument; Robert Cochrane's original 1960s correspondence (collected as <cite>The Robert Cochrane Letters</cite>, Capall Bann, 2002) is the founding documentation. Worth knowing as one of the substantive instruments of the contemporary traditional-witchcraft register that the Wiccan-derivative inventory often skips.</p>
+
+    <p>Three principles for tool-relationship. First: the tool is acquired (or made) when the practice asks for it, not in advance. The most-used working tools in most practitioners' work end up being the simplest — the candle, the cord, the knife, the cup, the bowl. Most of the more elaborate tools the contemporary witchcraft register imagines are necessary either never get acquired or sit unused on the altar as decoration. Second: hand-made tools carry weight that purchased tools do not. The wand cut from a specific tree the practitioner has relationship with is operative in a way that the bought-online wand is not. The athame the practitioner has hilted herself is different from the athame purchased pre-made. The grimoire bound by hand is different from the off-the-shelf journal. The principle scales: the tool the practitioner has labored to make is part of her in a way that the bought tool is not. Third: tools are tended. They are cleaned, dressed, sometimes fed (libations poured, oils dressed); they are kept apart from ordinary use; they are wrapped and stored when not in active use; they are sometimes given offerings periodically. The tool relationship is real and asks the same care that any working relationship asks.</p>
+  </main>
+
+  <aside class="col-margin">
+    <div class="margin-note">
+      <span class="arrow">→</span> tools arrive as the practice asks for them. <em>not before.</em> the inventory-first approach is the popular-witchcraft register's mistake.
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> the simplest tools are the most-used: candle, cord, knife, cup, bowl. <em>elaboration is not maturity.</em>
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> hand-made carries weight bought-online does not. <em>the labor is part of the tool.</em>
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> the stang · cochranian-sabbatic central instrument. <em>different inheritance from the wiccan inventory.</em>
+    </div>
+  </aside>
+
+  <!-- ============================================================ -->
+  <!-- SECTION II.X — FIRST DIVINATIONS BEYOND TAROT                -->
+  <!-- ============================================================ -->
+  <div class="section-mark"><span>§ II.X  first divinations beyond tarot</span></div>
+  <h2 class="section-head">Bibliomancy and the simplest scrying</h2>
+
+  <main class="col-text">
+    <p>The full divinatory apparatus beyond tarot opens in chapter 3 (§ III.II). This section is the bridge — two divinatory practices the first-weeks practitioner can begin immediately, requiring no apparatus beyond what is already in the household. <em>Bibliomancy</em> and <em>simplest-water-scrying</em>. Both are accessible, ancient, and continue as standing practices across decades for many practitioners.</p>
+
+    <p><em>Bibliomancy.</em> Open a book at random; read the line under your finger; take it as the response to a question held lightly. The procedure is older than recorded practice; the Sortes Vergilianae (lots from Vergil) was the standard Roman elite practice; the Sortes Sanctorum was the medieval Christian appropriation; the practice persists in contemporary household-divination across many cultures. The book chosen carries the practice — most practitioners use a specific working text (the practitioner's grimoire is sometimes used; collections of poetry are common; sacred texts in various traditions; the practitioner's reading-journal occasionally). The procedure: a question is held in the mind, not pressed; the book is opened at random; the line under the finger or the first line of the page is read; the response is interpreted in relation to the question. The interpretation is the practitioner's; bibliomancy responses are often oblique and require sustained attention to land. Document each session in the divinatory ledger that § III.II will formalize. This is divinatory practice at its simplest: no apparatus beyond a book the practitioner already owns.</p>
+
+    <p><em>The simplest scrying.</em> A bowl of water in a darkened room. Any bowl with a dark or reflective interior; clean water; the room dimly lit. Sit with the surface for ten to twenty minutes, soft-gazing rather than staring. Notice what arises — visual impressions, presences, sustained perceptions, the absence of all of these. Document. The practice will deepen substantially in § III.II with the dedicated scrying surface; for the first weeks, the kitchen bowl or any household vessel is sufficient. Sustained scrying-practice across months is what develops the eye; the apparatus matters less than the consistency.</p>
+
+    <p>One additional very-small divinatory practice: <em>noticed signs</em>. The augury practice the candle-and-altar work eventually develops formally is, at the first-weeks level, simply the discipline of noticing when something striking happens — the bird that lands at the window, the specific song that comes on, the unusual word that surfaces, the dream that lands. The practice is the noticing and the recording, not the interpretation. After several months the noticed-signs section of the grimoire becomes a substantive record of what the world has been pointing at; interpretation, when it eventually develops, comes from the accumulated record rather than from forced reading of individual signs.</p>
+  </main>
+
+  <aside class="col-margin">
+    <div class="margin-note">
+      <span class="arrow">→</span> bibliomancy is divinatory practice at its simplest. <em>no apparatus beyond a book.</em> begin this week.
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> the simplest scrying: bowl, water, dim room. <em>sustained practice across months matures the eye.</em>
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> noticed signs: notice and record, do not interpret. <em>the augury practice begins as the discipline of attention.</em>
+    </div>
+  </aside>
+
+  <main class="col-text chapter-close" style="grid-column: 1 / -1;">
+    <p>The chapter has built the apparatus. The grimoire is open, the altar is set, the candle is sourced and has been lit at least once, the wheel is mapped to twelve months ahead, the rhythm of three or four sittings a week is established, the somatic anchors are layered into the daily working. The practitioner shortlist is built, kept aside for when the deeper body work eventually requires it. Nothing dramatic has happened. The practice is small, repetitive, and seemingly nothing is moving. This is because, in this stage, nothing is moving. That is the point. The early weeks build the container; the chapter ahead is what happens when the container has been running long enough for the body to trust it.</p>
+
+    <p>Read what calls. Practice what scales. Build what serves the long arc. Return when you have left.</p>
+  </main>
+
+</div>
+
+<div class="chrome chrome-bot">
+  <span style="font-family: 'Space Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.16em;">crossroads / slow door / companion</span>
+  <span class="right">ch 02 &nbsp;·&nbsp; the first weeks &nbsp;·&nbsp; rev 0.1</span>
+</div>
+
+</body>
+</html>

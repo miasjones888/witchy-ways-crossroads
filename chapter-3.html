@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 03 — First Workings — The Crossroads and the Slow Door</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=VT323&display=swap" rel="stylesheet">
+<style>
+  :root { --ground-stone: #E4E2DA; --ground-deep: #1F232A; --ink: #16191E; --ink-bone: #E4E2DA; --ink-mid: #54585F; --ink-faint: #8C8E8B; --ink-ghost: #B5B6B0; --accent-rust: #7A2818; --accent-night: #3F4A56; --accent-ochre: #8C6B3A; --accent-sage: #6E7A5A; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--ground-stone); color: var(--ink); font-family: 'IBM Plex Sans', sans-serif; font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; min-height: 100vh; background-image: radial-gradient(ellipse 600px 400px at 85% 22%, rgba(110, 122, 90, 0.06), transparent 60%), radial-gradient(ellipse 400px 300px at 15% 78%, rgba(110, 122, 90, 0.05), transparent 60%); }
+  body::before { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 100; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08 0 0 0 0 0.10 0 0 0 0 0.12 0 0 0 0.5 0'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='0.5'/></svg>"); opacity: 0.35; mix-blend-mode: multiply; }
+  .chrome { position: fixed; left: 0; right: 0; z-index: 50; font-family: 'VT323', monospace; font-size: 13px; color: var(--ink-mid); letter-spacing: 0.04em; padding: 14px 36px; display: flex; justify-content: space-between; align-items: baseline; pointer-events: none; }
+  .chrome-top { top: 0; } .chrome-bot { bottom: 0; }
+  .chrome .stream { color: var(--accent-sage); } .chrome .right { text-align: right; }
+  .vessel { max-width: 1040px; margin: 0 auto; padding: 80px 36px 120px; display: grid; grid-template-columns: minmax(0, 620px) 280px; gap: 60px; align-items: start; }
+  .col-text { grid-column: 1; } .col-margin { grid-column: 2; padding-top: 8px; }
+  .chapter-open { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding-bottom: 56px; border-bottom: 1px solid var(--ink); margin-bottom: 64px; align-items: start; }
+  .open-meta { grid-column: 1; }
+  .open-mark { font-family: 'VT323', monospace; font-size: 18px; color: var(--ink-mid); letter-spacing: 0.02em; margin-bottom: 18px; line-height: 1.3; }
+  .open-mark .num { color: var(--accent-sage); margin-right: 12px; }
+  .open-mark .sep { color: var(--ink-faint); margin: 0 8px; }
+  .open-territories { font-family: 'Space Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--ink-mid); margin-bottom: 28px; line-height: 1.85; }
+  .open-territories .em { color: var(--ink-faint); margin: 0 8px; }
+  .open-entry { font-family: 'Space Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--ink-mid); margin-bottom: 32px; }
+  .open-entry .label { color: var(--ink-faint); margin-right: 8px; }
+  .open-plate { grid-column: 2; margin-top: 12px; }
+  .plate { border: 1px solid var(--ink-faint); padding: 6px; background: var(--ground-stone); position: relative; }
+  .plate-frame { border: 0.5px solid var(--ink-faint); padding: 2px; }
+  .plate-image { width: 100%; aspect-ratio: 4 / 5; background: linear-gradient(160deg, rgba(110, 122, 90, 0.22), rgba(60, 70, 50, 0.28) 60%, rgba(20, 25, 30, 0.42)), var(--ground-deep); position: relative; overflow: hidden; }
+  .plate-image::before { content: ''; position: absolute; inset: 0; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n2'><feTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.5 0 0 0 0 0.4 0 0 0 0.6 0'/></filter><rect width='200' height='200' filter='url(%23n2)' opacity='0.25'/></svg>"); mix-blend-mode: screen; opacity: 0.6; }
+  .plate-image::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent 0, transparent 2px, rgba(0, 0, 0, 0.06) 2px, rgba(0, 0, 0, 0.06) 3px); mix-blend-mode: multiply; opacity: 0.4; }
+  .plate-form { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .plate-form svg { width: 70%; height: auto; filter: drop-shadow(0 0 14px rgba(150, 165, 130, 0.2)); }
+  .plate-caption { margin-top: 10px; font-family: 'Space Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--ink-mid); line-height: 1.7; }
+  .plate-caption .tag { color: var(--accent-sage); margin-right: 6px; }
+  .plate-caption .source { color: var(--ink-faint); display: block; }
+  h1.chapter-title { grid-column: 1 / -1; font-family: 'IM Fell English', serif; font-weight: 400; font-size: 64px; line-height: 0.98; letter-spacing: -0.015em; color: var(--ink); margin-top: 24px; text-shadow: 0 0.5px 0.5px rgba(22, 25, 30, 0.18); }
+  h1.chapter-title em { font-style: italic; color: var(--accent-sage); }
+  .lead { grid-column: 1 / -1; font-family: 'IM Fell English', serif; font-style: italic; font-size: 23px; line-height: 1.4; color: var(--ink); margin-top: 28px; max-width: 720px; text-shadow: 0 0.3px 0.3px rgba(22, 25, 30, 0.12); }
+  .section-rule { grid-column: 1 / -1; display: flex; align-items: center; gap: 14px; margin: 12px 0 36px; }
+  .section-rule::before, .section-rule::after { content: ''; flex: 1; height: 1px; background: var(--ink); }
+  .section-rule .ornament { font-family: 'VT323', monospace; font-size: 18px; color: var(--accent-sage); letter-spacing: 0.6em; }
+  .section-mark { grid-column: 1 / -1; font-family: 'Space Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.22em; color: var(--accent-sage); margin: 36px 0 16px; display: flex; align-items: center; gap: 14px; }
+  .section-mark::after { content: ''; flex: 1; height: 1px; background: var(--ink-faint); }
+  h2.section-head { grid-column: 1 / -1; font-family: 'IM Fell English', serif; font-weight: 400; font-style: italic; font-size: 32px; line-height: 1.05; letter-spacing: -0.012em; color: var(--ink); margin-bottom: 28px; max-width: 720px; text-shadow: 0 0.3px 0.3px rgba(22, 25, 30, 0.14); }
+  p { font-size: 17px; line-height: 1.68; margin-bottom: 18px; color: var(--ink); font-weight: 400; }
+  p em { font-style: italic; }
+  p cite { font-style: italic; }
+  .margin-note { font-family: 'Space Mono', monospace; font-size: 11px; line-height: 1.55; color: var(--ink-mid); text-transform: uppercase; letter-spacing: 0.06em; border-left: 2px solid var(--accent-sage); padding: 4px 0 4px 14px; margin: 0 0 36px; }
+  .margin-note .arrow { color: var(--accent-sage); margin-right: 4px; }
+  .margin-note .date { display: block; margin-top: 6px; font-size: 10px; color: var(--ink-faint); letter-spacing: 0.14em; }
+  .margin-note em { color: var(--ink); font-style: italic; }
+  .pullquote { grid-column: 1 / -1; margin: 28px 0 36px; padding: 24px 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
+  .pullquote p { font-family: 'IM Fell English', serif; font-style: italic; font-size: 28px; line-height: 1.32; color: var(--ink); text-align: left; max-width: 720px; margin: 0; text-shadow: 0 0.3px 0.3px rgba(22, 25, 30, 0.12); }
+  @media (max-width: 820px) { .pullquote p { font-size: 22px; } }
+  .read-block { grid-column: 1 / -1; margin: 32px 0 40px; padding: 28px 0 0; border-top: 1.5px solid var(--ink); }
+  .read-block-head { font-family: 'Space Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.22em; color: var(--accent-sage); margin-bottom: 6px; display: flex; justify-content: space-between; align-items: baseline; }
+  .read-block-head .meta { color: var(--ink-faint); font-weight: 400; }
+  .read-block h3 { font-family: 'IM Fell English', serif; font-weight: 400; font-style: italic; font-size: 24px; color: var(--ink); margin-bottom: 22px; line-height: 1.2; }
+  .read-entry { padding: 18px 0; border-bottom: 1px solid var(--ink-faint); display: grid; grid-template-columns: 70px 1fr; gap: 18px; align-items: start; }
+  .read-tier { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--accent-sage); letter-spacing: 0.1em; padding-top: 4px; font-weight: 700; text-transform: uppercase; }
+  .read-title { font-family: 'IM Fell English', serif; font-style: italic; font-weight: 400; color: var(--ink); font-size: 19px; display: block; margin-bottom: 4px; letter-spacing: -0.005em; line-height: 1.25; }
+  .read-author { color: var(--ink-mid); font-size: 10.5px; font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 10px; display: block; }
+  .read-why { font-family: 'IBM Plex Sans', sans-serif; font-size: 14.5px; line-height: 1.6; color: var(--ink); }
+  .read-why em { font-style: italic; }
+  .build-block { grid-column: 1 / -1; background: var(--ground-deep); color: var(--ink-bone); padding: 32px 36px 36px; margin: 28px 0 36px; position: relative; overflow: hidden; }
+  .build-block::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent 0, transparent 2px, rgba(255, 255, 255, 0.022) 2px, rgba(255, 255, 255, 0.022) 3px); pointer-events: none; }
+  .build-mark { font-family: 'VT323', monospace; font-size: 16px; color: var(--accent-sage); letter-spacing: 0.06em; margin-bottom: 12px; text-transform: uppercase; position: relative; }
+  .build-block h3 { font-family: 'IM Fell English', serif; font-weight: 400; font-style: italic; font-size: 26px; color: var(--ink-bone); margin-bottom: 18px; position: relative; }
+  .build-block p { color: #C8CAC4; font-size: 15.5px; line-height: 1.62; margin-bottom: 14px; position: relative; }
+  .build-block ol, .build-block ul { color: #C8CAC4; font-size: 15.5px; line-height: 1.6; padding-left: 0; list-style: none; counter-reset: build-counter; position: relative; }
+  .build-block ol li { counter-increment: build-counter; margin-bottom: 12px; padding-left: 36px; position: relative; }
+  .build-block ol li::before { content: counter(build-counter, decimal-leading-zero); font-family: 'VT323', monospace; color: var(--accent-sage); font-size: 15px; position: absolute; left: 0; top: 1px; letter-spacing: 0.04em; }
+  .build-block ul li { margin-bottom: 8px; padding-left: 24px; position: relative; }
+  .build-block ul li::before { content: '—'; color: var(--accent-sage); position: absolute; left: 0; }
+  .practice-block { grid-column: 1 / -1; margin: 28px 0 32px; padding: 4px 0 4px 22px; border-left: 2px solid var(--accent-night); }
+  .practice-mark { font-family: 'Space Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.22em; color: var(--accent-night); margin-bottom: 8px; display: block; }
+  .practice-block h4 { font-family: 'IM Fell English', serif; font-style: italic; font-weight: 400; font-size: 20px; color: var(--ink); margin-bottom: 10px; }
+  .practice-block p { font-size: 16px; line-height: 1.62; color: var(--ink); margin-bottom: 8px; font-style: italic; }
+  .practice-block p:last-child { margin-bottom: 0; }
+  .practice-block .ptime { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.16em; margin-bottom: 12px; display: block; font-style: normal; }
+  .research-block { grid-column: 1 / -1; border-left: 3px solid var(--accent-night); padding: 4px 0 4px 22px; margin: 28px 0 32px; }
+  .research-mark { font-family: 'Space Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.22em; color: var(--accent-night); margin-bottom: 10px; display: block; }
+  .research-block p { font-size: 14.5px; line-height: 1.62; color: var(--ink); margin-bottom: 10px; }
+  .research-block p:last-child { margin-bottom: 0; }
+  .chapter-close { grid-column: 1 / -1; margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--ink); font-family: 'IM Fell English', serif; font-style: italic; font-size: 19px; line-height: 1.5; color: var(--ink); max-width: 720px; }
+  .scaffold-note { grid-column: 1 / -1; margin: 24px 0 32px; padding: 20px 24px; background: rgba(110, 122, 90, 0.08); border: 1px dashed var(--accent-sage); font-family: 'Space Mono', monospace; font-size: 11.5px; line-height: 1.7; color: var(--ink-mid); letter-spacing: 0.04em; text-transform: uppercase; }
+  .scaffold-note strong { color: var(--accent-sage); }
+  @media (max-width: 820px) {
+    .chrome { padding: 10px 18px; font-size: 12px; }
+    .vessel { grid-template-columns: 1fr; gap: 0; padding: 64px 22px 100px; }
+    .col-text, .col-margin { grid-column: 1; }
+    .chapter-open { grid-template-columns: 1fr; gap: 22px; padding-bottom: 36px; margin-bottom: 44px; }
+    .open-plate { grid-column: 1; order: -1; }
+    h1.chapter-title { font-size: 44px; }
+    h2.section-head { font-size: 26px; }
+    .lead { font-size: 19px; }
+    p { font-size: 16.5px; }
+    .margin-note { margin: 24px 0; padding: 4px 0 4px 12px; }
+    .build-block { padding: 24px 22px 28px; }
+    .build-block h3 { font-size: 22px; }
+    .read-entry { grid-template-columns: 1fr; gap: 6px; }
+    .read-tier { padding-top: 0; }
+  }
+</style>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#1F232A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Crossroads">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="The Crossroads and the Slow Door">
+<meta name="description" content="A working guide to serious witchcraft and devotional practice across decades.">
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(err => console.log('sw registration failed', err));
+  });
+}
+</script>
+</head>
+<body>
+
+<div class="chrome chrome-top">
+  <span><span class="stream">workings</span> <span style="color:var(--ink-faint);">▪</span> spell <span style="color:var(--ink-faint);">▪</span> divination <span style="color:var(--ink-faint);">▪</span> tools</span>
+  <span class="right">crossroads / companion / ch 03</span>
+</div>
+
+<div class="vessel">
+
+  <header class="chapter-open">
+    <div class="open-meta">
+      <div class="open-mark">
+        <span class="num">03</span>
+        <span style="color:var(--ink-mid);">chapter</span>
+        <span class="sep">▪</span>
+        <span style="color:var(--ink-mid);">first workings</span>
+      </div>
+      <div class="open-territories">
+        <span>spellwork</span><span class="em">▪</span><span>divination</span><span class="em">▪</span><span>elements</span><br>
+        <span>tools</span><span class="em">▪</span><span>calendar</span><span class="em">▪</span><span>grimoire-tradition</span>
+      </div>
+      <div class="open-entry">
+        <span class="label">entry —</span>months 2–6<br>
+        <span class="label">return —</span>year 1 / year 5
+      </div>
+    </div>
+
+    <div class="open-plate">
+      <div class="plate">
+        <div class="plate-frame">
+          <div class="plate-image">
+            <div class="plate-form">
+              <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg">
+                <line x1="100" y1="20" x2="100" y2="240" stroke="rgba(220, 200, 170, 0.4)" stroke-width="1.2"/>
+                <path d="M 100 60 Q 80 70 90 80 Q 100 75 100 80 Q 100 75 110 80 Q 120 70 100 60" fill="none" stroke="rgba(220, 200, 170, 0.55)" stroke-width="1.3"/>
+                <ellipse cx="100" cy="72" rx="14" ry="9" fill="rgba(110, 122, 90, 0.18)" stroke="rgba(220, 200, 170, 0.45)" stroke-width="0.7"/>
+                <path d="M 100 130 Q 80 140 90 150 Q 100 145 100 150 Q 100 145 110 150 Q 120 140 100 130" fill="none" stroke="rgba(220, 200, 170, 0.55)" stroke-width="1.3"/>
+                <ellipse cx="100" cy="142" rx="14" ry="9" fill="rgba(110, 122, 90, 0.18)" stroke="rgba(220, 200, 170, 0.45)" stroke-width="0.7"/>
+                <path d="M 100 200 Q 80 210 90 220 Q 100 215 100 220 Q 100 215 110 220 Q 120 210 100 200" fill="none" stroke="rgba(220, 200, 170, 0.55)" stroke-width="1.3"/>
+                <ellipse cx="100" cy="212" rx="14" ry="9" fill="rgba(110, 122, 90, 0.18)" stroke="rgba(220, 200, 170, 0.45)" stroke-width="0.7"/>
+                <line x1="100" y1="20" x2="100" y2="32" stroke="rgba(220, 200, 170, 0.6)" stroke-width="2"/>
+                <line x1="100" y1="240" x2="100" y2="252" stroke="rgba(220, 200, 170, 0.6)" stroke-width="2"/>
+                <ellipse cx="100" cy="256" rx="14" ry="2.5" fill="rgba(180, 160, 130, 0.25)"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="plate-caption">
+          <span class="tag">plate iii.</span>cord, three knots<br>
+          <span class="source">— composite, archival placeholder. Production: archival photograph or early-modern engraving of working cord, witch's ladder.</span>
+        </div>
+      </div>
+    </div>
+
+    <h1 class="chapter-title">First <em>Workings</em></h1>
+    <p class="lead">The container is built, the rhythm holds, the body is learning to stay. Now the hand begins to work. The first spell is small — one candle, one cord, one statement of intent — and yet it is the threshold the practice has been building toward. After this chapter the practitioner is no longer only a reader and a sitter. They are someone who does.</p>
+  </header>
+
+  <div class="section-rule"><span class="ornament">·  ·  ·</span></div>
+
+  <main class="col-text">
+    <p>This is the chapter the previous version of the document deferred and the chapter the beginner most needs. The first two chapters built apparatus and rhythm; this one builds the operative core — the work itself. Across months two through six, the practitioner moves from <em>preparing to do</em> to <em>doing</em>, and the doing has a specific shape that is best learned through the smallest possible workings repeated with attention until the structure becomes legible from the inside.</p>
+
+    <p>Six territories open in this chapter. <strong>Spellwork</strong> as the foundational operative practice — what a working actually is, the structure that holds across every magical tradition the document touches, and the first three workings to do. <strong>Divination</strong> beyond the daily card — scrying, runic and ogham work for the lineage-keyed practitioner, geomancy, bone-throwing, the cleromantic and bibliomantic register. <strong>The four elements</strong> as practice domains — fire, water, earth, and air not as abstract correspondences but as actual relationships the practitioner develops. <strong>The witch's calendar</strong> beyond the wheel of the year — the saint days, the planetary days and hours, the astrological apparatus that layers underneath the eight stations. <strong>The ethical-operative territory</strong> — protection, healing, money work, love work, and the binding-and-cursing question every adult practitioner has to think through rather than avoid. <strong>The grimoire tradition</strong> — your introduction to the medieval and early-modern primary sources whose lineage your contemporary practice descends from.</p>
+
+    <p>None of this material is optional in a serious witchcraft practice and almost none of it lives in the contemporary practitioner-author register at the depth this chapter requires. The reading lists across these six sections lean primary-source and small-press more than any other chapter in the document. The work is operative; the reading is the literacy that develops alongside, not the curriculum itself. <em>Do the workings. Read what they ask you to read.</em></p>
+  </main>
+
+  <aside class="col-margin">
+    <div class="margin-note">
+      <span class="arrow">→</span> the operative core of the practice. <em>not optional.</em> witches do things; this is what they do.
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> the smallest possible working, repeated, is the curriculum. ambition is the enemy of the first six months of operative work.
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> the body work and devotional rhythm from chapters 1-2 continue underneath. operative work runs <em>alongside</em>, not instead.
+    </div>
+  </aside>
+
+  <!-- ============================================================ -->
+  <!-- SECTION III.I — SPELLWORK                                    -->
+  <!-- ============================================================ -->
+  <div class="section-mark"><span>§ III.I  spellwork</span></div>
+  <h2 class="section-head">The structure of a working</h2>
+
+  <main class="col-text">
+    <p>A spell is a working — a deliberate act, performed inside a held container, that uses material and symbolic operations to participate in a desired change. That is the definition. Strip the gloss and the genre conventions and what remains is structural: <em>a container is held; an intention is named; a sympathetic action is performed; the container is released; the work is left to act.</em> The structure is the same in a Hoodoo honey jar made for a specific person on a specific Sunday and in a Solomonic angelic conjuration timed to a planetary hour and in the Cornish village witch's pin-and-paper binding. What varies is the apparatus — the candles, the herbs, the words, the timing — not the structure underneath.</p>
+
+    <p>The foundational logic underneath almost every operative tradition is what James Frazer in <cite>The Golden Bough</cite> (1890) named sympathetic magic — the principle that <em>like affects like</em> (homeopathic or imitative magic) and that <em>things once in contact remain in contact</em> (contagious magic). The poppet shaped to resemble a person is imitative; the lock of that person's hair sewn into the poppet is contagious. The candle dressed with money-drawing oils and inscribed with a target sum is imitative; the dollar bill folded and burned with it is contagious. Frazer's framework was developed as anthropological theory of "primitive religion" and the cultural-evolutionary scaffolding around it is now broadly rejected, but the operative principle is the working logic of folk magic across cultures and is the framework the contemporary practitioner inherits. Read Frazer with critical context (Mary Douglas's <cite>Purity and Danger</cite>, 1966, for the foundational anthropological corrective; Jonathan Z. Smith's <cite>Imagining Religion</cite>, 1982, for the theoretical correction); use the principle as a working tool.</p>
+
+    <p>The structure of a complete working has five movements that the beginner does well to make explicit until the apparatus becomes internalized. <em>Opening</em> — the work begins by deliberately marking the threshold between ordinary time and ritual time. Lighting the candle, sounding the bell, naming the deity, stating <em>I am beginning the work</em>. <em>Statement of intent</em> — the desired change, named precisely, in the present or perfect tense rather than the conditional. Not <em>I would like to find work</em>; rather <em>I am called into the work that serves me</em>. The grammar is operative; speak as if the work is already moving. <em>The operative act</em> — the actual sympathetic work. Dress the candle, tie the knot, stitch the poppet, pour the jar, write the petition. This is the body of the spell. <em>Sealing</em> — the working is closed. The candle is left to burn or extinguished with the proper protocol; the cord is hidden; the jar is buried or kept; the petition is sealed. <em>Release</em> — the threshold is closed. Thank the deity, extinguish the marker flame, name the working complete. Then walk away. <em>The work that is held tightly does not move.</em></p>
+
+    <p>The first three workings of this chapter are deliberately small. A single candle working for a single specific intention. A cord-of-three-knots binding for a clear personal protection. A simple jar working for a sweetening or settling intent. None require materials beyond what the apparatus from chapter two has assembled. None take more than thirty minutes to perform. None are demonstrations of skill; they are the curriculum the hand learns by doing.</p>
+  </main>
+
+  <aside class="col-margin">
+    <div class="margin-note">
+      <span class="arrow">→</span> opening · intent · operative act · sealing · release. <em>five movements.</em> learn them on a candle before scaling up.
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> grammar matters. speak the working as if it is already moving. operative tense, not conditional.
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> the work that is held tightly does not move. <em>do the working, then release it.</em>
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> small first. the cord is more useful than the elaborate altar. ambition is enemy here.
+    </div>
+  </aside>
+
+  <section class="build-block">
+    <div class="build-mark">build · the first candle working</div>
+    <h3>One candle, one intent</h3>
+    <p>Before any cord, jar, or poppet — a candle. The simplest possible operative working, repeated until the structure is in the hand.</p>
+    <ol>
+      <li>Choose a single specific intent. Not a wish or a vague desire — a clear sentence in the present-perfect tense. <em>I am held in steady work that serves me</em>; <em>I am protected on the road north</em>; <em>I am released from the binding to the place I no longer live</em>. Write it on a small slip of paper.</li>
+      <li>Choose a candle. For a beginner, a simple chime candle (the small four-inch ritual candles) in a color matching the work — green for prosperity and growth, white for clarity or general work, black for protection and binding-out, red for vitality, blue for peace and healing. Beeswax over paraffin where budget permits; the candle is consumed in the working and beeswax burns cleaner and is sourced from living animals rather than petroleum.</li>
+      <li>Inscribe the candle. Use a pin, a needle, or a clean blade to scratch your intent's keyword and any sigil or symbol that holds the intent into the wax. The inscription is operative; the act of cutting the words into the candle is part of the spell.</li>
+      <li>Dress the candle. A few drops of an appropriate oil rubbed into the wax — for the beginner's first workings, plain olive oil is sufficient; later the dressing oils become specific (Hoodoo's Crown of Success oil, Money Drawing oil, Protection oil — Lucky Mojo Curio's catalog is the reliable contemporary source). For lineage-keyed work, the oil can be dressed with herbs ground from your own garden or wildcrafted from the land you live on.</li>
+      <li>Set the candle on a fireproof surface — a plate, a candleholder, the altar itself if it can hold heat. Place the petition paper underneath if the working asks you to, folded toward you for drawing-in work and away for sending-out work.</li>
+      <li>Open the working. Light the candle. Speak the statement of intent aloud. Sit with the candle through one full sitting (twenty to thirty minutes is sufficient for a chime candle — they burn in roughly that time). Do not leave the candle unattended. Watch the flame. Notice what arises.</li>
+      <li>Close the working. When the candle has burned down or you must leave, snuff it (do not blow it out — blowing disperses the work; snuffing seals it). Speak the working complete. Thank whatever you addressed.</li>
+      <li>Disposal. The wax remnant is buried at a crossroads or under a tree for sending-out work, or kept on the altar for ongoing drawing-in work. The petition paper is burned in a separate flame and the ashes scattered for sending-out, or kept folded in the grimoire for drawing-in. <em>The disposal is part of the working.</em></li>
+    </ol>
+  </section>
+
+  <div class="practice-block">
+    <span class="practice-mark">practice · the candle ledger</span>
+    <h4>Document each working</h4>
+    <span class="ptime" style="font-style: normal;">five minutes after each working · in the grimoire</span>
+    <p>Before any second working is performed, write the first one down. The candle ledger is a dedicated section of the grimoire that records every working: the date, the moon phase, the planetary day if known, the intent, the materials used, the candle color, the dressing oil, what arose during the burn, and what arrived in the days and weeks that followed.</p>
+    <p>The ledger is not for show. It is the only way a practitioner builds operative literacy across years. After fifty workings the patterns become visible — what works under what conditions, what materials suit your hand, what timing your particular practice responds to. Without the ledger, fifty workings produce fifty isolated incidents. With it, they produce a working file of your own developing tradition.</p>
+  </div>
+
+  <section class="build-block">
+    <div class="build-mark">build · the cord of three knots</div>
+    <h3>The first knot working</h3>
+    <p>The witch's cord is one of the oldest and simplest operative instruments. The cord-of-nine-knots is the historically attested working in British and Cornish traditional witchcraft (documented in Paul Huson's <cite>Mastering Witchcraft</cite>, in Doreen Valiente's work, in Gemma Gary's <cite>Traditional Witchcraft: A Cornish Book of Ways</cite>); the cord-of-three is the beginner's version. Three knots is sufficient to learn the structure.</p>
+    <ol>
+      <li>Acquire a length of natural cord — wool, cotton, hemp, or linen. Synthetic cord is functionally inert. Length: a forearm's measure, roughly fourteen to eighteen inches. Color matched to the work as with the candle: black for binding, red for vitality, green for growth, blue for healing or peace, white for clarity.</li>
+      <li>Choose the intent. The cord-of-three is well suited to protection, binding-in (holding something to you), or binding-out (preventing something from reaching you). For a first working, choose a protection — for yourself, for someone in your care, for a journey, for a project.</li>
+      <li>Open the working as you did with the candle. Speak the statement of intent aloud.</li>
+      <li>Tie the first knot near one end of the cord. As you tie it, speak the intent aloud once. Pull the knot tight.</li>
+      <li>Tie the second knot in the middle. Speak the intent again as you tie. Pull tight.</li>
+      <li>Tie the third knot near the other end. Speak the intent a third time. Pull tight.</li>
+      <li>Seal the working. Hold the cord between both hands. Name what is bound into it. Close the threshold.</li>
+      <li>Disposition. For protection, carry the cord on your person or hide it where it does its work — under your bed, in your car, near a threshold of the house. For binding-out, the cord is buried at a crossroads. For drawing-in, the cord stays on the altar until the work is complete; then it is burned and the ashes scattered with thanks.</li>
+    </ol>
+  </section>
+
+  <div class="practice-block">
+    <span class="practice-mark">practice · cord cycle</span>
+    <h4>One cord per moon</h4>
+    <span class="ptime" style="font-style: normal;">monthly · timed to the dark or new moon · ongoing for at least six months</span>
+    <p>For the first six months of operative work, tie one cord per lunar cycle. Time it to the dark moon for binding-out and clearing work, the new moon for new beginnings, the waxing moon for drawing-in, the full moon for working at peak power. The repetition across six lunar cycles teaches the hand the structure without burdening it with ambition. After six months the cord becomes available as a working instrument the practitioner reaches for when the situation asks for it, rather than as a learned exercise.</p>
+  </div>
+
+  <section class="build-block">
+    <div class="build-mark">build · a simple jar working</div>
+    <h3>The third working — sweet jar or freezer jar</h3>
+    <p>Jar working is largely a Hoodoo and African American folk-magical tradition (with cousins in Pennsylvania Dutch braucherei, Italian-American folk magic, and the wider European witchcraft tradition). The contemporary practitioner working outside the African Diasporic religions can engage the jar tradition with respect for its lineage; if your practice opens substantively into Hoodoo, the relationship requires direct engagement with Black practitioners and traditions, not extraction. Catherine Yronwode's <cite>Hoodoo Herb and Root Magic</cite> and the broader Lucky Mojo curriculum is the reliable contemporary teaching ground; Stephanie Rose Bird's <cite>Sticks, Stones, Roots & Bones</cite> is the practitioner-text by a Black author. For a beginner working from a non-Diasporic position, the structural form is portable; the lineage-specific names and traditions stay where they belong.</p>
+    <p>Two jar workings to learn: the sweet jar (for bringing harmony, sweetness, or favorable disposition to a relationship) and the freezer jar (for cooling, slowing, or holding an aggressive situation in suspension).</p>
+    <ol>
+      <li>For the sweet jar — a small clean glass jar with lid; a slip of paper with the petition (the desired sweetening, named); a sweetener (honey, sugar, molasses, syrup); herbs that hold the work (rose for love, lavender for peace, chamomile for calm). For the freezer jar — same vessel; petition (the situation to be cooled, named); a freezing medium (vinegar, lemon juice, water); cooling herbs (mint, parsley, peppermint).</li>
+      <li>Write the petition. For the sweet jar, names of the parties and the relationship to be sweetened. For the freezer jar, the name of the person or situation to be cooled. The grammar is operative.</li>
+      <li>Fold the petition toward you for the sweet jar (drawing-in), away for the freezer jar (sending-out, putting on ice).</li>
+      <li>Place the petition in the jar. Add the herbs. Pour in the sweetener or freezing medium until the petition is covered.</li>
+      <li>Seal the jar. Speak the working aloud. For the sweet jar, set on the altar and burn a candle on top of the lid (if the lid is metal, a candle can be set on it directly with care; otherwise on a holder near the jar) for one full burn each Sunday or Friday for as long as the work asks. For the freezer jar, place in the back of the freezer and leave there.</li>
+      <li>Disposition. Sweet jar continues until the work concludes; the jar is then buried or its contents poured into running water with thanks. Freezer jar continues as long as the situation requires; when the situation has moved, the jar is removed from the freezer and the contents disposed at a crossroads with the working named complete.</li>
+    </ol>
+  </section>
+
+  <main class="col-text">
+    <p>The first three workings — candle, cord, jar — give the hand the foundational vocabulary. After six months of repeating them at the cycle the practice asks for, three further operative forms open: the poppet (sympathetic-representational figure work), the mirror (reflection, glamour, scrying-as-spell, protection), and the charm bag (mojo, gris-gris, sachet — portable working). Each is a sub-tradition with its own lineage and literature; each can be learned at the same small scale as the candle. None is more sophisticated than the candle, only more apparatus-dependent. The candle remains the foundational working across decades.</p>
+
+    <p>The ethical-operative territory the chapter develops in § III.V deserves a forward note here. <em>Hex, curse, binding-out — work that constrains another person's agency — is a real territory of the tradition that adult practitioners have to think through rather than avoid.</em> The dominant contemporary witchcraft register (Wiccan, neopagan-mainstream) has the threefold law and the rede as ethical structures intended to forbid harming-work. The traditional witchcraft register has no such prohibition; the cunning-folk historically did binding-out work, the Sabbatic-Cochranian tradition treats harming-work as a tool to be used judiciously, the Hoodoo and folk-Catholic traditions have substantial corpus on cursing, crossing, and uncrossing. The position the keyed reader will eventually take is hers; what matters in the first six months is that she understands the territory exists, knows that the first three workings here are structurally consent-respectful (working on yourself or a situation, not constraining another person against their will), and develops the habit of asking <em>whose agency is involved in this working</em> before performing it. Section § III.V in this chapter takes the question seriously.</p>
+  </main>
+
+  <aside class="col-margin">
+    <div class="margin-note">
+      <span class="arrow">→</span> candle, cord, jar are the foundational vocabulary. <em>poppet, mirror, charm bag</em> open after six months of the first three.
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> hex / curse / binding-out is real territory. the chapter doesn't moralize but it does ask the question. <em>see § III.V.</em>
+    </div>
+  </aside>
+
+  <section class="read-block">
+    <div class="read-block-head"><span>read · spellwork foundations</span><span class="meta">§ III.I · the operative-tradition spine</span></div>
+    <h3>Sympathetic magic, the operative tradition, and the contemporary practitioner-spell-corpus</h3>
+
+    <p style="font-size: 14.5px; line-height: 1.6; color: var(--ink); margin-bottom: 24px; padding: 16px 18px; background: rgba(110, 122, 90, 0.07); border-left: 3px solid var(--accent-sage);"><em>Sequence:</em> <strong>Months 2-6 (alongside the first three workings):</strong> Valiente's <cite>Natural Magic</cite> as the foundational mid-century operative-witchcraft text; Illes's <cite>Encyclopedia of 5,000 Spells</cite> as the working reference for forms; Gary's <cite>Traditional Witchcraft</cite> for the traditional-British operative register. <strong>Months 6-12:</strong> Yronwode for the Hoodoo and African American operative tradition (with awareness of the lineage question); Huson's <cite>Mastering Witchcraft</cite> for the unflinching mid-century operative-craft text. <strong>Year 1-3:</strong> Frazer's <cite>Golden Bough</cite> for the foundational theoretical framework (with critical context — Douglas, Smith); Leitch's <cite>Secrets of the Magickal Grimoires</cite> for the grimoiric-tradition operative spine. <strong>Year 3-5 (depth):</strong> Hoggard on the archaeological evidence for concealed magic; Davies's <cite>Popular Magic</cite> for the cunning-folk tradition; Williamson archives via Patterson. <strong>Reference / continuing:</strong> Illes returns as a reference work consulted across decades; the Lucky Mojo curriculum and the Cultus Sabbati corpus continue developing as the practice itself develops.</p>
+
+    <div class="read-entry">
+      <div class="read-tier">Entry</div>
+      <div>
+        <span class="read-title">Natural Magic</span>
+        <span class="read-author">Doreen Valiente · Robert Hale · 1975/1985</span>
+        <p class="read-why">Valiente (1922-1999) is the foundational figure of mid-century English witchcraft after Gardner — she co-authored much of the Gardnerian liturgy, then broke with Gardner and developed her own substantial operative corpus. <cite>Natural Magic</cite> is her most directly operative book, treating the working candle, the cord, herbs, charms, and the structure of folk-magical practice with the seriousness of a practitioner who had been doing the work for decades. Substantially better than her better-known <cite>An ABC of Witchcraft</cite> (1973) for the operative beginner. Out of print in some editions but reliably available used. Pair with <cite>Witchcraft for Tomorrow</cite> (1978) for her later thinking on solitary practice and ethics.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Entry</div>
+      <div>
+        <span class="read-title">The Element Encyclopedia of 5,000 Spells · Encyclopedia of Witchcraft · Pure Magic</span>
+        <span class="read-author">Judika Illes · HarperOne / HarperElement · 2009 / 2005 / 2007</span>
+        <p class="read-why">Illes is the most substantial contemporary encyclopedic compiler in the field. <cite>5,000 Spells</cite> is the working reference for forms — cross-traditional, sourced, with substantial historical apparatus on each tradition's lineage. Useful as a reference book to consult when a specific situation needs a working and the practitioner wants to see how different traditions have approached it. <cite>Encyclopedia of Witchcraft</cite> is the broader cultural-historical companion; <cite>Pure Magic</cite> is the slimmer practitioner-introduction. Read <cite>Pure Magic</cite> first if a single Illes book; keep <cite>5,000 Spells</cite> as standing reference.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Entry</div>
+      <div>
+        <span class="read-title">Traditional Witchcraft: A Cornish Book of Ways · The Black Toad: West Country Witchcraft and Magic · The Devil's Dozen · Wisht Waters · A Cornish Book of Ways</span>
+        <span class="read-author">Gemma Gary · Troy Books · 2008/2018 / 2012 / 2015 / 2017</span>
+        <p class="read-why">Gary is the principal contemporary practitioner-author in the West Country traditional-witchcraft register. <cite>Traditional Witchcraft</cite> (2008, revised 2018) is the foundational text — the Cornish village-witch operative tradition treated by a practitioner working inside it. <cite>The Black Toad</cite> develops the cunning-folk and pellar work specifically. The corpus is substantively operative — the workings are recipes, with lineage and apparatus, not abstract theory. Troy Books is the principal small-press for British traditional witchcraft; the catalog as a whole rewards exploration.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Hoodoo Herb and Root Magic · Hoodoo in Theory and Practice (online)</span>
+        <span class="read-author">Catherine Yronwode · Lucky Mojo Curio · 2002 / luckymojo.com (free, ongoing)</span>
+        <p class="read-why">Yronwode (born 1947) is the foundational figure of the contemporary Hoodoo revival and the proprietor of Lucky Mojo Curio Company in Forestville, California. <cite>Hoodoo Herb and Root Magic</cite> is the encyclopedic reference. <cite>Hoodoo in Theory and Practice</cite>, available free at luckymojo.com, is the working curriculum — substantial, lineage-honest, structurally rigorous. The Association of Independent Readers and Rootworkers (AIRR), founded by Yronwode, maintains the contemporary Hoodoo practitioner network. <em>Lineage note:</em> Hoodoo is an African American religious-magical tradition with substantial Black practitioners and theorists; engagement by non-Black practitioners requires the appropriate humility and lineage-consciousness. Yronwode is white; her work has been substantively criticized and substantively defended; read with awareness. <strong>Pair with Black-authored sources below.</strong></p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Sticks, Stones, Roots &amp; Bones: Hoodoo, Mojo &amp; Conjuring with Herbs · The Big Book of Soul · 365 Days of Hoodoo · A Healing Grove</span>
+        <span class="read-author">Stephanie Rose Bird · Llewellyn / Hampton Roads · 2004 / 2010 / 2018 / 2009</span>
+        <p class="read-why">Bird is the principal Black practitioner-author in the contemporary Hoodoo and African American spiritual-tradition publishing register. <cite>Sticks, Stones, Roots &amp; Bones</cite> is the foundational practitioner-text from an authoritative position inside the tradition. <cite>The Big Book of Soul</cite> develops the broader African American spiritual landscape; <cite>365 Days of Hoodoo</cite> is the daily-practice working calendar. Read alongside Yronwode for the lineage-balanced study; if a choice has to be made, read Bird first for the keyed reader's ancestral configuration.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Mastering Witchcraft: A Practical Guide for Witches, Warlocks, and Covens</span>
+        <span class="read-author">Paul Huson · G.P. Putnam's Sons · 1970</span>
+        <p class="read-why">Huson's <cite>Mastering Witchcraft</cite> is one of the most consequential and most controversial mid-century operative-witchcraft texts. Published the same year as Margot Adler's <cite>Drawing Down the Moon</cite>, it took the opposite path — unflinching, operative, willing to treat curse-and-binding work as part of the tradition rather than as territory to legislate around. The book has been consistently in print since 1970 (Putnam, Perigee, Berkley editions), used by generations of practitioners across traditions. <em>Critical context:</em> Huson's voice carries the period's casual sexism in places; his attitude toward gendered roles in working is dated; his treatment of love-work is more aggressive than contemporary consent-conscious practice tolerates. Read for the operative apparatus and the unflinching engagement with the full territory; bring contemporary ethical apparatus to the reading. The chapter on bewitchment specifically remains one of the clearest practitioner treatments of the cursing-and-binding tradition in print.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">The Golden Bough · The New Golden Bough (abridged)</span>
+        <span class="read-author">James George Frazer · Macmillan · 1890-1915 (12 vols.) / 1959 (Theodor Gaster's abridgment)</span>
+        <p class="read-why">Frazer's <cite>Golden Bough</cite> is the foundational comparative-folklore text in which sympathetic magic — homeopathic and contagious — was first systematically articulated. The cultural-evolutionary framework around the principle is now broadly rejected (Frazer treated "primitive" religion as an early stage of human development to be superseded); the operative principle remains the working logic of folk magic across cultures. Read the Gaster abridgment (1959) rather than the full 12-volume set; the relevant chapters are "The Principles of Magic," "Sympathetic Magic," and "The Magic Spring." <em>Critical context required:</em> pair with Mary Douglas, <cite>Purity and Danger</cite> (1966), for the foundational anthropological corrective on what Frazer called "primitive thought"; Jonathan Z. Smith, <cite>Imagining Religion</cite> (1982), for the theoretical correction; Wendy Doniger O'Flaherty's introduction to the Penguin Classics edition of <cite>The Golden Bough</cite> (1996) for the contemporary feminist-comparativist framing. Read Frazer for the framework, not for the worldview.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Secrets of the Magickal Grimoires: The Classical Texts of Magick Deciphered</span>
+        <span class="read-author">Aaron Leitch · Llewellyn · 2005</span>
+        <p class="read-why">Leitch is the contemporary practitioner-scholar working the grimoiric tradition for accessible operative engagement. The book treats the operative spine of the medieval and early-modern grimoire tradition — what the books actually do, how to do the workings the way the books describe them, what apparatus the tradition assumes. Useful for the practitioner whose work eventually opens into the grimoiric-ceremonial register; useful here for the framework-establishment that the contemporary witch's spell-tradition descends from the grimoire-and-cunning-folk tradition rather than from a purely folk-revival tradition. Pair with his <cite>The Angelical Language</cite> (2 vols., Llewingll, 2010) for the Enochian register if the practice opens that direction.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Magical House Protection: The Archaeology of Counter-Witchcraft</span>
+        <span class="read-author">Brian Hoggard · Berghahn Books · 2019</span>
+        <p class="read-why">Hoggard is the leading contemporary scholar of concealed magic in British vernacular architecture — witch's bottles concealed in chimneys, dried cats walled into thresholds, shoe-deposits, marks scratched on doorways and beams. The book is the first substantial archaeological-scholarly survey of the operative magical objects historical practitioners actually buried into the fabric of buildings. Substantially under-discussed in contemporary practitioner literature; transformative for the practitioner who wants to understand what the operative tradition was actually doing in lived practice rather than in text. Read for the framework that <em>magic is buried into space</em>, not just performed in it.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Popular Magic: Cunning-folk in English History · A People Bewitched: Witchcraft and Magic in Nineteenth-Century Somerset · Witchcraft: A History</span>
+        <span class="read-author">Owen Davies · Hambledon Continuum / Self-published / Tempus · 2003 / 1999 / 2003</span>
+        <p class="read-why">Davies is the foundational contemporary historian of English popular magic and the cunning-folk tradition. <cite>Popular Magic</cite> (2003) is the principal scholarly text — the cunning-folk as the historical practitioners who actually did the operative work in English communities from roughly 1500 through the twentieth century. The cunning-folk are the lineage-ancestors of the contemporary traditional witch in a way that Wicca's revival is not; reading Davies establishes the actual tradition the contemporary practice is reaching toward. <cite>A People Bewitched</cite> is the deep regional study of Somerset specifically; <cite>Witchcraft: A History</cite> is the broader survey. All three rewarding; if one, <cite>Popular Magic</cite>.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Cecil Williamson's Book of Witchcraft: A Grimoire of the Museum of Witchcraft · The Cunning Man's Handbook</span>
+        <span class="read-author">Steve Patterson · Troy Books · 2014 / 2017</span>
+        <p class="read-why">Cecil Williamson (1909-1999) founded the Museum of Witchcraft and Magic in Boscastle, Cornwall — the principal institutional archive of British operative-witchcraft material objects. Williamson worked alongside (and ultimately apart from) Gerald Gardner; his collection of cunning-folk and traditional-witchcraft material objects is the single most substantial physical archive of the tradition in the world. Steve Patterson's <cite>Cecil Williamson's Book of Witchcraft</cite> is the published treatment of Williamson's working notes and the museum's operative material — the workings, the charms, the apparatus, the lore. <cite>The Cunning Man's Handbook</cite> develops the cunning-folk register. Both small-press; both essential for the operative-tradition register.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">The Black Books of Elverum: Norwegian Magic from the 1500s and 1600s</span>
+        <span class="read-author">Mary S. Rustad, ed./trans. · Galde Press · 1999</span>
+        <p class="read-why">For the practitioner whose operative engagement opens into the historical primary-source tradition: a translation of the actual working manuscripts used by Norwegian cunning-folk in the early modern period. Spells, charms, healing formulas, livestock-protection workings, weather-working, the practical apparatus of folk-magical practice as it was actually practiced. Out of print, available used; small-press; rewarding.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">Cunning Folk: Popular Magic in English History · The Visions of Isobel Gowdie</span>
+        <span class="read-author">Owen Davies / Emma Wilby · Hambledon · 2003 / Sussex Academic · 2010</span>
+        <p class="read-why">Already cited above (Davies); paired here with Wilby's <cite>Visions of Isobel Gowdie</cite> for the depth-historiography of the practitioner-tradition. Gowdie's confessions (Auldearn, Scotland, 1662) contain one of the most substantial early-modern accounts of operative witchcraft from inside the tradition; Wilby's reconstruction of the working framework Gowdie's confessions imply is the contemporary scholarly standard. For the practitioner whose Welsh-Scots-English ancestry makes the British traditional-witchcraft register direct lineage-recovery rather than borrowed practice, this book is foundational.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">Veneficium: Magic, Witchcraft and the Poison Path · Viridarium Umbris: The Pleasure-Garden of Shadow · Thirteen Pathways of Occult Herbalism</span>
+        <span class="read-author">Daniel A. Schulke · Three Hands Press · 2012 / 2005 / 2014</span>
+        <p class="read-why">Schulke is the magister of the Cultus Sabbati and the principal small-press grimoiric-witchcraft author of the contemporary period. The work is demanding, primarily devotional-and-operative rather than introductory, and the books are significant collector items. Cited here in the spellwork-foundations register as the depth that the operative tradition opens into for the practitioner whose work matures past the introductory practitioner-texts. Three Hands Press as a small press is the principal contemporary publisher of small-press grimoiric witchcraft; its catalog is the deep-end.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">Revolutionary Witchcraft: A Guide to Magical Activism · Magick for the Resistance</span>
+        <span class="read-author">Sarah Lyons · Running Press / Llewellyn · 2019 / 2020</span>
+        <p class="read-why">Lyons is the contemporary practitioner-author working the operative-witchcraft tradition for explicitly political and activist ends. Cited here as the depth-track for the practitioner whose operative work eventually engages collective and political situations rather than only personal ones. The book is short, readable, lineage-aware (Lyons is honest about which traditions she draws from and where the appropriation question lives), and substantively operative. The contemporary politically-radical witchcraft register (Catland Books in Brooklyn, the broader anarchist-witchcraft scene) is the small-press and small-publisher community Lyons writes from.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- SECTIONS III.II - III.VI — TO BE BUILT NEXT SESSIONS         -->
+  <!-- ============================================================ -->
+
+  <!-- ============================================================ -->
+  <!-- SECTION III.II — DIVINATION BEYOND THE DAILY CARD            -->
+  <!-- ============================================================ -->
+  <div class="section-mark"><span>§ III.II  divination beyond the daily card</span></div>
+  <h2 class="section-head">Scrying, lots, runes, ogham, geomancy</h2>
+
+  <main class="col-text">
+    <p>Tarot is one tradition. Chapter 2 introduced it as the daily-practice divinatory form, and the years-long study develops in chapter 5. The wider divinatory landscape is what opens here. The contemporary witchcraft register treats tarot as if it were <em>the</em> divinatory practice; this is a recent and parochial position. The historical witch and cunning-folk repertoire was substantially wider — scrying in any reflective surface, the casting of bones and lots, the runes for the practitioners working in Northern-tradition currents, the ogham for those working Welsh-and-Irish-Celtic, geomancy for the Renaissance-grimoire and West African-derived registers, the playing-card tradition that is older than tarot in much of Europe, dream-incubation, augury read from birds and animals and sky-signs, bibliomancy from the household scriptures, the pendulum as a working tool, the sortes-and-lots traditions of Greek-Roman and medieval Christian practice. The tarot-only practitioner is reading from one keyboard.</p>
+
+    <p>The practitioner adds <em>one</em> divinatory technology beyond tarot during the first six months of operative work. Not three, not five — one. Sustained relationship with a single divinatory technology over months produces literacy that no amount of dabbling produces. The choice depends on what the practice is opening into. The Welsh-line keyed reader has direct lineage-access to ogham; the paternal-line keyed reader has lineage-access to bone-throwing in the African American and West African tradition; the practitioner whose work opens Hellenic has the Greek scrying and sortilege traditions; the Norse-tradition practitioner has the runes and the <em>blótspánn</em> (lot-casting). Or the practitioner can begin with the most universal — water-scrying or mirror-scrying — which crosses every tradition because every tradition has had reflective surfaces and sustained gazing into them. The choice is not load-bearing if the practice is sustained. The technology becomes a working instrument across years; what matters is that <em>one</em> instrument develops past the tarot-and-dabbling stage.</p>
+
+    <p><em>Scrying</em> is the most universal divinatory technology. The principle: the practitioner gazes into a reflective surface — water in a dark bowl, a black mirror, a polished stone, a flame, smoke rising from incense, ink in a saucer, a crystal — until the visual field becomes labile and images, impressions, presences, or sustained perceptions arise that the practitioner did not deliberately produce. The technique is ancient (Pliny names water-scrying in <cite>Naturalis Historia</cite>; the Greek Magical Papyri contain scrying-procedures; John Dee's late-Tudor Enochian system is a substantial scrying corpus; the African and African Diasporic traditions have substantial mirror-and-water scrying; the Welsh and Celtic traditions have well-and-pool scrying). The contemporary practitioner's introduction is small: a dark bowl filled with clean water, the room dimmed, ten to twenty minutes of soft gaze, a question held but not pressed. Scrying-as-spell is a related technology where the surface is used not for reading but for working — sending intent into the reflection, drawing something out of it, using the surface as the locus of the working. Donald Tyson's <cite>Scrying for Beginners</cite> (Llewellyn, 1997) and <cite>How to Make and Use a Magic Mirror</cite> (Llewellyn, 2014) are the principal contemporary practitioner-instructional texts.</p>
+
+    <p><em>Cleromancy — the cast of lots.</em> The most cross-cultural divinatory category. A set of objects (bones, sticks, stones, runes, ogham staves, knucklebones, coins, cards, beads, shells) is cast or drawn, and the configuration produces the reading. Every continent has cleromantic traditions; the major contemporary forms relevant to the Western practitioner are <em>runes</em> (Norse-Germanic), <em>ogham</em> (Welsh and Irish Celtic), <em>bone-throwing</em> (African and African Diasporic), <em>sortilege bones / knucklebones / astragalomancy</em> (Greek-Roman primary), <em>geomantic figures</em> (Western and West African), <em>obi/cowries/diloggún</em> (Yoruba and Diasporic religions, with substantial initiation-required practice), and <em>tarot or playing-cards</em> when used as a draw-and-read system rather than a spread-system.</p>
+
+    <p>The runes — the Elder Futhark (24 staves), Younger Futhark (16 staves), or Anglo-Saxon Futhorc (29-33 staves) — are one of the major Western cleromantic traditions. Substantial caveat: the contemporary runic-revival has serious political-baggage problems. Edred Thorsson (Stephen Flowers), the principal mid-twentieth-century practitioner-author of the runic revival, has documented affiliations with white-nationalist organizations and ideologies; the Asatru Folk Assembly under Stephen McNallen drifted into racial-exclusivist positions; the broader Heathen tradition has fought a sustained internal struggle against far-right capture. Read with explicit awareness. The contemporary practitioner-scholar to read first is <em>Maria Kvilhaug</em> — Norwegian scholar of Norse mythology, author of <cite>The Seed of Yggdrasill</cite> (Whyte Tracks, 2013), <cite>The Poetic Edda: Six Cosmology Poems</cite> (Lulu, 2011), and the substantial <em>Lady of the Labyrinth</em> youtube corpus. Kvilhaug works the matriarchal-feminine-substrate of the Old Norse material with rigorous primary-source engagement and is one of the principal contemporary correctives to the masculinist-and-political distortions of the field. <em>Diana L. Paxson</em>'s <cite>Taking Up the Runes</cite> (Weiser, 2005) is the practitioner-accessible introduction with appropriate political and lineage awareness. <em>Stephen Pollington</em>'s <cite>Rudiments of Runelore</cite> (Anglo-Saxon Books, 2008) is the philological-scholarly companion. Begin with Paxson; develop into Kvilhaug; consult Pollington for the Anglo-Saxon-philology depth.</p>
+
+    <p>The ogham — twenty Old Irish characters used in inscriptions and in the medieval scholastic tradition as a divinatory and mnemonic system — is the cleromantic technology directly relevant for the matrilineal Welsh-Celtic line. Substantial caveat from the other direction: the contemporary ogham-divination practice substantially post-dates the historical ogham, which was primarily an inscriptional and mnemonic system rather than a divinatory one. Robert Graves's <cite>The White Goddess</cite> (1948) introduced an ogham-tree-calendar that has been broadly disputed by Celtic scholars; much of contemporary popular ogham-tree-correspondence work descends from Graves and is reconstructed rather than attested. <em>Erynn Rowan Laurie</em> — <cite>Ogam: Weaving Word Wisdom</cite> (Megalithica, 2007) — is the principal contemporary practitioner-scholar working the boundary between attested medieval material and reconstructed contemporary practice rigorously; her ogham practice is grounded in the medieval Auraicept na n-Éces ("Scholar's Primer") rather than in Graves. <em>John Michael Greer</em>'s <cite>The Druid Magic Handbook</cite> (Weiser, 2007) develops ogham-divination for the Druid-tradition practitioner in accessible practitioner-form. <em>Damian McManus</em>'s <cite>A Guide to Ogam</cite> (An Sagart, 1991) is the academic-philological foundation — what the historical ogham actually is, separate from contemporary divinatory adaptation. The lineage-keyed reader working ogham should read all three.</p>
+
+    <p><em>Geomancy</em> — the casting of sixteen figures from sixteen possible four-line patterns of dots, organized on a four-by-four grid called a "shield," with derived "witnesses" and a "judge" generating an answer to a posed question — is one of the major medieval and Renaissance divinatory systems and is almost lost in contemporary practice. The system has parallel traditions in West Africa (where it descends from the same Arabic-Islamic source-tradition that fed the European version, with substantial development in Yoruba <em>Ifá</em>), in the Islamic world (<em>raml</em>, the Arabic geomancy that arrived in medieval Europe through al-Andalus and Sicily), and in medieval and Renaissance Europe (Cornelius Agrippa's geomancy in <cite>Three Books of Occult Philosophy</cite> Book IV; the Renaissance grimoires generally). <em>John Michael Greer</em> has done more than anyone in the contemporary period to recover Western geomancy as a working practice — <cite>The Art and Practice of Geomancy: Divination, Magic, and Earth Wisdom of the Renaissance</cite> (Weiser, 2009). <em>Stephen Skinner</em>'s <cite>Geomancy in Theory and Practice</cite> (Llewellyn, 2011) and his earlier <cite>Terrestrial Astrology: Divination by Geomancy</cite> (Routledge, 1980) are the scholarly companions. The Yoruba <em>Ifá</em> tradition is religion, not geomancy — engagement requires initiation through the <em>babaláwo</em> system; the <em>diloggún</em> (cowrie-shell divination) is the more accessible cousin within the Lukumí tradition but still requires engagement with practitioners and the religion.</p>
+
+    <p>The remaining cleromantic and divinatory forms in brief. <em>Bone-throwing</em> in the African American and West African tradition — Stephanie Rose Bird's <cite>Sticks, Stones, Roots & Bones</cite> develops the practice within the Hoodoo register; the broader Sangoma tradition in Southern Africa has substantial scholarship. The <em>blótspánn</em> (Norse lot-casting with twigs) and the Anglo-Saxon <em>hlytmen</em> are the cognate Northern forms. <em>Astragalomancy</em> — Greek-Roman knucklebone divination, currently being substantively recovered through Sara Mastros's <cite>The Sorcery of Solomon</cite> (Weiser, 2022) and the broader contemporary Hellenic-magic recovery. <em>Cartomancy</em> distinct from tarot: the playing-card tradition (substantially older than tarot in much of Europe), and the Lenormand tradition (the 36-card system descended from Marie Anne Lenormand's late-eighteenth-century practice). Camelia Elias's <cite>Marseille Tarot: Towards the Art of Reading</cite> (EyeCorner Press, 2014) and <cite>Read Like the Devil</cite> (EyeCorner, 2019) are the contemporary practitioner-foundations. Caitlín Matthews's <cite>The Complete Lenormand Oracle Handbook</cite> (Destiny Books, 2014) is the standard contemporary Lenormand text. Andy Boroveshengra's <cite>Lenormand: Thirty-Six Cards</cite> (self-published, 2013) is the working-practitioner depth. <em>Bibliomancy</em> and the <em>sortes</em> tradition (Sortes Vergilianae, Sortes Sanctorum, the medieval lot-from-scripture tradition) — open a book at random; read the line under the finger; take it as the response. Useful as a daily divination requiring no apparatus. <em>The pendulum</em> — practical, accessible, controversial; Christopher Bird's <cite>The Divining Hand</cite> (Dutton, 1979) is the historical-and-practical reference, complicated by Bird's later positions on related fringe-science topics, but the foundational survey.</p>
+
+    <p>The choice of which divinatory technology to add as the first beyond tarot is best made experimentally. The first scrying session, the first set of runes drawn, the first ogham staves cast, the first geomantic figure — each of these is a small commitment, easily reversed. Try one. Practice it daily for a week. Notice whether the technology pulls you to return or whether it feels inert in the hand. If the hand returns, build it as the second divinatory practice for the next six months. If the hand resists, try another. The technology that holds you across six months is the second instrument; the others are noted for later. <em>Tarot remains the daily card practice</em> across all of this; the second technology is added alongside, not in replacement.</p>
+  </main>
+
+  <aside class="col-margin">
+    <div class="margin-note">
+      <span class="arrow">→</span> tarot is one tradition. <em>add one more during months 2-6.</em> not three, not five — one.
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> scrying is the most universal entry. mirror, water, ink, smoke. <em>build a scrying surface this week if you don't yet have one.</em>
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> runes carry political-baggage. read kvilhaug and paxson before thorsson. <em>do not skip the critical context.</em>
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> ogham is welsh-celtic-relevant for the matrilineal line. graves's tree-calendar is reconstructed, not attested. read laurie not graves.
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> ifá is religion, not geomancy. engagement requires initiation through the babaláwo system. <em>geomancy proper is the western and arabic raml.</em>
+    </div>
+  </aside>
+
+  <section class="build-block">
+    <div class="build-mark">build · the first scrying surface</div>
+    <h3>Water bowl or black mirror</h3>
+    <p>The simplest divinatory instrument the practice will use beyond the tarot deck. Build one this week. Two viable forms; choose the one that calls.</p>
+    <ul>
+      <li><strong>The water-bowl.</strong> A dark-interior ceramic, glass, or stone bowl, six to eight inches across, two to three inches deep. Black or deep-blue glaze inside is ideal. Fill with clean water before each session; pour out after. Used for scrying by gazing into the dark surface in dim light, sometimes with a single candle reflecting from above and behind.</li>
+      <li><strong>The black mirror.</strong> A picture frame (eight by ten inches or larger), the glass painted black on the back with several coats of matte black acrylic until no light passes through, reassembled with the painted side facing back so the front-glass reflects as a dark surface. Tyson's <cite>How to Make and Use a Magic Mirror</cite> documents the construction in detail. The black mirror lives on the altar permanently; the water-bowl is set up and dismantled for each session.</li>
+    </ul>
+    <p>Practical first session: dim the room, light a single candle off to the side or behind you so it reflects in the surface but doesn't directly illuminate it, sit with the surface at a comfortable angle, soft-gaze for ten to twenty minutes without straining for visual content. The work is not to <em>see</em> images. The work is to develop the soft-gaze that allows what surfaces, surfaces. Document what arises in the grimoire — sensations, impressions, half-images, shifts in perception, presences, the absence of all of these. The practice is the cumulative record across months, not the individual session.</p>
+  </section>
+
+  <section class="build-block">
+    <div class="build-mark">build · the second divinatory technology</div>
+    <h3>Choose one — six months of sustained practice</h3>
+    <p>By the end of month three of operative work, choose the second divinatory technology beyond tarot. Spend a full week experimenting with two or three before committing; let the hand tell you which returns.</p>
+    <ol>
+      <li>Acquire the apparatus. Scrying surface (above) is the universal default. Runes — a set of wood, bone, or stone with the Elder Futhark inscribed (or tooled into clay or carved into wood by hand, which deepens the relationship). Ogham staves — twenty wooden staves with the ogham characters scored in by hand. Geomantic dots — a notebook and a pen are sufficient; the cast is made by tapping the pen against a page sixteen times in four rows, then counting the dots in each row. Bone-throwing requires acquiring or assembling a working set of bones, shells, or other lots — which is itself a months-long process for those serious about the practice. Cartomancy — a Marseille tarot deck (distinct from the Smith-Waite already in use) or a Lenormand deck. Pendulum — any weighted-on-a-chain object that hangs cleanly; many practitioners eventually find a specific working pendulum that the hand chose.</li>
+      <li>Read the foundational text for the chosen technology before the first divinatory session. The reading list below names the principal entry-text per technology.</li>
+      <li>Daily practice. One question, one cast or session, recorded in the grimoire's divinatory ledger (separate from the candle ledger from § III.I). Date, question, configuration or impression, response, and what arrives across the days that follow. After ninety days the patterns will start to be visible.</li>
+      <li>At six months, evaluate. Has the technology become a working instrument or has it stayed inert? If working, continue; the technology is now the second instrument the practice carries forward. If inert, the choice can be revised — the technology is noted as not-yours-yet-or-ever, and a different one can be tried in the next six-month cycle. Most practitioners eventually carry two or three divinatory technologies as working instruments across decades, plus standing knowledge of three or four others.</li>
+    </ol>
+  </section>
+
+  <div class="practice-block">
+    <span class="practice-mark">practice · the divinatory ledger</span>
+    <h4>The second working notebook</h4>
+    <span class="ptime" style="font-style: normal;">five minutes after each divinatory session · in the grimoire</span>
+    <p>Parallel to the candle ledger, the divinatory ledger records every reading across every divinatory technology you carry. Date. Technology used. Question asked. Configuration or impression received (the cards drawn, the runes cast, the figure produced, the scrying-vision or absence-of-vision). The reading-as-spoken (what the configuration meant in the moment). And — across the days and weeks following — what actually arrived.</p>
+    <p>The fourth column is the discipline. Most contemporary practitioners read divinatorily at length and never check what actually happened. Across years, the divinatory ledger's fourth column is the only way the practitioner develops calibration — what kinds of questions the technology answers reliably, what kinds it doesn't, where her hand reads accurately, where her hand projects, what timing and context make the reading more or less reliable. After two hundred entries the divinatory practice has become an empirical discipline; without the ledger it remains anecdotal.</p>
+  </div>
+
+  <section class="read-block">
+    <div class="read-block-head"><span>read · divination beyond the daily card</span><span class="meta">§ III.II · the second divinatory instrument</span></div>
+    <h3>Scrying, the cleromantic traditions, the divinatory technologies the practice opens into</h3>
+
+    <p style="font-size: 14.5px; line-height: 1.6; color: var(--ink); margin-bottom: 24px; padding: 16px 18px; background: rgba(110, 122, 90, 0.07); border-left: 3px solid var(--accent-sage);"><em>Sequence:</em> <strong>Months 2-6 (alongside choosing and learning the second technology):</strong> Tyson on scrying as the universal entry; whichever foundational practitioner-text covers the chosen technology — Paxson for runes, Laurie for ogham, Greer for geomancy, Bird for bone-throwing, Elias or Matthews for cartomancy. <strong>Year 1-2 (deepening the chosen technology):</strong> Kvilhaug for runes at depth; McManus for ogham philology; Skinner for geomancy at depth; Mastros on Hellenic astragalomancy if that direction; Boroveshengra for Lenormand. <strong>Year 2-3 (cross-tradition literacy):</strong> Reading additional traditions' divinatory literature even without practicing them — develops the broader practitioner-scholar literacy. Christopher Bird on the pendulum; the Sortes-and-bibliomancy primary literature. <strong>Year 3+ (depth and primary sources):</strong> The PGM scrying procedures (Betz translation); John Dee's <cite>Five Books of Mystery</cite> in Peterson's edition for the Enochian scrying tradition; Pollington for Anglo-Saxon runelore at academic depth. <strong>Reference / continuing:</strong> Each technology develops a working literature across decades that the practitioner returns to as her practice asks new questions of it. The divinatory ledger is the actual study; the reading is the literacy that accompanies it.</p>
+
+    <div class="read-entry">
+      <div class="read-tier">Entry</div>
+      <div>
+        <span class="read-title">Scrying for Beginners · How to Make and Use a Magic Mirror · Communing with the Spirits · Soul Flight</span>
+        <span class="read-author">Donald Tyson · Llewellyn · 1997 / 2014 / 2007 / 2007</span>
+        <p class="read-why">Tyson is the principal contemporary practitioner-instructional author for scrying, automatic writing, and trance-divinatory work in accessible practitioner-form. <cite>Scrying for Beginners</cite> (1997) is the foundational practitioner-introduction to water, mirror, ink, smoke, and crystal scrying. <cite>How to Make and Use a Magic Mirror</cite> (2014) is the dedicated black-mirror text — construction, consecration, and the working register specifically. <cite>Communing with the Spirits</cite> (2007) and <cite>Soul Flight</cite> (2007) extend the apparatus into the broader trance-divinatory and journey work. Tyson's broader catalogue (over thirty books) is uneven; these four are the load-bearing texts for the practitioner working scrying and trance-divination at the introductory practitioner-level.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Entry</div>
+      <div>
+        <span class="read-title">Taking Up the Runes: A Complete Guide to Using Runes in Spells, Rituals, Divination, and Magic</span>
+        <span class="read-author">Diana L. Paxson · Weiser · 2005</span>
+        <p class="read-why">Paxson is the most reliable contemporary practitioner-author for runic introduction. The book covers the Elder Futhark with substantive primary-source engagement (the Old Norse poetic material, the rune poems, the inscriptional record), the divinatory and the operative-magical applications, and the broader context of Heathen and Northern-tradition practice. Paxson is herself a long-standing Heathen elder (priestess of the Troth) and the book holds the political-baggage question explicitly and well — names the far-right capture problem, distinguishes the inclusive Heathenry from the exclusivist forms, names the practitioners and organizations the keyed reader should and should not engage with. Read first if the runes call.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Entry</div>
+      <div>
+        <span class="read-title">Ogam: Weaving Word Wisdom</span>
+        <span class="read-author">Erynn Rowan Laurie · Megalithica · 2007</span>
+        <p class="read-why">The principal contemporary practitioner-scholarly text on ogham as divinatory and meditative practice. Laurie is rigorous on the boundary between historically attested medieval material (the Auraicept na n-Éces, the In Lebor Ogaim, the Briatharogam triadic glosses) and reconstructed contemporary practice. The book includes substantial work with each of the twenty ogham characters as meditative-meaning anchors, with the Old Irish primary material translated and contextualized. For the matrilineal-Welsh-Celtic-keyed practitioner, this is the foundational text. Read alongside McManus for the philological foundation.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Entry</div>
+      <div>
+        <span class="read-title">The Art and Practice of Geomancy: Divination, Magic, and Earth Wisdom of the Renaissance</span>
+        <span class="read-author">John Michael Greer · Weiser · 2009</span>
+        <p class="read-why">Greer is the principal figure in the contemporary recovery of Western traditional geomancy as a working divinatory practice. The book treats the casting procedure, the sixteen figures with their meanings and qualities, the four-by-four shield-chart construction, the witnesses and the judge, the integration with planetary and elemental correspondences, and the operative-magical applications. Substantial historical apparatus on the Arabic <em>raml</em> origins, the Renaissance European reception, and the contemporary recovery. Greer's broader catalogue is substantial and uneven (Druid-tradition work, broader esoteric writing, some politically-conservative positions in his later writing that are worth knowing); for geomancy specifically, the book is foundational.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Entry</div>
+      <div>
+        <span class="read-title">Sticks, Stones, Roots &amp; Bones: Hoodoo, Mojo &amp; Conjuring with Herbs · The Big Book of Soul</span>
+        <span class="read-author">Stephanie Rose Bird · Llewellyn / Hampton Roads · 2004 / 2010</span>
+        <p class="read-why">Already cited in § III.I; the bone-throwing and divinatory chapters specifically here. Bird's treatment of bone-throwing within the African American Hoodoo tradition is the principal contemporary practitioner-authoritative text. For the keyed reader's paternal-line lineage, this is direct lineage-recovery rather than borrowed practice. <cite>The Big Book of Soul</cite> (2010) develops the broader African American spiritual landscape and provides additional context for the divinatory traditions within it.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Entry</div>
+      <div>
+        <span class="read-title">Marseille Tarot: Towards the Art of Reading · Read Like the Devil</span>
+        <span class="read-author">Camelia Elias · EyeCorner Press · 2014 / 2019</span>
+        <p class="read-why">For the practitioner whose second divinatory instrument is cartomancy distinct from the Smith-Waite tarot tradition. Elias is the principal contemporary practitioner-scholar of the Marseille tarot reading-tradition; her work is unusually direct, unornamented, and operative — closer to the historical playing-card divination tradition than to the contemporary therapeutic-tarot register. <cite>Marseille Tarot</cite> is the foundational practitioner-text; <cite>Read Like the Devil</cite> develops the framework substantially. Pair with Yoav Ben-Dov's <cite>Tarot: The Open Reading</cite> (CreateSpace, 2013) for additional Marseille-tradition perspective.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">The Seed of Yggdrasill · The Poetic Edda: Six Cosmology Poems · The Lady of the Labyrinth (online video corpus)</span>
+        <span class="read-author">Maria Kvilhaug · Whyte Tracks / Lulu / youtube · 2013 / 2011 / ongoing</span>
+        <p class="read-why">Kvilhaug is the principal contemporary practitioner-scholar working the matriarchal-feminine substrate of the Old Norse mythological material. Norwegian, M.A. in Old Norse Religion from the University of Oslo; her work treats the women's-tradition currents in the Old Norse material with primary-source rigor. <cite>The Seed of Yggdrasill</cite> is the foundational synthesis. The youtube corpus (over a hundred lectures) is freely accessible and substantively scholarly. For the practitioner whose runic and Northern-tradition work needs the corrective to the masculinist-and-political distortions of the field, Kvilhaug is the principal contemporary voice.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Rudiments of Runelore</span>
+        <span class="read-author">Stephen Pollington · Anglo-Saxon Books · 2008</span>
+        <p class="read-why">The philological-scholarly companion to Paxson and Kvilhaug. Pollington treats the Anglo-Saxon Futhorc specifically, the inscriptional record, the Old English rune poem, the historical-religious context, and the relationship to the broader Germanic runic tradition. Anglo-Saxon Books is a small press dedicated to early-medieval English material; the catalog as a whole is the working scholarly literature on the Anglo-Saxon and broader Old English religious-and-literary tradition.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">A Guide to Ogam</span>
+        <span class="read-author">Damian McManus · An Sagart · 1991 (out of print; available used and through inter-library loan)</span>
+        <p class="read-why">The standard academic-philological reference for the historical ogham. McManus, professor of Early Irish at Trinity College Dublin, treats the inscriptional record, the medieval scholastic apparatus, the Auraicept and the bríatharogaim, and the actual letters and their attested associations. Out of print and rare; if accessible (university library, inter-library loan, used purchase), foundational. Without it, the practitioner working ogham at depth will not be able to distinguish the attested medieval material from the reconstructed contemporary practice.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Geomancy in Theory and Practice · Terrestrial Astrology: Divination by Geomancy</span>
+        <span class="read-author">Stephen Skinner · Llewellyn / Routledge · 2011 / 1980</span>
+        <p class="read-why">Skinner's two geomancy books bracket Greer's contemporary practitioner-text on either side. <cite>Terrestrial Astrology</cite> (1980) is the substantial scholarly history of Western geomancy from Arabic origins through the medieval and Renaissance European reception; the standard reference for the historical apparatus. <cite>Geomancy in Theory and Practice</cite> (2011) is the contemporary practitioner-and-scholar synthesis. Read both as the depth-companions to Greer's practitioner-text.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">The Complete Lenormand Oracle Handbook · Lenormand: Thirty-Six Cards</span>
+        <span class="read-author">Caitlín Matthews / Andy Boroveshengra · Destiny Books / self-published · 2014 / 2013</span>
+        <p class="read-why">The two principal contemporary Lenormand-tradition practitioner-texts. Matthews — herself one of the major contemporary Celtic-tradition practitioner-scholars (her broader work appears across this document's Welsh-related reading) — provides the accessible introduction with substantial historical apparatus. Boroveshengra's self-published <cite>Lenormand: Thirty-Six Cards</cite> is the working-practitioner depth, terser and more direct, the principal contemporary text working the cards from inside the tradition's actual divinatory practice rather than from the broader oracular-card register.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">The Sorcery of Solomon: A Guide to the 44 Planetary Pentacles of the Magician King · The Big Book of Magical Incense · Orphic Hymns Grimoire</span>
+        <span class="read-author">Sara L. Mastros · Weiser · 2022 / 2024 / 2024</span>
+        <p class="read-why">Mastros is one of the principal contemporary practitioner-scholars working the Hellenic-magical and Solomonic-grimoire traditions with substantial primary-source engagement. <cite>The Sorcery of Solomon</cite> develops the planetary-pentacle apparatus from the <cite>Key of Solomon</cite> tradition with substantive astrological and divinatory framing. The <cite>Orphic Hymns Grimoire</cite> (2024) is the substantial contemporary practitioner-scholarly engagement with the Greek hymn-tradition. For the practitioner whose work opens Hellenic, Mastros's catalogue is the principal contemporary access point.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">John Dee's Five Books of Mystery: Original Sourcebook of Enochian Magic · The Heptarchia Mystica</span>
+        <span class="read-author">Joseph H. Peterson, ed. · Weiser · 2003 / 2006 (Magnum Opus)</span>
+        <p class="read-why">For the practitioner whose scrying work eventually opens into the Enochian and Solomonic-angelic tradition: Peterson's edition of John Dee's working manuscripts is the standard scholarly-practitioner edition. Dee (1527-1609) and Edward Kelley's scrying sessions across the 1580s produced one of the most substantial early-modern scrying corpora in the Western tradition; the Enochian language and the angelic communications are the substantial product. Peterson's broader online archive at esotericarchives.com is the principal free contemporary scholarly edition of major grimoiric and Enochian primary material; the print editions are the working reference.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">The Greek Magical Papyri in Translation, including the Demotic Spells</span>
+        <span class="read-author">Hans Dieter Betz, ed. · University of Chicago Press · 1986 / 2nd ed. 1992</span>
+        <p class="read-why">Already cited in chapter 2 as the foundational primary source for late-antique Greco-Egyptian magic. Cited here for the substantial scrying-procedural material specifically — PGM IV.222-260 (lecanomantic — bowl-divination), PGM V.1-53 (the Hermes scrying procedure), PGM IV.930-1114 (the divinatory-evocation procedure), PGM VII.250-254, 319-334 (lamp-scrying). The PGM scrying-procedures are the depth-engagement that the practitioner working scrying eventually opens into; the apparatus is demanding but the procedures are the late-antique source-tradition that virtually all subsequent Western scrying descends from.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">The Divining Hand: The Art of Searching for Water, Oil, Minerals, and Other Natural Resources</span>
+        <span class="read-author">Christopher Bird · Dutton · 1979</span>
+        <p class="read-why">The substantial historical-and-practical reference for the pendulum and dowsing tradition. Bird treats the historical record (medieval European, the American water-witching tradition, the dowser's institutional history through the British Society of Dowsers and the American Society of Dowsers), the practical instruction, and the controversial-science apparatus. <em>Critical context:</em> Bird's later writing (with Peter Tompkins on plant-consciousness, with various authors on fringe topics) is substantively complicated and parts have been substantively criticized; <cite>The Divining Hand</cite> is his most reliable text. For the practitioner whose second technology is the pendulum, the foundational survey.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">The Sortes Astrampsychi · The Sortes Sanctorum tradition · Sortes Vergilianae primary literature</span>
+        <span class="read-author">Various; Randall Stewart and Kenneth Morrell, eds. (Astrampsychi); William E. Klingshirn (Sortes Sanctorum, in Journal of Early Christian Studies) · Various editions / 1991-2002 / 2002</span>
+        <p class="read-why">For the practitioner working bibliomancy and the lots-from-text tradition at depth. The Sortes Astrampsychi is the late-antique Greek lot-text (a hundred questions, ten possible numbered answers per question, randomized by chance-procedure); the Sortes Sanctorum is the medieval Christian appropriation of the same procedure using scriptural texts; the Sortes Vergilianae is the Renaissance-and-classical lot-from-Vergil tradition. The contemporary bibliomancy practice descends from this tradition. Stewart and Morrell's Astrampsychi edition (Scholars Press, 1991-2002, two volumes) and Klingshirn's scholarly articles on the Sortes Sanctorum are the contemporary access points. The primary texts can be worked directly once the historical apparatus is in hand.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">Mantic Methods in Greco-Roman Antiquity (online primary-source survey through Theoi Project) · Sarah Iles Johnston, Ancient Greek Divination</span>
+        <span class="read-author">Theoi Project (theoi.com); Sarah Iles Johnston · open-access / Wiley-Blackwell · ongoing / 2008</span>
+        <p class="read-why">For cross-tradition divinatory literacy at depth. Johnston's <cite>Ancient Greek Divination</cite> is the standard contemporary scholarly survey of the full Greek divinatory apparatus — oracular, astragalomantic, lecanomantic, ornithomantic, oneiromantic, the broader pre-Christian Mediterranean-divinatory landscape. The Theoi Project (theoi.com) provides open-access primary-source translations across the Greek mantic literature. Read alongside the contemporary practitioner-texts for cross-tradition comparative literacy.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- SECTION III.III — THE FOUR ELEMENTS AS PRACTICE              -->
+  <!-- ============================================================ -->
+  <div class="section-mark"><span>§ III.III  the four elements as practice</span></div>
+  <h2 class="section-head">Fire, water, earth, air — as relationships</h2>
+
+  <main class="col-text">
+    <p>The elements appear in almost every Western practitioner-text as a list of correspondences — fire equals masculine equals south equals will equals candle; water equals feminine equals west equals emotion equals chalice; and so on. The list is portable, memorable, and almost entirely useless as practice. It tells the practitioner nothing about what the elements actually <em>are</em> in operative work, which is something more specific: four (or three, or five, depending on the tradition) developed working relationships that the practitioner builds the way she builds a relationship with a deity or a plant or a place — through sustained material engagement over months and years, not through memorization.</p>
+
+    <p>The framework comes through several traditions. The Hellenic four — Empedocles's <em>rhizomata</em> (roots), worked through pre-Socratic and Platonic philosophical apparatus — fire, water, earth, air. The Hermetic synthesis through Agrippa's <cite>Three Books of Occult Philosophy</cite> Book I treats the elemental hierarchy as the substrate of all material magic. The Wiccan and neopagan four-quarters tradition is a twentieth-century reorganization of the same material into ritual-circle structure. The Druidic three realms (sea / sky / land) plus the centering awen-fire is a different mapping closer to the Celtic primary material. The Daoist five-phase (wood, fire, earth, metal, water) and Vedic five (the four plus *akasha*, ether or space) develop the same territory through different ontological frames; the Hebrew kabbalistic four-worlds plus the four-elements-mapped-onto-tetragrammaton is a parallel structure. The fifth element — variously named *spirit*, *aether*, *quintessence*, *akasha*, the *awen* — is the unifying principle most traditions name. <em>The contemporary practitioner inherits the four-element Hellenic-Hermetic framework as her default working scaffold,</em> and adapts it as her practice opens into the more specific tradition-currents that work the elements differently.</p>
+
+    <p><em>Fire</em> is the most concentrated element in the practitioner's daily apparatus. The candle from chapter 2 is fire; the candle workings from § III.I are fire-workings. Beyond the candle, fire develops across multiple registers depending on which tradition holds it. <em>Hearth-fire</em> — the household-goddess tradition (Brigid in the Welsh-Irish, Hestia in the Hellenic, Vesta in the Roman, Cerridwen at the cauldron in the Welsh-bardic) treats the kitchen flame as the centering presence of the home. The contemporary practitioner can build a small hearth-altar at the stove, light a flame at the start of the day, name the household-goddess. <em>Ritual fire</em> — the bonfire at Beltane and at the cross-quarter celebrations is the sustained fire-ritual the wheel-of-the-year apparatus eventually opens into; for the apartment-bound practitioner, a single substantial candle held through a sustained sitting is the available equivalent. <em>The chthonic torches</em> (Hekatean) are one specific operative-fire register, useful for the practitioner whose work has opened that direction. <em>The awen-fire</em> in the Druidic tradition is the bardic-inspirational fire, the kindling of the creative-prophetic faculty. <em>Ṣàngó</em> in the Yoruba tradition is the orisha of fire, lightning, and the operative-fire of justice — a religion not a pagan-elemental-system, requiring the appropriate engagement framework. The first sustained fire-engagement is one extra candle lit weekly, named for whichever tradition's fire the practitioner is exploring, with attention to the flame's behavior, the body's response, and what arrives.</p>
+
+    <p><em>Water</em> develops similarly. The water-bowl on the altar from chapter 2 is the daily working-water; the scrying-bowl from § III.II is a specific water-practice. Beyond these, water is the offering-libation tradition (a small amount of water, milk, wine, or tradition-appropriate liquid poured at the altar's base or onto the earth as offering — universal across virtually every tradition with offering-practice), the natural-water tradition (sea, river, lake, pond, spring, well — the practitioner develops relationship with one specific natural-water locus over years; for the keyed reader's San Diego context, the Pacific Ocean, the San Diego River, Mission Bay, and the few seasonal creeks all qualify), and the deity-water tradition (specific waters belong to specific figures). The Welsh holy-well tradition is directly relevant for the matrilineal-line keyed reader — Francis Jones's <cite>The Holy Wells of Wales</cite> (University of Wales Press, 1954) documents over 1,179 wells with their saints and customs; specific wells (St. Winifred's at Holywell, St. Non's at St. Davids, the wells of Mona/Anglesey associated with the Druidic tradition) are sites of substantial inheritance. The Yoruba and Diasporic traditions hold Yemoja (sea, motherhood), Òṣun (sweet water, love, prosperity), Ọya (the river Niger, also wind), Erinle (river-hunter); these are religions not pagan-elemental-systems, requiring framework. The Hellenic naiads (river-spirits), the Aphrodite-of-the-sea (<em>pelagia</em>), the Hekatean Triodos at the threshold-water — the Hellenic-tradition water apparatus. The Norse Rán (sea-goddess of the drowned), the wells under Yggdrasill (Mímisbrunnr, Urðarbrunnr) — the Northern-tradition water apparatus. First sustained water-engagement: a small offering-vessel kept on the altar, refreshed weekly, with deliberate libation poured.</p>
+
+    <p><em>Earth</em> is the element most easily under-treated by the apartment-bound contemporary practitioner. The body itself is earth in the Hermetic apparatus; the bones specifically, the dense and weight-bearing aspect. Beyond the body, earth-practice is dirt, stone, root, burial, and the bioregional engagement with specific land. The land sit from § IV.V (chapter 4) is foundational earth-practice. The witch's compass — a circle marked on actual earth (or its substitute on a working surface), with directions oriented to local landmarks rather than to an abstract grid — is the operative earth-form. Stone-work is a parallel sub-tradition: the gathered-from-the-land working stones (<em>not</em> the New Age crystal-mineral-shop stones, which carry substantial mining-and-extraction problems; gathered from your own bioregion, with permission asked of the land before taking, is the operative form), the holed stones (hag-stones — naturally water-bored stones with a hole through them, traditional protective and second-sight tools in British folk-magic), the local geology (San Diego's chaparral granite, the coastal sandstone, the mudstone of the foothills) as the practitioner's working stone-vocabulary. Burial-work — small objects buried at marked locations as part of a working — is one of the oldest operative earth-forms. Concealment magic (Hoggard's archaeology of the buried witch's bottle, the dried cat in the wall, the shoe in the chimney — § III.I reading list) is a specific earth-and-architecture tradition. First sustained earth-engagement: a small dish of dirt or stone gathered from a specific local place kept on the altar, tended deliberately.</p>
+
+    <p><em>Air</em> is the subtlest element and the one most easily collapsed into "incense and breath." The substantive air-practice: <em>breath</em> as the foundational regulation work the body work in chapter 2 has already established; the Welsh <em>anadl</em> framing (breath as soul-wind, the dying breath as the soul's departure) brings devotional weight to ordinary respiration. <em>Voice</em> — speaking the working aloud rather than thinking it; chanting, singing, the tradition-specific vocal apparatus (the Druidic awen-chant, the Hebrew tetragrammaton-vibration, the Hellenic hymnic forms, the Yoruba praise-songs, the Hindu mantra-tradition); the Welsh-bardic <em>cynghanedd</em> as patterned-sound for operative effect. <em>Smoke</em> — incense, smudge (with the cultural-appropriation question — white sage from Indigenous traditions specifically; European-tradition smudge alternatives include mugwort, juniper, frankincense, copal); censer-work as developed practice. <em>Wind</em> — the four winds in the Welsh and Hellenic traditions (Boreas, Notus, Eurus, Zephyrus in the Hellenic; the four directional winds in the Welsh primary literature); Ọya as orisha of wind in the Yoruba tradition. First sustained air-engagement: ten minutes daily of deliberate breath-with-attention before lighting the candle, with the breath named (the Welsh <em>anadl</em>, the Sanskrit <em>prana</em>, the Hellenic <em>pneuma</em>, the Hebrew <em>ruach</em> — whichever tradition's vocabulary the practice is opening into).</p>
+
+    <p>The fifth element. Most traditions name a unifying principle that contains the four — <em>aether</em> in the Hellenic-Hermetic, <em>quintessence</em> in the Renaissance-alchemical, <em>spirit</em> in the contemporary Wiccan, <em>akasha</em> in the Vedic, <em>awen</em> in the Druidic, the Hebrew <em>ruach Elohim</em> as proto-creative breath in Genesis 1:2, <em>asé</em> in the Yoruba (the activating-power that flows through everything). The fifth element is what makes the four elements <em>magical</em> rather than merely materially present; it is the element of consciousness, intention, the operative dimension itself. In the practitioner's work, the fifth element is named when the candle is lit, the working spoken, the threshold opened. Without the fifth, the four are inert.</p>
+  </main>
+
+  <aside class="col-margin">
+    <div class="margin-note">
+      <span class="arrow">→</span> the elements are not a list of correspondences. they are <em>working relationships</em> developed across months. memorization is not the practice.
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> hellenic four (default scaffold) · druidic three plus center · daoist five · vedic five · the fifth element across traditions.
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> water specifically: the welsh holy-well tradition is direct lineage-access for the matrilineal line. <em>jones, the holy wells of wales.</em>
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> stones gathered from the bioregion with permission. <em>not the new age crystal shop.</em> mining-and-extraction problems are real.
+    </div>
+  </aside>
+
+  <section class="build-block">
+    <div class="build-mark">build · the elemental month</div>
+    <h3>One element, one month — sustained engagement</h3>
+    <p>Across the first six months of operative work, dedicate one month to each of the four elements in sequence (any order). The month-long sustained engagement is what builds the working relationship.</p>
+    <ol>
+      <li>Choose the element to begin. Most practitioners begin with whichever element the body resists or feels distant from, since the working relationship there has the most to develop. The element you already feel close to will accumulate without specific attention; the one you don't will not.</li>
+      <li>Acquire or set the apparatus appropriate to the element. Fire — one additional candle dedicated for the month, lit daily during the month's working window. Water — an offering-vessel refreshed daily with deliberate libation. Earth — a dish of dirt or a small working-stone gathered from a specific local place, tended daily. Air — a daily breath-and-incense session of ten to fifteen minutes.</li>
+      <li>Daily contact. Five to fifteen minutes per day with the element's apparatus. No grand ritual; just sustained attention. What does the flame do today; what does the water hold; what does the dirt feel like; what does the breath move through.</li>
+      <li>Weekly substantive working. Once per week during the month, a longer working specifically with the element — a fire-working that uses the candle deliberately; a water-libation poured at a natural-water locus; an earth-burial of a small object as offering or working; an extended breath-and-voice session.</li>
+      <li>The elemental ledger. A short section of the grimoire dedicated to each element, accumulated across the months and across the years. What you noticed; what arrived; what the relationship is becoming. After four months, the four-element ledger is the practitioner's first map of her actual relationship with the elemental apparatus, written from inside the practice rather than from the correspondence-table.</li>
+    </ol>
+  </section>
+
+  <section class="read-block">
+    <div class="read-block-head"><span>read · the elemental tradition</span><span class="meta">§ III.III · the four-and-fifth across traditions</span></div>
+    <h3>Hellenic-Hermetic, Druidic, Diasporic, Eastern — the elements at depth</h3>
+
+    <p style="font-size: 14.5px; line-height: 1.6; color: var(--ink); margin-bottom: 24px; padding: 16px 18px; background: rgba(110, 122, 90, 0.07); border-left: 3px solid var(--accent-sage);"><em>Sequence:</em> <strong>Months 2-6 (alongside the elemental month):</strong> Curott or Paxson for the contemporary practitioner-introduction; Empedocles primary fragments for the foundational philosophical articulation. <strong>Year 1-2:</strong> Agrippa Book I for the Hermetic synthesis; the Picatrix on elemental magic; Greer for the Druidic apparatus. <strong>Year 2-3:</strong> The lineage-specific elemental literature — Welsh holy-wells (Jones), Yoruba orisha and the elemental dimensions (Murphy, Drewal), the Norse cosmographic apparatus. <strong>Year 3+ (depth):</strong> The Neoplatonic primary literature on the elements; the alchemical primary literature; the cross-tradition comparative-elemental scholarship. <strong>Reference / continuing:</strong> The elemental relationship develops across decades; the reading deepens as specific elements become more present in the practice.</p>
+
+    <div class="read-entry">
+      <div class="read-tier">Entry</div>
+      <div>
+        <span class="read-title">Witch Crafting: A Spiritual Guide to Making Magic · The Witch's Garden</span>
+        <span class="read-author">Phyllis Curott · Broadway Books · 2001</span>
+        <p class="read-why">Curott is a contemporary practitioner-attorney whose work bridges accessible practitioner-introduction and substantive operative apparatus. <cite>Witch Crafting</cite> treats the four-element framework with substantive attention to the working relationship rather than the correspondence table; useful as the contemporary practitioner-text for the elemental introduction. Pair with Paxson for additional voice.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Entry</div>
+      <div>
+        <span class="read-title">Trance-Portation: Learning to Navigate the Inner World · Essential Asatru</span>
+        <span class="read-author">Diana L. Paxson · Weiser / Citadel · 2008 / 2006</span>
+        <p class="read-why">Paxson's work on the elemental tradition lives across her broader catalogue. <cite>Trance-Portation</cite> develops the elemental apparatus as journey-and-trance landscape; <cite>Essential Asatru</cite> treats the Northern-tradition elemental cosmography (the nine worlds, the elemental dimensions of Norse cosmology). For the practitioner whose work opens Northern, foundational.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Three Books of Occult Philosophy (Tyson edition) · Book I specifically</span>
+        <span class="read-author">Heinrich Cornelius Agrippa · Tyson, ed. · Llewellyn · 1993 (translation of 1531-1533 original)</span>
+        <p class="read-why">Book I of Agrippa's <cite>Three Books</cite> is the foundational Hermetic-synthetic text on the elemental tradition. Treats the four elements philosophically (descended from Empedocles through the Neoplatonic and Aristotelian apparatus), the elemental qualities (hot, cold, wet, dry), the elemental hierarchy in matter and in spirit, the elemental correspondences across the natural world. Tyson's edition is the standard contemporary scholarly-practitioner edition with substantial introduction and apparatus. The keyed reader's elemental practice descends, through many intermediaries, from this text.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">The Picatrix: Liber Atratus Edition · Picatrix: A Medieval Treatise on Astral Magic</span>
+        <span class="read-author">John Michael Greer &amp; Christopher Warnock, trans. / Dan Attrell &amp; David Porreca, trans. · Adocentyn Press / Penn State · 2010-2011 / 2019</span>
+        <p class="read-why">The Picatrix (Latin translation of the Arabic <cite>Ghāyat al-Ḥakīm</cite>, c. 11th century) is the foundational medieval text on astral and elemental magic. The Greer-Warnock translation is the practitioner-accessible edition; the Attrell-Porreca translation is the academic-scholarly edition. Read for the elemental apparatus integrated with the planetary and astrological apparatus that § III.IV develops; the Picatrix is the foundational text in which the elements, the planets, the stars, and the operative magic come together as an integrated system.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">The Druid Magic Handbook · The Druidry Handbook · The Celtic Golden Dawn</span>
+        <span class="read-author">John Michael Greer · Weiser / RedWheel · 2007 / 2006 / 2013</span>
+        <p class="read-why">Greer's Druidic-tradition catalogue treats the three-realms-plus-center elemental apparatus that descends from the Celtic primary material — sea / sky / land as the elemental triad, with the central nemeton or sacred place as the unifying fifth dimension. Different framework from the Hellenic-Hermetic four; for the matrilineal-Welsh-Celtic-keyed practitioner, the Druidic mapping may feel more direct than the Hellenic. <cite>The Druidry Handbook</cite> is the foundational practitioner-introduction; <cite>The Celtic Golden Dawn</cite> integrates the Celtic apparatus with ceremonial-magical structure for the practitioner working both directions.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">The Holy Wells of Wales</span>
+        <span class="read-author">Francis Jones · University of Wales Press · 1954 (reprinted 1992)</span>
+        <p class="read-why">Already cited in chapter 3 trauma-healing apparatus. Cited here for the elemental-water tradition specifically — the foundational scholarly survey of over 1,179 documented Welsh holy wells with their saints, healing claims, and ritual customs. For the matrilineal-line keyed reader's water-tradition specifically, this is the primary reference. The Welsh holy-well tradition is direct lineage-access — the bioregional water-practice the contemporary practitioner can adapt for the San Diego context (the Pacific specifically, but also the seasonal creeks and the Cuyamaca high-country springs) is structurally informed by the Welsh well-and-water tradition the keyed reader's matrilineal line carries.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Yoruba Religion and Medicine in Ibadan · Working the Spirit: Ceremonies of the African Diaspora</span>
+        <span class="read-author">George Brandon / Joseph M. Murphy · Indiana University / Beacon · 1997 / 1994</span>
+        <p class="read-why">For the African and African Diasporic elemental dimensions through the orisha apparatus — Ṣàngó (fire, lightning, justice), Yemoja (sea, motherhood), Òṣun (sweet water, love, prosperity), Ọya (wind, river Niger, transformation), Erinle (river, hunting, healing). Murphy is the principal contemporary scholar of Diasporic religion; <cite>Working the Spirit</cite> treats five Black Atlantic religious traditions with substantive engagement. For the keyed reader's paternal-line lineage, foundational. <em>Lineage note:</em> the orisha are religious figures within active religions (Yoruba traditional, Lukumí/Santería, Candomblé, Vodou); engagement requires the appropriate framework, not pagan-elemental-borrowing.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">The Fragments of Empedocles · Plato's Timaeus · Aristotle's De Generatione et Corruptione</span>
+        <span class="read-author">Empedocles, c. 5th c. BCE / Plato, c. 360 BCE / Aristotle, c. 350 BCE · various editions</span>
+        <p class="read-why">The Hellenic primary-source apparatus underneath the four-element tradition. Empedocles's <em>rhizomata</em> (roots — the four elements) are the foundational pre-Socratic articulation; Brad Inwood's <cite>The Poem of Empedocles</cite> (University of Toronto, 1992/2001) is the standard contemporary scholarly translation with substantial commentary. Plato's <cite>Timaeus</cite> develops the elements as Platonic-geometric structures (the Platonic solids mapped to the four elements plus the dodecahedron as the fifth — aether). Aristotle's <cite>De Generatione</cite> develops the elemental qualities (hot, cold, wet, dry) and their transformations. For the practitioner whose elemental work matures past the contemporary practitioner-text register, the primary literature is the foundation.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">The Practice of the Presence of the Elements (online lecture corpus) · Mantle of the Earth: Genealogies of a Geographical Metaphor</span>
+        <span class="read-author">Various contemporary working magicians / Veronica della Dora · open-access / University of Chicago · ongoing / 2021</span>
+        <p class="read-why">For the contemporary academic-and-practitioner conversation on the elements. The contemporary working-magician lecture corpus (Tom Sawyer's working-magic series, Sara Mastros's elemental-magic lectures, Aidan Wachter's available material) develops the contemporary operative-elemental register substantively. Della Dora's <cite>Mantle of the Earth</cite> is the contemporary scholarly engagement with the elemental-environmental apparatus through the lens of geography and ecological theory.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">The Mystery of Aether · The Forge and the Crucible</span>
+        <span class="read-author">Frater Acher (online) / Mircea Eliade · open-access / University of Chicago · ongoing / 1956/1978</span>
+        <p class="read-why">For the fifth element specifically. Frater Acher's online corpus on aether and quintessence is one of the most substantial contemporary practitioner-engagements with the fifth-element question. Eliade's <cite>The Forge and the Crucible</cite> develops the alchemical-elemental tradition's treatment of the quintessence as transformative agent across cultures. <em>Critical context on Eliade:</em> his political affiliations with the Iron Guard in 1930s Romania are documented and substantively complicate his work; read with awareness, alongside the contemporary criticism (the Adriana Berger / Daniel Dubuisson scholarship).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- SECTION III.IV — THE WITCH'S CALENDAR LAYERED                -->
+  <!-- ============================================================ -->
+  <div class="section-mark"><span>§ III.IV  the witch's calendar layered</span></div>
+  <h2 class="section-head">Saint days, planetary days, astrological timing</h2>
+
+  <main class="col-text">
+    <p>The wheel of the year mapped in chapter 2 is a foundational calendar with eight stations across the solar year. It is a thin calendar. Serious witchcraft uses several calendars layered, and the operative practice scales as the timing apparatus the practitioner uses scales. By the end of the first six months, the practitioner is layering at least three: the wheel, the lunar architecture from § IV.II, and the introductory astrological-and-planetary apparatus this section establishes. Across years, additional calendars accumulate — saint-day calendars for the Black-Catholic / Hoodoo / European-folk-Catholic register, planetary-hour timing for grimoiric workings, the lunar mansions, the fixed-stars timings, the tradition-specific feast days. The full calendar a mature practitioner runs is dense and layered; the introduction is two more layers added to what's already running.</p>
+
+    <p>The first layer to add: the <em>saint days</em>. The contemporary witchcraft register often treats Christianity as the rejected predecessor against which the practice defines itself — which is historically and operatively wrong. The European cunning-folk tradition operated almost entirely through Catholic and Anglican Christian apparatus until the eighteenth century; the African Diasporic religions in the New World syncretized substantively with Catholicism; the Welsh and Irish folk-religious traditions are inseparable from the Celtic-saints calendar. The contemporary practitioner working any tradition with European folk-magical or African Diasporic roots will use saint-day timing whether or not she identifies as Christian. The saints are operative figures who hold petitions, intercede, mediate between the practitioner and the broader supernatural apparatus. The Black-Catholic and Hoodoo register treats them most directly as working figures: <em>St. Anthony</em> for finding lost things; <em>St. Michael</em> for protection (specifically against malevolent forces); <em>St. Expedite</em> for fast urgent work (one of the most-petitioned saints in contemporary Hoodoo and Diasporic practice); <em>St. Martha</em> the Dominator for binding and dominating workings; <em>St. Cyprian of Antioch</em> as the patron of magicians (the substantial <cite>Books of St. Cyprian</cite> grimoire-tradition descends from his cult); <em>St. Joseph</em> for home and family; <em>St. Jude</em> for desperate cases; <em>Santa Muerte</em> in the Mexican-American tradition (controversial; growing devotion). The Welsh and Celtic saint days that hold the matrilineal-line keyed reader's tradition: <em>St. Brigid</em> at Imbolc (February 1, syncretized with the goddess Brigid; Mary Condren's <cite>The Serpent and the Goddess</cite> develops the substantive scholarship); <em>St. Winifred</em> (Welsh holy-well saint); <em>St. Dwynwen</em> the Welsh patroness of lovers (January 25); <em>St. Non</em> mother of St. David (March 3); <em>St. David</em> patron of Wales (March 1). The first sustained saint-engagement is selecting one saint whose territory aligns with current need or with lineage-relevance, marking her feast day in the calendar, learning the brief biography and traditional petitions, lighting a candle on the day. Whether or not the practitioner identifies as Catholic or Christian is not the load-bearing question; the saints are operative figures the working-tradition has used and continues to use, and engaging them through the appropriate framework produces actual effect.</p>
+
+    <p>The second layer: <em>planetary days and hours</em>. The Renaissance grimoire tradition timed every working to the planetary day (each day of the seven-day week ruled by one of the seven classical planets — Sun, Moon, Mars, Mercury, Jupiter, Venus, Saturn) and to the planetary hour (the day and night each divided into twelve unequal hours from sunrise to sunset and sunset to sunrise, each hour ruled by a planet in a fixed sequence). Sunday is Sun, Monday Moon, Tuesday Mars, Wednesday Mercury, Thursday Jupiter, Friday Venus, Saturday Saturn. The first hour of each day from sunrise is ruled by the day's planet; the sequence of hours follows the Chaldean order (Saturn, Jupiter, Mars, Sun, Venus, Mercury, Moon, then repeats) outward from each starting hour. Working type matches planetary correspondence: love work on Friday in a Venus hour; protection or binding-out on Saturday in a Saturn hour or Tuesday in a Mars hour; healing on Sunday in a Sun hour or Wednesday in a Mercury hour; communication and divination on Wednesday in a Mercury hour; prosperity on Thursday in a Jupiter hour or Friday in a Venus hour. The apparatus seems precise to the point of fussiness; the substantive practitioner argument for it is that the planetary hours are <em>real elements</em> of the operative apparatus — they are part of how the working is constituted, not arbitrary constraints. The contemporary tools for tracking the planetary hours: free apps (Time Nomad and Astrolog are accessible; Christopher Warnock's electional astrology software for serious electional work), the printed planetary-hour tables in Skinner's <cite>Geomancy in Theory and Practice</cite> appendix and in numerous grimoiric texts. First sustained planetary engagement: timing one working per week to its appropriate planetary day-and-hour and observing whether the timing produces operative difference.</p>
+
+    <p>The third layer: <em>astrological timing</em>. The full apparatus is electional astrology — choosing the timing of a working to align with favorable astrological configurations — which is a years-long study. The introduction-level operative timings: <em>moon void-of-course</em> (the moon making no major aspects to other planets before changing signs; traditionally a poor time for new beginnings or formal workings; useful for working that wants to dissipate or for releasing-work), <em>Mercury retrograde</em> (three to four weeks per year when Mercury appears to move backward; traditionally avoided for communication-dependent or contract-related workings; useful for revisiting and revising), <em>the moon's sign and phase</em> (Aries moon for initiating; Taurus moon for stabilizing; Gemini moon for communication; Cancer moon for emotional and home work; Leo moon for confidence and visibility; Virgo moon for refinement and healing; Libra moon for relational; Scorpio moon for depth, sexuality, transformation; Sagittarius moon for travel and learning; Capricorn moon for structure and authority; Aquarius moon for community and innovation; Pisces moon for mystical and dream work — with the phase modulating: waxing for drawing-in, waning for releasing, full for completion, dark for hidden), <em>the lunar mansions</em> (twenty-eight divisions of the moon's monthly path through the zodiac, each with traditional meanings and operative applications — substantial Renaissance grimoire tradition through the Picatrix). For the keyed reader's first-six-months engagement, tracking moon sign and phase is sufficient; the void-of-course, retrogrades, and lunar mansions develop later. Christopher Warnock's contemporary work on traditional astrological magic — through his Renaissance Astrology school (renaissanceastrology.com) and his various publications — is the principal contemporary access point for serious electional and grimoire-derived astrological magic.</p>
+  </main>
+
+  <aside class="col-margin">
+    <div class="margin-note">
+      <span class="arrow">→</span> three calendars layered by month six: <em>wheel</em> (solar/seasonal), <em>lunar architecture</em>, <em>planetary days and hours</em>. saint days as a fourth layer.
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> the saints are operative figures. <em>not optional engagement</em> for european folk-magical or diasporic traditions.
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> planetary hours seem fussy. they are not arbitrary. <em>they are part of how the working is constituted.</em>
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> warnock at renaissance astrology · the principal contemporary entry to traditional electional magic.
+    </div>
+  </aside>
+
+  <section class="build-block">
+    <div class="build-mark">build · the layered calendar</div>
+    <h3>Three calendars by month six</h3>
+    <p>By the end of month six of operative work, the practitioner runs three calendars in parallel.</p>
+    <ol>
+      <li>The wheel of the year (already running from chapter 2) — the eight stations, the bioregional adjustments for San Diego, the major working-windows.</li>
+      <li>The lunar architecture (already running from § IV.II in chapter 4 — though most practitioners begin lunar tracking in months 1-3 alongside the wheel) — dark and full moon as the primary working poles, with the waxing-waning quadrants tracked.</li>
+      <li>Planetary days and hours — added in this chapter. Time at minimum one operative working per week to its planetary correspondence. Use a planetary-hour app or printed table; track in the grimoire alongside the candle ledger.</li>
+    </ol>
+    <p>By month six, two saints whose territories align with current work are noted with their feast days marked in the calendar. By year one, three to five saints; by year three, the saints are part of the working apparatus the practitioner reaches for as situations arise.</p>
+  </section>
+
+  <section class="read-block">
+    <div class="read-block-head"><span>read · the layered calendar</span><span class="meta">§ III.IV · saints, planets, electional</span></div>
+    <h3>The Black-Catholic saints, planetary magic, traditional astrology</h3>
+
+    <p style="font-size: 14.5px; line-height: 1.6; color: var(--ink); margin-bottom: 24px; padding: 16px 18px; background: rgba(110, 122, 90, 0.07); border-left: 3px solid var(--accent-sage);"><em>Sequence:</em> <strong>Months 2-6 (alongside building the layered calendar):</strong> Yronwode and Bird on the Hoodoo and Black-Catholic saint apparatus; Skinner's planetary-magic introductions; basic moon-sign tracking via accessible contemporary practitioner texts. <strong>Year 1-2:</strong> Warnock on traditional astrological magic at depth; Condren on the Welsh-Brigid syncretism for the matrilineal line; the Picatrix on astrological-elemental integration. <strong>Year 2-3:</strong> The full grimoiric astrological apparatus (Agrippa Books I-III on planetary correspondences; Picatrix at depth); the lunar-mansions tradition. <strong>Year 3+ (depth):</strong> Hellenistic-tradition primary sources on electional astrology (Robert Schmidt's Project Hindsight); the medieval Arabic primary literature on raml and astrology integrated; the contemporary Hellenistic-revival corpus. <strong>Reference / continuing:</strong> The calendar is layered across decades; new layers are added as the practice asks (saint days specific to lineage, fixed-star timings, the heliacal risings, the precessional cycles).</p>
+
+    <div class="read-entry">
+      <div class="read-tier">Entry</div>
+      <div>
+        <span class="read-title">Hoodoo Herb and Root Magic · Hoodoo in Theory and Practice (online — saint chapters specifically)</span>
+        <span class="read-author">Catherine Yronwode · Lucky Mojo Curio · 2002 / luckymojo.com</span>
+        <p class="read-why">Already cited in § III.I; the saint-tradition chapters specifically here. Yronwode's treatment of the Hoodoo saint-petition tradition — St. Anthony, St. Michael, St. Expedite, St. Martha the Dominator, St. Cyprian, the broader Black-Catholic syncretism — is the principal contemporary practitioner-reference. The Lucky Mojo catalog includes saint-specific candles, oils, and apparatus that the practitioner can use directly or adapt; the AIRR network of practitioners works the saint-tradition operatively.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Entry</div>
+      <div>
+        <span class="read-title">Sticks, Stones, Roots &amp; Bones (saint chapters) · Light Magic for Dark Times</span>
+        <span class="read-author">Stephanie Rose Bird / Lisa Marie Basile · Llewellyn / Fair Winds · 2004 / 2018</span>
+        <p class="read-why">Bird treats the Hoodoo saint-tradition from the Black practitioner-authoritative position. Basile's <cite>Light Magic for Dark Times</cite> is a contemporary practitioner-text on saint and folk-magical apparatus accessible for the introductory-practitioner level; useful supplement.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Entry</div>
+      <div>
+        <span class="read-title">The Serpent and the Goddess: Women, Religion, and Power in Celtic Ireland</span>
+        <span class="read-author">Mary Condren · Harper &amp; Row · 1989 / New Island · 2002</span>
+        <p class="read-why">Foundational scholarly treatment of the Welsh-Irish-Celtic feminine-religious substrate underneath the Christian saint-tradition. Condren is one of the principal contemporary scholars of the Brigid-figure across goddess and saint, the Welsh-Irish feminine theological inheritance, and the Christianization of the Celtic religious apparatus. For the matrilineal-line keyed reader's saint-tradition specifically — St. Brigid at Imbolc, the broader Welsh-saints calendar — foundational. Pair with Marina Warner's <cite>Alone of All Her Sex: The Myth and the Cult of the Virgin Mary</cite> (Vintage, 1976) for the broader feminine-Catholic theological apparatus.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Planetary Magick · The Magickal Year</span>
+        <span class="read-author">Denning &amp; Phillips · Llewellyn · 1989 / 2014</span>
+        <p class="read-why">Denning &amp; Phillips's <cite>Planetary Magick</cite> is the substantial mid-late-twentieth-century practitioner-text on planetary-day and planetary-hour timing in the ceremonial-magical tradition. <cite>The Magickal Year</cite> develops the seasonal and astrological-timing apparatus. Substantive practitioner-instructional texts; the planetary-hour tables and the working applications are practical.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Secrets of Planetary Magic · Mansions of the Moon: A Lunar Magic Practitioner's Guide · The Picatrix in Practice</span>
+        <span class="read-author">Christopher Warnock · Renaissance Astrology Press · 2019 / 2018 / various</span>
+        <p class="read-why">Warnock is the principal contemporary practitioner of traditional electional and grimoiric astrological magic. His Renaissance Astrology school (renaissanceastrology.com) trains practitioners in the substantive Renaissance and Hellenistic electional tradition; the books treat the working-apparatus directly. <cite>Secrets of Planetary Magic</cite> is the foundational practitioner-text on planetary correspondences and timing. <cite>Mansions of the Moon</cite> is the principal contemporary text on the twenty-eight lunar mansions tradition. For the practitioner whose work matures past introductory planetary-hour timing, Warnock is the principal contemporary teacher.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">The Real Witches' Year · The Year of the Witch: Connecting with Nature's Seasons through Intuitive Magick</span>
+        <span class="read-author">Kate West / Temperance Alden · Element / Weiser · 2003 / 2020</span>
+        <p class="read-why">For the broader witch's-calendar literature integrating wheel, lunar, and additional traditions. Alden's <cite>The Year of the Witch</cite> develops the bioregional wheel-of-the-year work for the contemporary practitioner whose location sits outside the British seasonal pattern the wheel was originally built around — directly relevant for the keyed reader's San Diego context where the agricultural cycle differs substantially. Pair with Glennie Kindred's <cite>The Sacred Tree</cite> (Hay House, 2003) for the additional Welsh-Celtic tree-calendar layer.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">A Calendar of Saints: The Lives of the Principal Saints of the Christian Year · The Oxford Dictionary of Saints</span>
+        <span class="read-author">James Bentley / David Hugh Farmer · Little, Brown / Oxford University Press · 1986 / 5th ed. 2011</span>
+        <p class="read-why">Reference works for the saint-day apparatus across the Christian calendar. Farmer's <cite>Oxford Dictionary of Saints</cite> is the standard scholarly reference. For the practitioner working the saint-tradition, having the calendar reference at hand is foundational. Supplement with the specifically Welsh and Celtic saint-calendar references — Sabine Baring-Gould and John Fisher's <cite>The Lives of the British Saints</cite> (1907-1913, four volumes; available used and through reprint editions) for the comprehensive Welsh-saints reference; Rowena Edlin-White's contemporary work on Welsh saints for accessible synthesis.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">Picatrix (Greer-Warnock translation; Books III-IV on planetary and astrological magic specifically)</span>
+        <span class="read-author">John Michael Greer &amp; Christopher Warnock, trans. · Adocentyn · 2010-2011</span>
+        <p class="read-why">Already cited in § III.III for the elemental apparatus. Cited here for the planetary-and-astrological apparatus that Books III and IV develop substantively. The Picatrix's astrological magic — the elections, the planetary talismans, the mansion-workings — is the principal medieval-source for what subsequently became the Renaissance grimoire-tradition's astrological-magical apparatus. For the practitioner whose planetary work matures, the primary text.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">The Books of St. Cyprian (various editions and translations) · The Black Pullet · The Grand Grimoire</span>
+        <span class="read-author">Various; Humberto Maggi (Cyprian); Joseph Peterson (Pullet, Grand Grimoire)</span>
+        <p class="read-why">For the saint-tradition's integration with the grimoire-tradition specifically. The Cyprian-grimoire literature is substantial across multiple translations and traditions (Maggi's edition of <cite>The Book of St. Cyprian: The Sorcerer's Treasure</cite>, Hadean Press, 2011; José Leitão's <cite>The Book of St. Cyprian: The Great Book of True Magic</cite>, Hadean Press, 2014); for the practitioner whose saint-engagement opens into the grimoire-tradition, the principal source-material.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">Hellenistic Astrology: The Study of Fate and Fortune · The Theurgic Cosmology of Iamblichus</span>
+        <span class="read-author">Chris Brennan / Gregory Shaw · Amor Fati · 2017 / Kismet · 2014 (rev.)</span>
+        <p class="read-why">For the practitioner whose astrological work matures past the contemporary practitioner-text register into the Hellenistic-tradition primary apparatus. Brennan's <cite>Hellenistic Astrology</cite> is the foundational contemporary recovery of the Hellenistic astrological tradition that the medieval and Renaissance traditions descend from. Shaw's work on Iamblichus situates the astrological-cosmological apparatus within its Neoplatonic-theurgic framework. Both are demanding; both are the depth-engagement that the chapter 6 § VI.II philosophical-engagement on belief opens into.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- SECTION III.V — THE ETHICAL-OPERATIVE TERRITORY              -->
+  <!-- ============================================================ -->
+  <div class="section-mark"><span>§ III.V  the ethical-operative territory</span></div>
+  <h2 class="section-head">Protection, healing, money, love, binding-out</h2>
+
+  <main class="col-text">
+    <p>Most contemporary witchcraft writing avoids this section. The Wiccan mainstream legislates around it through the rede ("an it harm none, do what ye will") and the threefold law (whatever you put out comes back to you three times); the goddess-spirituality register sometimes treats operative magic as primarily inner-transformational rather than world-affecting; the contemporary social-media witchcraft register often treats workings as aesthetic-affective practice with the operative dimension elided. The traditional witchcraft register, the cunning-folk tradition, the Hoodoo and African Diasporic traditions, and most of the historical witchcraft we have evidence for engage these territories directly — protection, healing, money, love, binding-out, hex, curse, uncrossing — as part of what witchcraft is for. The serious adult practitioner has to think through them rather than legislate around them. This section is the framework, not the prescription.</p>
+
+    <p>Two foundational orientations before the categories. <em>The consent question</em> is real and load-bearing, but it is more nuanced than the popular witchcraft register's usual articulation. Working <em>for</em> yourself or working <em>on</em> a situation that affects you is consent-respectful by definition — your own consent is the relevant one. Working that <em>constrains another person's agency</em> against their consent is the ethical territory most practitioners have to think carefully about. Between these poles sit the gradients: working that <em>asks the universe</em> or asks specific spirits to bring a particular outcome (without naming who or how — petitionary work), working that <em>protects you from</em> a specific person's actions (defensive, not constraining), working that <em>binds another person from</em> harming you or others (defensive-binding-out, distinct from offensive-binding), working that <em>seeks favor or attention</em> from another person (which crosses into consent territory if the working aims at compelled rather than freely-given response). The popular Wiccan rede collapses all of this into "harm none." That collapse is operative-evasion. The serious practitioner tracks the gradients explicitly. <em>The second orientation:</em> the field has substantively underweighted the question of <em>defense and self-protection</em>. The contemporary witchcraft mainstream encourages people who have been harmed to "send light" and "raise vibrations"; the traditional and operative-witchcraft register treats that as a category mistake. People who have been harmed have the right and the operative apparatus to defend themselves. Protection-and-binding-out work for the practitioner's own safety is part of the tradition.</p>
+
+    <p><em>Protection magic</em> is the foundational ethical-operative territory. The apotropaic tradition (workings that turn aside or repel) is one of the oldest witchcraft technologies. The forms: <em>the witch's bottle</em> — a small bottle filled with iron nails or pins, urine of the protected person, sometimes herbs, sometimes thread or hair, sealed and concealed near the threshold of the home (under the hearth historically; behind the front door, in the basement, under the porch contemporarily). Brian Hoggard's <cite>Magical House Protection</cite> (Berghahn, 2019) documents the substantial archaeological evidence for the tradition across Britain. <em>Iron at thresholds</em> — iron horseshoes over doors, iron nails in the doorframe, iron under the bed. <em>Salt</em> — salt across thresholds, salt at the corners of rooms, salt at the perimeter of property. <em>Protective sigils</em> — the apotropaic marks scratched into beams and doorframes (the daisy-wheel, the W or VV for Mary as protectress, the X across thresholds; documented extensively in British vernacular architecture). <em>Threshold-blessings</em> — the periodic working of asperging the doorways with protective herbs and waters. <em>Mirror-protection</em> — a small mirror placed to reflect away anything approaching with ill intent. <em>The ancestor-altar as protection</em> — once the ancestral apparatus from chapter 5 is established, the well-tended ancestors are themselves protective presences. Protection is the territory the practitioner builds first and maintains continuously across decades; the witch who has not done sustained protection-work has skipped the foundation.</p>
+
+    <p><em>Healing magic</em> distinct from herbalism (which § IV.VI develops) is the operative working for another person's healing, with consent. The ethical structure is direct: ask before working, name what you are working on, don't work without permission. The forms: <em>healing candle workings</em> for a named person; <em>healing jar workings</em> with appropriate sweetening or grounding herbs; <em>healing-charm bags</em> made for someone in active illness; <em>laying-on-of-hands</em> in the traditional folk-healing register (with the appropriate framing — the practitioner is not the source of the healing, she is the channel for it; the deity, the saint, the ancestral presences are what is being asked); <em>petition-and-prayer working</em> through a saint or deity associated with healing (St. Anthony in some traditions; Our Lady of Guadalupe in the Mexican-American tradition; Brigid in the Welsh-Irish; the Asclepian healing-tradition for the Hellenic; the Yoruba healing-orisha Erinle, Òṣun, Babalú-Ayé). The healing-magic apparatus is one of the oldest dimensions of the cunning-folk tradition; the contemporary practitioner can engage it once the basic operative apparatus is solid. <em>Important caveat:</em> healing magic is not a substitute for medical care. The practitioner working healing magic for another should always work alongside the person's medical treatment, not instead of it; the operative work supplements the clinical, never replaces it.</p>
+
+    <p><em>Money and prosperity work</em> is one of the densest operative territories in the Hoodoo and Diasporic traditions and one of the territories most useful for the contemporary practitioner facing material conditions. The forms: <em>money candle-workings</em> (green candles, Money Drawing oil, attracting-jar petitions); <em>honey jars and sweetening jars</em> for prosperity; <em>charm bags / mojo bags</em> with prosperity herbs (High John the Conqueror root, Master of the Woods, Five Finger Grass, Devil's Shoestring, Magnetic Sand); <em>petition-workings to specific saints or spirits associated with prosperity</em> (St. Joseph for housing and home prosperity; St. Anthony for found prosperity; the Yoruba Òṣun for the prosperity that flows; the Hindu Lakshmi in the Hindu-tradition); <em>the lottery-and-gambling tradition</em> in Hoodoo specifically (the Lucky Mojo curriculum has substantial gambling and luck-drawing apparatus). The ethical question with money work is usually not consent-based — money work is generally working on your own situation — but it is sometimes worth asking <em>at whose expense</em> the prosperity is being drawn. The traditional-witchcraft answer is generally that money is not zero-sum at the cosmological level; the reflective practitioner might still attend to the question.</p>
+
+    <p><em>Love and relationship magic</em> is the most ethically charged operative territory. The categorical distinction the practitioner has to internalize: <em>self-attracting work</em> versus <em>compelling-another work</em>. Self-attracting work — making yourself more available to love, more open to being seen, more attractive to whatever is approaching — is consent-respectful by structure. Compelling-another work — making a specific named person love you, return to you, sleep with you — is the consent-violating territory the popular witchcraft register often elides. The traditional-witchcraft and Hoodoo registers have substantial compelling-another apparatus (love-binding workings, return-to-me workings, follow-me workings); they are operative; they raise serious ethical questions. The practitioner working in any tradition with this apparatus has to think through the position she is taking. Most contemporary practitioner-authors who treat the territory directly (Yronwode, Stephanie Rose Bird, Gemma Gary, Catherine Yronwode) come down on the side of: <em>compelling-another love work is operative but ethically loaded; the practitioner who chooses to do it has to live with the consequences of having done so</em>. The chapter does not legislate. It names the territory.</p>
+
+    <p><em>Binding-out, hex, and curse work</em> is the territory most contemporary witchcraft writing refuses to engage. Three categorical distinctions: <em>defensive binding-out</em> (preventing a specific person from harming you or others — generally considered consent-respectful in the traditional-witchcraft and operative registers, since the working is responsive to the person's harming actions), <em>retributive working</em> (returning harm-for-harm; the territory the contemporary "return to sender" / "mirror" working occupies; ethically more complex than defensive but with substantial historical precedent in the cunning-folk uncrossing tradition), and <em>offensive cursing</em> (workings aimed at harming someone who has not first harmed; the most ethically loaded territory; the territory most contemporary practitioners do not engage). Paul Huson's <cite>Mastering Witchcraft</cite> chapter on bewitchment treats the full territory directly; Doreen Valiente's <cite>Witchcraft for Tomorrow</cite> develops the ethics; Yronwode's Lucky Mojo curriculum treats the Hoodoo crossing-and-uncrossing tradition with substantial operative depth. <em>Sarah Lyons's <cite>Revolutionary Witchcraft</cite></em> (Running Press, 2019) engages binding-out as a tool for political and collective response — the well-known "binding Trump" ritual cycle of 2017-2021 is the most-public contemporary working in this register. The keyed reader will eventually take a position; the chapter names the territory and points at the operative literature.</p>
+  </main>
+
+  <aside class="col-margin">
+    <div class="margin-note">
+      <span class="arrow">→</span> the wiccan rede collapses the gradients. <em>the operative-witchcraft register works the gradients explicitly.</em>
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> protection is the foundation. <em>build it first, maintain it continuously.</em> the witch's bottle, iron, salt, the apotropaic marks.
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> healing magic supplements medical care. <em>does not replace it.</em>
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> love-work: self-attracting / compelling-another. the categorical distinction matters operatively.
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> defensive binding-out vs. retributive vs. offensive. <em>the keyed reader will eventually take a position.</em> the chapter names the territory.
+    </div>
+  </aside>
+
+  <section class="build-block">
+    <div class="build-mark">build · the witch's bottle</div>
+    <h3>Foundational protection working</h3>
+    <p>If only one working from this section is built in the first six months, build this one. Protection is the foundation of operative practice; the witch's bottle is the foundational protection-form.</p>
+    <ol>
+      <li>Acquire a small glass jar with tight-fitting lid (4-8 oz). Salvaged jars (cleaned-out jam, salsa, baby-food jars) work fine.</li>
+      <li>Gather: iron nails, pins, or sharp scrap iron (rusty iron is traditional; new iron functions); a lock of your own hair or fingernail clippings (contagious magic — the bottle is keyed to you specifically); a small amount of your own urine (the historical practice; the contagious linking is even more direct; if uncomfortable, blood or saliva substitutes); protective herbs (rosemary, rue, hyssop, salt, black pepper); optionally, broken glass or thorns; optionally, red thread.</li>
+      <li>Open the working. State the protective intent: protection of self, of household, of those in your care, against named or unnamed harm.</li>
+      <li>Layer the materials into the bottle in deliberate sequence: iron at the bottom, hair/nails next, herbs, the contagious liquid, additional protective material on top. Speak the working as you layer.</li>
+      <li>Seal the lid tightly. Wrap the bottle in red thread or wax-seal the lid for additional sealing.</li>
+      <li>Conceal. Bury the bottle in your yard near the threshold of the home (front door is most traditional), or hide it under the porch, in a basement, behind a wall-mounted object, or in any concealed location near the home's primary threshold. The bottle is meant to remain hidden and undisturbed.</li>
+      <li>The bottle works passively across years. Replace or refresh every five to seven years, or when the bottle is disturbed, broken, or the protective work feels weak. The old bottle is buried at a crossroads with thanks for service.</li>
+    </ol>
+  </section>
+
+  <section class="read-block">
+    <div class="read-block-head"><span>read · the ethical-operative territory</span><span class="meta">§ III.V · protection, healing, money, love, binding-out</span></div>
+    <h3>The traditions that engage the operative territory directly</h3>
+
+    <p style="font-size: 14.5px; line-height: 1.6; color: var(--ink); margin-bottom: 24px; padding: 16px 18px; background: rgba(110, 122, 90, 0.07); border-left: 3px solid var(--accent-sage);"><em>Sequence:</em> <strong>Months 2-6 (alongside protection-bottle and basic operative work):</strong> Hoggard on archaeological protection-magic; Valiente's ethics chapters in <cite>Witchcraft for Tomorrow</cite>; Yronwode on Hoodoo protection and uncrossing. <strong>Year 1-2:</strong> Huson's <cite>Mastering Witchcraft</cite> chapters on bewitchment with critical context; Bird on the Hoodoo healing and prosperity work; the contemporary discourse on consent in magical practice. <strong>Year 2-3 (the more contested territory):</strong> Sarah Lyons on political-operative binding; Gemma Gary on the West Country curse-and-uncrossing tradition; the contemporary practitioner-discourse on hex and curse. <strong>Year 3+ (depth):</strong> Judika Illes's <cite>Encyclopedia of Spirits</cite> for the saint-and-spirit petitioning apparatus; the Picatrix and grimoire-tradition curse-and-counter-curse material; the academic scholarship on the historical witchcraft trial-record working-tradition. <strong>Reference / continuing:</strong> The ethical-operative territory is one the practitioner returns to across the lifetime of the practice as new situations arise; the reading deepens accordingly.</p>
+
+    <div class="read-entry">
+      <div class="read-tier">Entry</div>
+      <div>
+        <span class="read-title">Magical House Protection: The Archaeology of Counter-Witchcraft</span>
+        <span class="read-author">Brian Hoggard · Berghahn Books · 2019</span>
+        <p class="read-why">Already cited in § III.I; cited here for the protection-magic apparatus specifically. The archaeological evidence for the witch's bottle, the dried cat in the wall, the apotropaic marks scratched into beams and doorframes, the shoe-deposits, the concealed-magic tradition across British vernacular architecture. For the practitioner building the foundational protection-work, the principal reference for what historically worked and where it was placed.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Entry</div>
+      <div>
+        <span class="read-title">Witchcraft for Tomorrow · An ABC of Witchcraft Past and Present (the ethics-and-operative chapters)</span>
+        <span class="read-author">Doreen Valiente · Robert Hale · 1978 / 1973</span>
+        <p class="read-why">Valiente on the ethics of operative witchcraft is the principal mid-century English-language treatment of the territory. <cite>Witchcraft for Tomorrow</cite> develops her position on solitary practice, the Wiccan rede in critical perspective, the responsibilities and limits of working-craft; the position is more nuanced than the popular Wiccan-rede simplification, and Valiente's authority as the principal post-Gardnerian English witchcraft figure makes the engagement substantive. <cite>An ABC of Witchcraft</cite> is the encyclopedic reference for the operative apparatus across categories.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Entry</div>
+      <div>
+        <span class="read-title">Hoodoo in Theory and Practice (online, free) · Hoodoo Honey and Sugar Spells · Hoodoo Bible Magic</span>
+        <span class="read-author">Catherine Yronwode &amp; Mary Beth · Lucky Mojo Curio · ongoing / 2014 / 2014</span>
+        <p class="read-why">Already cited in § III.I; cited here for the Hoodoo treatment of the full ethical-operative territory specifically — protection, uncrossing, the love-work tradition (with the consent question engaged directly), the prosperity and gambling tradition, the crossing-and-cursing tradition (with the substantive Hoodoo position on retribution and protection-via-counter-action). The Lucky Mojo curriculum is the principal contemporary practitioner-resource for the operative apparatus; Yronwode treats each territory with substantial depth.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Mastering Witchcraft (chs. 5-7 specifically, on bewitchment and counter-bewitchment)</span>
+        <span class="read-author">Paul Huson · G.P. Putnam's Sons · 1970</span>
+        <p class="read-why">Already cited in § III.I; cited here for the full bewitchment-and-counter-bewitchment apparatus specifically. The chapters on operative cursing, uncrossing, the magical defense apparatus, and the love-work tradition are substantively complete; Huson treats the territory directly without contemporary moralizing. <em>Critical context:</em> Huson's love-work treatment is more aggressive than contemporary consent-conscious practice tolerates; the racial and gender attitudes of the period appear; bring contemporary ethical apparatus to the reading. The operative depth remains foundational despite the dated voice.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Sticks, Stones, Roots &amp; Bones (the protection, healing, prosperity, and binding-out chapters specifically) · A Healing Grove</span>
+        <span class="read-author">Stephanie Rose Bird · Llewellyn / Hampton Roads · 2004 / 2009</span>
+        <p class="read-why">Bird's treatment of the Black-tradition operative apparatus across the full ethical territory — protection, healing, prosperity, binding-out — from the Black practitioner-authoritative position. <cite>A Healing Grove</cite> develops the African American tradition's healing apparatus specifically. For the keyed reader's paternal-line lineage-recovery, foundational.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Traditional Witchcraft: A Cornish Book of Ways · The Black Toad: West Country Witchcraft and Magic · The Devil's Dozen</span>
+        <span class="read-author">Gemma Gary · Troy Books · 2008/2018 / 2012 / 2015</span>
+        <p class="read-why">Already cited in § III.I; cited here for the West Country traditional-witchcraft treatment of the cursing-and-uncrossing tradition, the protective apparatus (the Cornish pellar tradition specifically), and the operative-magical territory the British traditional-witchcraft register engages directly. Gary's work is substantively operative and ethically explicit; the position the West Country tradition takes on hex and curse is more direct than the Wiccan-mainstream position and worth knowing as one tradition's substantive engagement with the territory.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Revolutionary Witchcraft: A Guide to Magical Activism · Magick for the Resistance</span>
+        <span class="read-author">Sarah Lyons · Running Press / Llewellyn · 2019 / 2020</span>
+        <p class="read-why">Already cited in § III.I; cited here for the political-and-collective binding-out apparatus specifically. Lyons treats the contemporary politically-radical witchcraft register that engages binding work for collective and political ends — the binding-Trump ritual cycle of 2017-2021 being the public-facing example. The framework of operative-magic as response to political and collective harm is one substantive contemporary position on the binding-out question; useful both as practical reference and as theoretical articulation of one direction the tradition is going.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">The Encyclopedia of Spirits: The Ultimate Guide to the Magic of Fairies, Genies, Demons, Ghosts, Gods &amp; Goddesses</span>
+        <span class="read-author">Judika Illes · HarperOne · 2009</span>
+        <p class="read-why">For the saint-and-spirit petitioning apparatus across categories — protection, healing, prosperity, love, binding-out. Illes is the principal contemporary encyclopedic compiler in the field; <cite>Encyclopedia of Spirits</cite> is the substantial cross-traditional reference for which spirits and saints hold which territories, with substantial historical and lineage apparatus on each. Reference work consulted across decades as specific situations require specific intercessory engagement.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">Witchcraft and Magic in Sixteenth- and Seventeenth-Century Europe (and the contemporary scholarship on the witch-trial record's operative-magic content)</span>
+        <span class="read-author">Geoffrey Scarre &amp; John Callow / various scholars · Palgrave Macmillan · 2nd ed. 2001</span>
+        <p class="read-why">For the academic-historical perspective on what historical witches were actually doing operatively. Scarre and Callow synthesize the witch-trial record from the operative-magic perspective; the scholarship on what specific charms, workings, and operative practices appear in the trial-record is substantial (Robin Briggs's <cite>Witches and Neighbours</cite>, Richard Kieckhefer's <cite>Magic in the Middle Ages</cite>, the Owen Davies cunning-folk literature). For the practitioner whose ethical-operative thinking matures into engagement with the historical record, the academic apparatus is foundational.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- SECTION III.VI — GRIMOIRES AS PRIMARY SOURCES                -->
+  <!-- ============================================================ -->
+  <div class="section-mark"><span>§ III.VI  grimoires as primary sources — introduction</span></div>
+  <h2 class="section-head">The medieval and early modern primary literature</h2>
+
+  <main class="col-text">
+    <p>The grimoire tradition is the operative-magical spine of the Western tradition. From the late-antique <cite>Greek Magical Papyri</cite> through the medieval Solomonic and Hermetic literature, through the Renaissance synthesis (Agrippa's <cite>Three Books</cite>, the <cite>Picatrix</cite>'s Latin transmission of the Arabic <cite>Ghāyat al-Ḥakīm</cite>), through the early-modern operative manuals (the <cite>Key of Solomon</cite> in its many recensions, the <cite>Lesser Key</cite> with the <cite>Goetia</cite>, the Munich Manual), through the eighteenth- and nineteenth-century French and English magical literature, into the contemporary practitioner-edited and translated editions — the grimoire is the documented working-tradition that almost every Western operative practice descends from, including the contemporary witchcraft tradition that often defines itself <em>against</em> the ceremonial-magical register. Knowing the grimoire literature as the source-tradition of one's own working apparatus is foundational scholarship for the serious practitioner.</p>
+
+    <p>This section is introduction-level. The depth-engagement opens in chapter 6 § VI.X, where the practitioner whose work has matured operatively can engage the primary texts as actual working-references. The introduction here is the territory and the major references — what the books are, what they do, and which contemporary editions are the working-versions to read.</p>
+
+    <p><em>The Greek Magical Papyri</em> (PGM) — late-antique Greek and Demotic Egyptian magical texts collected into a working corpus, surviving in fragmentary form across multiple papyri excavated and published from the eighteenth century onward. The Hans Dieter Betz edition (University of Chicago, 1986/1992; cited in chapters 2 and 3) is the standard English critical edition. The PGM is the source-stratum almost every subsequent Western practitioner-magic descends from — Hellenistic syncretism, Egyptian temple-tradition, Jewish magical practice, the Greek magical-religious tradition, all collected into working texts that include hymns, conjurations, talisman-construction, scrying-procedures, healing-workings, love-workings, defensive and offensive workings. Read the PGM not as historical curiosity but as foundational working-tradition.</p>
+
+    <p><em>The Picatrix</em> (Latin translation, 1256 or earlier, of the Arabic <cite>Ghāyat al-Ḥakīm</cite>, 11th century) — the principal medieval text on astral-and-elemental-magic. The Greer-Warnock translation (Adocentyn, 2010-2011) is the contemporary practitioner edition; the Attrell-Porreca translation (Penn State, 2019) is the academic-scholarly edition. The Picatrix integrates the Hermetic-elemental apparatus with planetary and stellar magic; the planetary talismans, the elections, the stellar workings of the Renaissance and early-modern grimoires substantially descend from it. Read after Agrippa Book I (introductory) when the elemental and planetary apparatus has been established.</p>
+
+    <p><em>Three Books of Occult Philosophy</em> (Heinrich Cornelius Agrippa von Nettesheim, 1531-1533) — the foundational Renaissance synthesis of Western magical philosophy. Book I treats elemental magic; Book II treats celestial magic; Book III treats ceremonial-religious magic. The Tyson edition (Llewellyn, 1993) is the standard contemporary scholarly-practitioner edition with substantial introduction and apparatus. The pseudo-Agrippan Book IV (later compilation; not by Agrippa himself) is sometimes printed alongside; treat as separate text. Agrippa is the central figure of the Renaissance magical tradition; the contemporary witchcraft practice descends from him through many intermediaries, often without acknowledgment. Read Book I first; Books II and III at depth in chapter 6.</p>
+
+    <p><em>The Key of Solomon</em> (<cite>Clavicula Salomonis</cite>) — the principal medieval Solomonic operative-magical text in multiple recensions and translations. The Joseph H. Peterson editions (Twilit Grotto, 2009, with multiple-recension scholarly apparatus; alternative: Mathers' 1889 translation with caveats — Mathers conflated several manuscripts) are the standard contemporary practitioner-and-scholarly editions. The <cite>Key</cite> contains the Solomonic ritual structure, the planetary-pentacle talismans, the conjuration and constraint apparatus for spirits — foundational for the Solomonic tradition that runs through Renaissance ceremonial magic into the contemporary Hermetic Order of the Golden Dawn descendants and the broader contemporary ceremonial-magical and Solomonic-magic register. Read at depth in chapter 6.</p>
+
+    <p><em>The Lesser Key of Solomon</em> (<cite>Lemegeton Clavicula Salomonis</cite>) — the seventeenth-century compilation containing the <cite>Goetia</cite> (the seventy-two demons of Solomon, with their seals and constraint-procedures), the <cite>Theurgia-Goetia</cite>, the <cite>Ars Paulina</cite>, the <cite>Ars Almadel</cite>, and the <cite>Ars Notoria</cite>. Joseph Peterson's edition (Weiser, 2001) is the standard contemporary scholarly-practitioner edition. The <cite>Goetia</cite> specifically is one of the most-engaged grimoires in the contemporary practitioner literature; substantial caveats apply (the demon-conjuration tradition is the most ethically contested grimoire-tradition; engagement requires the appropriate framework and protective apparatus). Treat as depth-material; chapter 6 develops it.</p>
+
+    <p><em>The Munich Manual of Demonic Magic</em> — fifteenth-century Latin manual of demonic and necromantic operative magic, edited and translated by Richard Kieckhefer in <cite>Forbidden Rites: A Necromancer's Manual of the Fifteenth Century</cite> (Penn State, 1998). The Munich Manual is one of the most substantive surviving primary texts of medieval operative-magical practice; its contents are demanding and ethically complex. Read for the historical depth and the working-tradition's actual texture rather than as introductory practitioner-material.</p>
+
+    <p><em>The Heptameron</em> (attributed to Peter de Abano, 14th century) — short medieval Latin grimoire on planetary-spirit conjuration, organized around the seven days of the week and their planetary rulers. Often printed as appendix to the pseudo-Agrippan Book IV. Foundational for the planetary-conjuration tradition.</p>
+
+    <p>Beyond these foundational texts, the grimoire tradition extends into substantial additional literature. The <cite>Sworn Book of Honorius</cite> (early medieval; Joseph Peterson edition, Ibis Press, 2016). The <cite>Book of Abramelin</cite> (early-fifteenth-century German manuscript with Hebrew origin; the Mathers 1898 partial translation; the Georg Dehn edition 2006 / English translation 2015 from the more complete manuscript discovered later — substantial difference between the two). The <cite>Grimoire of Pope Honorius</cite>, the <cite>True Black Magic</cite>, the <cite>Black Pullet</cite>, the <cite>Grand Grimoire</cite> — the eighteenth- and nineteenth-century French grimoire-tradition, much of which Joseph Peterson has edited in scholarly editions. The <cite>Book of St. Cyprian</cite> in its multiple Iberian and Latin American manuscript traditions (José Leitão's and Humberto Maggi's editions through Hadean Press). The contemporary practitioner-grimoire literature (Andrew Chumbley's <cite>Azoëtia</cite>, Daniel Schulke's <cite>Veneficium</cite> and the broader Cultus Sabbati corpus, Jake Stratton-Kent's substantial <cite>Geosophia</cite> and Encyclopaedia Goetica volumes, Sara Mastros's <cite>Sorcery of Solomon</cite> and <cite>Orphic Hymns Grimoire</cite>) — these are not grimoires in the historical sense but contemporary practitioner-grimoires that develop the historical apparatus for contemporary working practice.</p>
+
+    <p>The standing references for the grimoire-tradition reading: <em>Owen Davies's <cite>Grimoires: A History of Magic Books</cite></em> (Oxford, 2009) is the principal scholarly survey of the grimoire as Western book-form across history; cited in chapter 2 for the grimoire-as-personal-instrument register, cited here for the grimoire-as-tradition register. <em>Stephen Skinner's <cite>Sourceworks of Ceremonial Magic</cite></em> series (Golden Hoard Press) provides scholarly editions of major grimoires for the practitioner-scholar. <em>Joseph Peterson's <cite>Esoteric Archives</cite></em> (esotericarchives.com) is the principal free-online scholarly edition of substantial grimoiric primary material; the print editions through Twilit Grotto and other publishers are the working references. <em>Aaron Leitch's <cite>Secrets of the Magickal Grimoires</cite></em> (already cited in § III.I) is the contemporary practitioner-introduction to the grimoire-tradition's operative apparatus.</p>
+  </main>
+
+  <aside class="col-margin">
+    <div class="margin-note">
+      <span class="arrow">→</span> the grimoire tradition is the operative spine of western magic. <em>contemporary witchcraft descends from it whether or not it acknowledges the inheritance.</em>
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> introduction-level. <em>depth in chapter 6 § VI.X.</em> the working-engagement opens when the operative apparatus has matured.
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> peterson at esotericarchives.com · the principal free scholarly edition of substantial grimoiric material. consult continuously.
+    </div>
+    <div class="margin-note">
+      <span class="arrow">→</span> the goetia and the demonological tradition are ethically contested. <em>do not engage at the introductory level.</em> chapter 6 takes the territory.
+    </div>
+  </aside>
+
+  <section class="read-block">
+    <div class="read-block-head"><span>read · grimoires — introduction-level</span><span class="meta">§ III.VI · the territory and the entry-references</span></div>
+    <h3>The grimoire tradition as territory; the entry-level reading</h3>
+
+    <p style="font-size: 14.5px; line-height: 1.6; color: var(--ink); margin-bottom: 24px; padding: 16px 18px; background: rgba(110, 122, 90, 0.07); border-left: 3px solid var(--accent-sage);"><em>Sequence:</em> <strong>Months 2-6 (orientation only):</strong> Davies's <cite>Grimoires: A History</cite> as the meta-treatment of the territory; Leitch's <cite>Secrets of the Magickal Grimoires</cite> for the contemporary practitioner-introduction. <strong>Year 1-2 (entry to primary sources):</strong> Agrippa Book I for the Hermetic synthesis; the PGM in Betz translation for the source-stratum. <strong>Year 2-3:</strong> The Picatrix in Greer-Warnock translation; <cite>Three Books of Occult Philosophy</cite> Books II and III. <strong>Year 3+ (depth):</strong> The Key of Solomon and Lesser Key in Peterson editions; the Munich Manual through Kieckhefer; the Sworn Book of Honorius and the Book of Abramelin. <strong>Year 5+ (specialist depth):</strong> The contemporary practitioner-grimoires (Chumbley, Schulke, Stratton-Kent, Mastros) for the practitioner whose work opens the contemporary small-press grimoiric register. <strong>Reference / continuing:</strong> Peterson's esotericarchives.com is consulted across decades as new questions arise; specific grimoires open as the practice asks for them.</p>
+
+    <div class="read-entry">
+      <div class="read-tier">Entry</div>
+      <div>
+        <span class="read-title">Grimoires: A History of Magic Books</span>
+        <span class="read-author">Owen Davies · Oxford University Press · 2009</span>
+        <p class="read-why">Already cited in chapter 2 for the personal-grimoire-as-instrument register; cited here for the grimoire-tradition-as-territory register specifically. The single most important contemporary scholarly survey of the grimoire as Western book-form. Davies traces the line from the PGM through medieval Solomonic and ceremonial books, through the early-modern witch-trial materials (which themselves descend from grimoiric tradition), through the eighteenth- and nineteenth-century French magical literature, through the twentieth-century occult revivals, into the contemporary grimoire-publishing renaissance. The introduction-level reading for the grimoire territory.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Entry</div>
+      <div>
+        <span class="read-title">Secrets of the Magickal Grimoires: The Classical Texts of Magick Deciphered</span>
+        <span class="read-author">Aaron Leitch · Llewellyn · 2005</span>
+        <p class="read-why">Already cited in § III.I; cited here as the contemporary practitioner-introduction to the grimoire-tradition's operative apparatus specifically. Leitch treats the operative spine of the grimoires — what the books actually do, how to do the workings as the books describe them, what apparatus the tradition assumes, how the contemporary practitioner can engage the texts as working-references. The bridge-text between the contemporary practitioner-witchcraft register and the grimoiric primary literature.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Three Books of Occult Philosophy (Tyson edition, all three books)</span>
+        <span class="read-author">Heinrich Cornelius Agrippa · Donald Tyson, ed. · Llewellyn · 1993</span>
+        <p class="read-why">Already cited in § III.III for Book I (elemental). Cited here for the full three books. Agrippa is the central figure of the Renaissance magical tradition; <cite>Three Books</cite> is the foundational text of Western Hermetic-magical philosophy. Book I (elemental magic), Book II (celestial magic — planetary, astrological, stellar), Book III (ceremonial-religious magic). Tyson's edition is the standard contemporary scholarly-practitioner edition with substantial introduction, footnotes, and explanatory apparatus. Read Book I in months 2-6, Book II at year 1-2, Book III at depth in chapter 6.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">The Greek Magical Papyri in Translation (Betz edition)</span>
+        <span class="read-author">Hans Dieter Betz, ed. · University of Chicago Press · 1986 / 2nd ed. 1992</span>
+        <p class="read-why">Already cited in chapter 2 and § III.II. Cited here as the foundational source-stratum of the Western magical tradition. The PGM is what virtually every subsequent Western practitioner-magic descends from. The Betz edition is the standard English critical edition; Hans Dieter Betz and his collaborators produced the apparatus that allows the contemporary practitioner-scholar to engage the primary text. Read selectively across years; specific procedures (PGM IV, the Mithras Liturgy; PGM IV, the great Hekate hymn; PGM XII-XIII, various scrying and conjuration procedures) become readable as the practice opens into them.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Picatrix (Greer-Warnock practitioner edition; Attrell-Porreca scholarly edition)</span>
+        <span class="read-author">John Michael Greer &amp; Christopher Warnock / Dan Attrell &amp; David Porreca · Adocentyn / Penn State · 2010-2011 / 2019</span>
+        <p class="read-why">Already cited in §§ III.III and III.IV. Cited here as the foundational medieval text on astral-and-elemental magic specifically. The Picatrix integrates the elemental, planetary, astrological, and operative apparatus into a working medieval-magical synthesis; the planetary talismans, electional structures, and astrological-operative procedures of the Renaissance and early-modern grimoires substantially descend from it. Read after Agrippa Book I has been engaged.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">The Key of Solomon (Peterson edition) · The Lesser Key of Solomon (Peterson edition)</span>
+        <span class="read-author">Joseph H. Peterson, ed. · Twilit Grotto / Weiser · 2009 / 2001</span>
+        <p class="read-why">Peterson's editions of the two principal Solomonic grimoires are the standard contemporary scholarly-practitioner editions. <cite>The Key of Solomon</cite> contains the Solomonic ritual structure, the planetary-pentacle talismans, the conjuration apparatus; <cite>The Lesser Key</cite> contains the <cite>Goetia</cite> (seventy-two demons), <cite>Theurgia-Goetia</cite>, <cite>Ars Paulina</cite>, <cite>Ars Almadel</cite>, and <cite>Ars Notoria</cite>. <em>Both are depth-material;</em> the introduction-level reading is to know they exist and what they contain. Working-engagement opens in chapter 6 once the practitioner has the operative apparatus and the ethical-thinking the territory requires.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Core</div>
+      <div>
+        <span class="read-title">Esoteric Archives (online — esotericarchives.com)</span>
+        <span class="read-author">Joseph H. Peterson · ongoing since 1995</span>
+        <p class="read-why">The principal free-online scholarly edition of substantial grimoiric primary material. Peterson has spent decades transcribing, translating, and editing primary grimoires across the Western tradition; the website is the essential standing reference for the practitioner-scholar working the grimoire literature. Includes substantial Solomonic, Enochian, planetary-magical, Egyptian, Hellenistic, and folk-magical primary material. Bookmark; consult continuously across decades.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">Forbidden Rites: A Necromancer's Manual of the Fifteenth Century</span>
+        <span class="read-author">Richard Kieckhefer · Penn State University Press · 1998</span>
+        <p class="read-why">The standard scholarly edition of the Munich Manual, the substantial fifteenth-century Latin manual of demonic and necromantic operative magic. Kieckhefer is the principal contemporary scholar of medieval operative magic; <cite>Forbidden Rites</cite> presents the Munich Manual in critical edition with substantial scholarly apparatus. For the practitioner whose work matures into engagement with medieval primary operative-magical texts, the foundational scholarly access. Read alongside Kieckhefer's broader <cite>Magic in the Middle Ages</cite> (Cambridge, 1989/2014, second ed.) for the historical-scholarly context.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">The Sworn Book of Honorius · The Book of Abramelin (Dehn edition)</span>
+        <span class="read-author">Joseph H. Peterson, ed. (Sworn Book) / Georg Dehn, ed.; Steven Guth, trans. (Abramelin) · Ibis Press / Ibis · 2016 / 2006 (German); 2015 (English revised)</span>
+        <p class="read-why">Two foundational medieval grimoires in scholarly editions. The <cite>Sworn Book of Honorius</cite> is one of the most substantive medieval Christian-magical texts; Peterson's edition presents the principal manuscript versions with substantial apparatus. The <cite>Book of Abramelin</cite> in the Dehn edition is the more complete recension (the Mathers 1898 translation worked from a partial manuscript; Dehn used the German original at greater completeness); the Abramelin tradition is one of the principal medieval Hermetic-magical operative systems and the source of the "Knowledge and Conversation of the Holy Guardian Angel" framework that runs through Crowley and the contemporary Thelemic and Golden Dawn-descended traditions.</p>
+      </div>
+    </div>
+
+    <div class="read-entry">
+      <div class="read-tier">Depth</div>
+      <div>
+        <span class="read-title">Geosophia: The Argo of Magic · The True Grimoire (Encyclopaedia Goetica volumes)</span>
+        <span class="read-author">Jake Stratton-Kent · Scarlet Imprint · 2010 / 2009</span>
+        <p class="read-why">Stratton-Kent (1956-2024) was the principal contemporary practitioner-scholar working the Goetic and Solomonic-magical tradition substantively. The <cite>Encyclopaedia Goetica</cite> trilogy (<cite>The True Grimoire</cite>, <cite>The Geosophia</cite>, <cite>Geosophia: The Argo of Magic</cite>) is the substantial contemporary practitioner-grimoiric engagement with the Goetic-Solomonic tradition, situated in its actual historical context (Hellenistic-and-medieval syncretism with Greek-and-Egyptian primary material) rather than the post-Mathers ceremonial-magical reception. Demanding, small-press, foundational for the contemporary practitioner whose Goetic engagement matures past the Crowley-Mathers framework. Scarlet Imprint is the principal small-press for the contemporary serious grimoiric-witchcraft literature; the catalog as a whole is the deep-end of contemporary practitioner-grimoiric publishing.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="chapter-close">
+    <p>The hand at work is now the practitioner. After this chapter, the work begins to accumulate at a different rate — every working leaves a residue in the grimoire, every divinatory session refines the eye, every lit candle and tied cord teaches what the previous one did not. The first year proper begins from here; chapter four picks up the practice at the threshold of its first complete turning.</p>
+  </div>
+
+</div>
+
+<div class="chrome chrome-bot">
+  <span style="color:var(--ink-faint);">// crossroads · companion · ch 03 · first workings · months 2–6</span>
+  <span class="right" style="color:var(--ink-faint);">draft · sage accent · operative spine</span>
+</div>
+
+</body>
+</html>
