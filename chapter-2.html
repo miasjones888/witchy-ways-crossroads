@@ -181,10 +181,6 @@
     .plate-full .plate-caption .right .row { grid-template-columns: 90px 1fr; gap: 10px; }
   }
 
-  .back-link { position: fixed; top: 14px; left: 36px; z-index: 60; font-family: 'Space Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--accent-rust); text-decoration: none; padding: 6px 12px; background: rgba(228, 226, 218, 0.6); border: 1px solid var(--ink-faint); transition: background 0.2s, border-color 0.2s; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
-  .back-link:hover { background: rgba(228, 226, 218, 0.9); border-color: var(--accent-rust); }
-  @media (max-width: 820px) { .back-link { left: 18px; top: 10px; font-size: 10px; padding: 5px 10px; } }
-
   /* === Mobile optimization layer === */
   html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   * { -webkit-tap-highlight-color: rgba(122, 40, 24, 0.12); }
@@ -196,7 +192,6 @@
   cite, em { overflow-wrap: break-word; }
   
   /* Safe-area insets for iOS notch ‚Äî back-link respects notch */
-  .back-link { top: max(14px, env(safe-area-inset-top, 14px)); left: max(36px, env(safe-area-inset-left, 36px)); }
   .chrome-top { padding-top: max(14px, env(safe-area-inset-top, 14px)); padding-left: max(36px, env(safe-area-inset-left, 36px)); padding-right: max(36px, env(safe-area-inset-right, 36px)); }
   .chrome-bot { padding-bottom: max(14px, env(safe-area-inset-bottom, 14px)); padding-left: max(36px, env(safe-area-inset-left, 36px)); padding-right: max(36px, env(safe-area-inset-right, 36px)); }
   
@@ -239,11 +234,15 @@
     .terminal { padding: 18px 14px; font-size: 13.5px; }
     .terminal-head { font-size: 11px; }
     .chrome { padding: 8px 14px; font-size: 11px; }
-    .back-link { left: max(12px, env(safe-area-inset-left, 12px)); top: max(8px, env(safe-area-inset-top, 8px)); font-size: 9.5px; padding: 4px 9px; letter-spacing: 0.14em; }
     .chapter-close { margin-top: 40px; padding-top: 28px; font-size: 16px; }
     .plate-form svg { width: 65%; }
     .plate-image { aspect-ratio: 1 / 1; }
   }
+
+  /* Chrome-bar back link */
+  .chrome a.nav-back { pointer-events: auto; color: var(--accent-rust); text-decoration: none; transition: color 0.2s; border-bottom: 1px dotted transparent; }
+  .chrome a.nav-back:hover { border-bottom-color: var(--accent-rust); }
+  .chrome .sep { color: var(--ink-faint); margin: 0 4px; }
 </style>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -266,11 +265,9 @@ if ('serviceWorker' in navigator) {
 </head>
 <body>
 
-
-<a href="/" class="back-link" aria-label="Back to home">&larr; index</a>
 <div class="chrome chrome-top">
   <span><span class="stream">apparatus</span> <span style="color:var(--ink-faint);">&#9642;</span> grimoire <span style="color:var(--ink-faint);">&#9642;</span> altar <span style="color:var(--ink-faint);">&#9642;</span> rhythm</span>
-  <span class="right">crossroads / companion / ch 02</span>
+  <span class="right"><a href="/" class="nav-back">&larr; index</a> <span class="sep">/</span> crossroads / companion / ch 02</span>
 </div>
 
 <div class="vessel">
@@ -1289,7 +1286,8 @@ if ('serviceWorker' in navigator) {
     <p>The chapter has built the apparatus. The grimoire is open, the altar is set, the candle is sourced and has been lit at least once, the wheel is mapped to twelve months ahead, the rhythm of three or four sittings a week is established, the somatic anchors are layered into the daily working. Your shortlist is built, kept aside for when the deeper body work eventually requires it. Nothing dramatic has happened. The practice is small, repetitive, and seemingly nothing is moving. This is because, in this stage, nothing is moving. That is the point. The early weeks build the container; the chapter ahead is what happens when the container has been running long enough for the body to trust it.</p>
 
     <p>Read what calls. Practice what scales. Build what serves the long arc. Return when you have left.</p>
-  </main>
+      <p class="return-nav" style="margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--ink-faint); font-family: 'Space Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; font-style: normal; text-align: center;"><a href="/" style="color: var(--accent-rust); text-decoration: none; border-bottom: 1px dotted var(--accent-rust); padding-bottom: 2px;">&larr; return to index</a></p>
+</main>
 
 </div>
 
